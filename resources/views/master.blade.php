@@ -330,16 +330,16 @@
                             class="divider d-lg-show"></span> <a href="#" class="d-lg-show">Customer Care</a><span
                             class="divider d-lg-show"></span>
                         <div class="dropdown">
-                            <a href="#language"><img src="assets/images/flags/eng.png" alt="ENG Flag" width="14"
+                            <a href="#language"><img src="{{ url('assets') }}/images/flags/eng.png" alt="ENG Flag" width="14"
                                     height="8" class="dropdown-image" /> ENG</a>
                             <div class="dropdown-box">
                                 <a href="#ENG">
-                                    <img src="assets/images/flags/eng.png" alt="ENG Flag" width="14" height="8"
+                                    <img src="{{ url('assets') }}/images/flags/eng.png" alt="ENG Flag" width="14" height="8"
                                         class="dropdown-image" />
                                     ENG
                                 </a>
                                 <a href="#FRA">
-                                    <img src="assets/images/flags/fra.png" alt="FRA Flag" width="14"
+                                    <img src="{{ url('assets') }}/images/flags/fra.png" alt="FRA Flag" width="14"
                                         height="8" class="dropdown-image" />
                                     FRA
                                 </a>
@@ -355,7 +355,7 @@
                     <div class="header-left mr-md-4">
                         <a href="#" class="mobile-menu-toggle w-icon-hamburger" aria-label="menu-toggle"> </a>
                         <a href="index.html" class="logo ml-lg-0">
-                            <img src="assets/images/logo.png" alt="logo" width="144" height="45" />
+                            <img src="{{ url('assets') }}/images/logo.png" alt="logo" width="144" height="45" />
                         </a>
                         <form method="get" action="#"
                             class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
@@ -404,7 +404,7 @@
                                         </div>
                                         <figure class="product-media">
                                             <a href="product-details.html">
-                                                <img src="assets/images/cart/product-1.jpg" alt="product"
+                                                <img src="{{ url('assets') }}/images/cart/product-1.jpg" alt="product"
                                                     height="84" width="94" />
                                             </a>
                                         </figure>
@@ -424,7 +424,7 @@
                                         </div>
                                         <figure class="product-media">
                                             <a href="product-details.html">
-                                                <img src="assets/images/cart/product-2.jpg" alt="product"
+                                                <img src="{{ url('assets') }}/images/cart/product-2.jpg" alt="product"
                                                     width="84" height="94" />
                                             </a>
                                         </figure>
@@ -536,7 +536,7 @@
                                                 <li>
                                                     <div class="banner-fixed menu-banner menu-banner2">
                                                         <figure>
-                                                            <img src="assets/images/menu/banner-2.jpg"
+                                                            <img src="{{ url('assets') }}/images/menu/banner-2.jpg"
                                                                 alt="Menu Banner" width="235" height="347" />
                                                         </figure>
                                                         <div class="banner-content">
@@ -645,7 +645,7 @@
                                                 <li>
                                                     <div class="menu-banner banner-fixed menu-banner3">
                                                         <figure>
-                                                            <img src="assets/images/menu/banner-3.jpg"
+                                                            <img src="{{ url('assets') }}/images/menu/banner-3.jpg"
                                                                 alt="Menu Banner" width="235" height="461" />
                                                         </figure>
                                                         <div class="banner-content">
@@ -752,7 +752,7 @@
                                                 <li>
                                                     <div class="menu-banner banner-fixed menu-banner4">
                                                         <figure>
-                                                            <img src="assets/images/menu/banner-4.jpg"
+                                                            <img src="{{ url('assets') }}/images/menu/banner-4.jpg"
                                                                 alt="Menu Banner" width="235" height="433" />
                                                         </figure>
                                                         <div class="banner-content">
@@ -864,7 +864,7 @@
                                                     <div class="col-6">
                                                         <div class="banner banner-fixed menu-banner5 br-xs">
                                                             <figure>
-                                                                <img src="assets/images/menu/banner-5.jpg"
+                                                                <img src="{{ url('assets') }}/images/menu/banner-5.jpg"
                                                                     alt="Banner" width="410" height="123"
                                                                     style="background-color: #d2d2d2" />
                                                             </figure>
@@ -884,7 +884,7 @@
                                                     <div class="col-6">
                                                         <div class="banner banner-fixed menu-banner5 br-xs">
                                                             <figure>
-                                                                <img src="assets/images/menu/banner-6.jpg"
+                                                                <img src="{{ url('assets') }}/images/menu/banner-6.jpg"
                                                                     alt="Banner" width="410" height="123"
                                                                     style="background-color: #9f9888" />
                                                             </figure>
@@ -1019,7 +1019,7 @@
                         </div>
                         <figure class="product-media">
                             <a href="product-details.html">
-                                <img src="assets/images/cart/product-1.jpg" alt="product" height="84"
+                                <img src="{{ url('assets') }}/images/cart/product-1.jpg" alt="product" height="84"
                                     width="94" />
                             </a>
                         </figure>
@@ -1040,7 +1040,7 @@
                         </div>
                         <figure class="product-media">
                             <a href="product-details.html">
-                                <img src="assets/images/cart/product-2.jpg" alt="product" width="84"
+                                <img src="{{ url('assets') }}/images/cart/product-2.jpg" alt="product" width="84"
                                     height="94" />
                             </a>
                         </figure>
@@ -1491,29 +1491,29 @@
                         <div class="swiper-wrapper row cols-1 gutter-no">
                             <div class="swiper-slide">
                                 <figure class="product-image">
-                                    <img src="assets/images/products/popup/1-440x494.jpg"
-                                        data-zoom-image="assets/images/products/popup/1-800x900.jpg"
+                                    <img src="{{ url('assets') }}/images/products/popup/1-440x494.jpg"
+                                        data-zoom-image="{{ url('assets') }}/images/products/popup/1-800x900.jpg"
                                         alt="Water Boil Black Utensil" width="800" height="900" />
                                 </figure>
                             </div>
                             <div class="swiper-slide">
                                 <figure class="product-image">
-                                    <img src="assets/images/products/popup/2-440x494.jpg"
-                                        data-zoom-image="assets/images/products/popup/2-800x900.jpg"
+                                    <img src="{{ url('assets') }}/images/products/popup/2-440x494.jpg"
+                                        data-zoom-image="{{ url('assets') }}/images/products/popup/2-800x900.jpg"
                                         alt="Water Boil Black Utensil" width="800" height="900" />
                                 </figure>
                             </div>
                             <div class="swiper-slide">
                                 <figure class="product-image">
-                                    <img src="assets/images/products/popup/3-440x494.jpg"
-                                        data-zoom-image="assets/images/products/popup/3-800x900.jpg"
+                                    <img src="{{ url('assets') }}/images/products/popup/3-440x494.jpg"
+                                        data-zoom-image="{{ url('assets') }}/images/products/popup/3-800x900.jpg"
                                         alt="Water Boil Black Utensil" width="800" height="900" />
                                 </figure>
                             </div>
                             <div class="swiper-slide">
                                 <figure class="product-image">
-                                    <img src="assets/images/products/popup/4-440x494.jpg"
-                                        data-zoom-image="assets/images/products/popup/4-800x900.jpg"
+                                    <img src="{{ url('assets') }}/images/products/popup/4-440x494.jpg"
+                                        data-zoom-image="{{ url('assets') }}/images/products/popup/4-800x900.jpg"
                                         alt="Water Boil Black Utensil" width="800" height="900" />
                                 </figure>
                             </div>
@@ -1530,19 +1530,19 @@
                   }">
                         <div class="product-thumbs swiper-wrapper row cols-4 gutter-sm">
                             <div class="product-thumb swiper-slide">
-                                <img src="assets/images/products/popup/1-103x116.jpg" alt="Product Thumb"
+                                <img src="{{ url('assets') }}/images/products/popup/1-103x116.jpg" alt="Product Thumb"
                                     width="103" height="116" />
                             </div>
                             <div class="product-thumb swiper-slide">
-                                <img src="assets/images/products/popup/2-103x116.jpg" alt="Product Thumb"
+                                <img src="{{ url('assets') }}/images/products/popup/2-103x116.jpg" alt="Product Thumb"
                                     width="103" height="116" />
                             </div>
                             <div class="product-thumb swiper-slide">
-                                <img src="assets/images/products/popup/3-103x116.jpg" alt="Product Thumb"
+                                <img src="{{ url('assets') }}/images/products/popup/3-103x116.jpg" alt="Product Thumb"
                                     width="103" height="116" />
                             </div>
                             <div class="product-thumb swiper-slide">
-                                <img src="assets/images/products/popup/4-103x116.jpg" alt="Product Thumb"
+                                <img src="{{ url('assets') }}/images/products/popup/4-103x116.jpg" alt="Product Thumb"
                                     width="103" height="116" />
                             </div>
                         </div>
@@ -1556,7 +1556,7 @@
                     <h2 class="product-title">Electronics Black Wrist Watch</h2>
                     <div class="product-bm-wrapper">
                         <figure class="brand">
-                            <img src="assets/images/products/brand/brand-1.jpg" alt="Brand" width="102"
+                            <img src="{{ url('assets') }}/images/products/brand/brand-1.jpg" alt="Brand" width="102"
                                 height="48" />
                         </figure>
                     </div>
@@ -1898,8 +1898,8 @@
 
     {!! $generalInfo->footer_script !!}
 
-    <script src="{{ url('assets') }}/js/toastr.min.js"></script>
-    {!! Toastr::message() !!}
+    {{-- <script src="{{ url('assets') }}/js/toastr.min.js"></script>
+    {!! Toastr::message() !!} --}}
 
 </body>
 

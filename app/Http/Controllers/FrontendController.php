@@ -10,8 +10,21 @@ use Carbon\Carbon;
 
 class FrontendController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         return view('index');
+    }
+
+    public function about(){
+        return view('about');
+    }
+
+    public function blogs(){
+        return view('blogs');
+    }
+
+    public function blogDetails(){
+        return view('blog_details');
     }
 
 }
