@@ -70,8 +70,10 @@
     <meta name="facebook-domain-verification" content="mqojk4x0lp4wedg7z9z54dbk94ikpt" /> --}}
     <!-- End Meta Data -->
 
-
     @stack('site-seo')
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ url('assets') }}/images/icons/favicon.png" />
 
     <link rel="preload" href="{{ url('assets') }}/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font"
         type="font/woff2" crossorigin="anonymous" />
@@ -94,18 +96,17 @@
     <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/demo.css" />
     <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/variable-colors.css" />
 
-    {{-- <link rel="preload" href="{{url('assets')}}/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="{{url('assets')}}/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="{{url('assets')}}/vendor/fontawesome-free/webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="{{url('assets')}}/fonts/fejmo.woff?png09e" as="font" type="font/woff" crossorigin="anonymous" />
-    <link rel="stylesheet" href="{{url('assets')}}/vendor/fontawesome-free/css/all.min.css" type="text/css" />
-    <link rel="stylesheet" href="{{url('assets')}}/vendor/swiper/swiper-bundle.min.css" type="text/css"/>
-    <link rel="stylesheet" href="{{url('assets')}}/vendor/animate/animate.min.css" type="text/css"/>
-    <link rel="stylesheet" href="{{url('assets')}}/vendor/magnific-popup/magnific-popup.min.css" type="text/css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/variable-color.css" type="text/css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/style.css" type="text/css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/demo.css" type="text/css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/toastr.min.css"> --}}
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/bootstrap/bootstrap.min.css" />
+
+    <!-- Plugins CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/nouislider/nouislider.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/photoswipe/photoswipe.min.css" />
+    <link rel="stylesheet" type="text/css"
+        href="{{ url('assets') }}/vendor/photoswipe/default-skin/default-skin.min.css" />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/style.css" />
 
     <!-- WebFont.js -->
     <script>
@@ -117,7 +118,7 @@
         (function(d) {
             var wf = d.createElement("script"),
                 s = d.scripts[0];
-            wf.src = "/assets/js/webfont.js";
+            wf.src = "{{ url('assets') }}/js/webfont.js";
             wf.async = true;
             s.parentNode.insertBefore(wf, s);
         })(document);
@@ -305,12 +306,12 @@
         <!-- End Google Tag Manager (noscript) -->
     @endif
 
-    @if ($generalInfo->messenger_chat_status)
+    {{-- @if ($generalInfo->messenger_chat_status)
         <a href="{{ $generalInfo->fb_page_id }}" target="_blank"
             style="position: fixed; right: 25px; width: 60px; bottom: 20px; z-index: 99999;">
             <img src="{{ url('assets') }}/img/messenger_icon.png" style="width: 100px">
         </a>
-    @endif
+    @endif --}}
 
     @stack('user_dashboard_menu')
 
@@ -325,22 +326,22 @@
                     </div>
                     <div class="header-right">
                         <a href="#" class="d-lg-show">Save more on app</a><span class="divider d-lg-show"></span>
-                        <a href="become-a-vendor.html" class="d-lg-show">Sell on Zomex</a><span
+                        <a href="{{ url('/become/a/vendor') }}" class="d-lg-show">Sell on Zomex</a><span
                             class="divider d-lg-show"></span> <a href="#" class="d-lg-show">Track Order</a><span
                             class="divider d-lg-show"></span> <a href="#" class="d-lg-show">Customer Care</a><span
                             class="divider d-lg-show"></span>
                         <div class="dropdown">
-                            <a href="#language"><img src="{{ url('assets') }}/images/flags/eng.png" alt="ENG Flag" width="14"
-                                    height="8" class="dropdown-image" /> ENG</a>
+                            <a href="#language"><img src="{{ url('assets') }}/images/flags/eng.png" alt="ENG Flag"
+                                    width="14" height="8" class="dropdown-image" /> ENG</a>
                             <div class="dropdown-box">
                                 <a href="#ENG">
-                                    <img src="{{ url('assets') }}/images/flags/eng.png" alt="ENG Flag" width="14" height="8"
-                                        class="dropdown-image" />
+                                    <img src="{{ url('assets') }}/images/flags/eng.png" alt="ENG Flag"
+                                        width="14" height="8" class="dropdown-image" />
                                     ENG
                                 </a>
                                 <a href="#FRA">
-                                    <img src="{{ url('assets') }}/images/flags/fra.png" alt="FRA Flag" width="14"
-                                        height="8" class="dropdown-image" />
+                                    <img src="{{ url('assets') }}/images/flags/fra.png" alt="FRA Flag"
+                                        width="14" height="8" class="dropdown-image" />
                                     FRA
                                 </a>
                             </div>
@@ -354,8 +355,9 @@
                 <div class="container">
                     <div class="header-left mr-md-4">
                         <a href="#" class="mobile-menu-toggle w-icon-hamburger" aria-label="menu-toggle"> </a>
-                        <a href="index.html" class="logo ml-lg-0">
-                            <img src="{{ url('assets') }}/images/logo.png" alt="logo" width="144" height="45" />
+                        <a href="{{ url('/') }}" class="logo ml-lg-0">
+                            <img src="{{ url('assets') }}/images/logo.png" alt="logo" width="144"
+                                height="45" />
                         </a>
                         <form method="get" action="#"
                             class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
@@ -372,7 +374,7 @@
                             <span class="wishlist-label d-lg-show">Deliver To</span>
                         </a>
 
-                        <a class="wishlist label-down link d-xs-show" href="wishlist.html">
+                        <a class="wishlist label-down link d-xs-show" href="{{ url('/wishlist') }}">
                             <i class="w-icon-heart"></i>
                             <span class="wishlist-label d-lg-show">Wishlist</span>
                         </a>
@@ -395,7 +397,8 @@
                                 <div class="products">
                                     <div class="product product-cart">
                                         <div class="product-detail">
-                                            <a href="product-details.html" class="product-name">Beige knitted
+                                            <a href="{{ url('/product/details') }}" class="product-name">Beige
+                                                knitted
                                                 elas<br />tic runner shoes</a>
                                             <div class="price-box">
                                                 <span class="product-quantity">1</span>
@@ -403,9 +406,9 @@
                                             </div>
                                         </div>
                                         <figure class="product-media">
-                                            <a href="product-details.html">
-                                                <img src="{{ url('assets') }}/images/cart/product-1.jpg" alt="product"
-                                                    height="84" width="94" />
+                                            <a href="{{ url('/product/details') }}">
+                                                <img src="{{ url('assets') }}/images/cart/product-1.jpg"
+                                                    alt="product" height="84" width="94" />
                                             </a>
                                         </figure>
                                         <button class="btn btn-link btn-close" aria-label="button">
@@ -415,7 +418,7 @@
 
                                     <div class="product product-cart">
                                         <div class="product-detail">
-                                            <a href="product-details.html" class="product-name">Blue utility
+                                            <a href="{{ url('/product/details') }}" class="product-name">Blue utility
                                                 pina<br />fore denim dress</a>
                                             <div class="price-box">
                                                 <span class="product-quantity">1</span>
@@ -423,9 +426,9 @@
                                             </div>
                                         </div>
                                         <figure class="product-media">
-                                            <a href="product-details.html">
-                                                <img src="{{ url('assets') }}/images/cart/product-2.jpg" alt="product"
-                                                    width="84" height="94" />
+                                            <a href="{{ url('/product/details') }}">
+                                                <img src="{{ url('assets') }}/images/cart/product-2.jpg"
+                                                    alt="product" width="84" height="94" />
                                             </a>
                                         </figure>
                                         <button class="btn btn-link btn-close" aria-label="button">
@@ -440,14 +443,15 @@
                                 </div>
 
                                 <div class="cart-action">
-                                    <a href="cart.html" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
-                                    <a href="checkout.html" class="btn btn-primary btn-rounded">Checkout</a>
+                                    <a href="{{ url('/cart') }}" class="btn btn-dark btn-outline btn-rounded">View
+                                        Cart</a>
+                                    <a href="{{ url('/checkout') }}" class="btn btn-primary btn-rounded">Checkout</a>
                                 </div>
                             </div>
                             <!-- End of Dropdown Box -->
                         </div>
 
-                        <a class="wishlist label-down link d-xs-show mr-0" href="login.html">
+                        <a class="wishlist label-down link d-xs-show mr-0" href="{{ url('/login') }}">
                             <i class="w-icon-account"></i>
                             <span class="wishlist-label d-lg-show">Login</span>
                         </a>
@@ -471,35 +475,35 @@
                                 <div class="dropdown-box">
                                     <ul class="menu vertical-menu category-menu">
                                         <li>
-                                            <a href="shop.html"> <i class="w-icon-tshirt2"></i>Fashion </a>
+                                            <a href="{{ url('/shop') }}"> <i class="w-icon-tshirt2"></i>Fashion </a>
                                             <ul class="megamenu">
                                                 <li>
                                                     <h4 class="menu-title">Women</h4>
                                                     <hr class="divider" />
                                                     <ul>
                                                         <li>
-                                                            <a href="shop.html">New Arrivals</a>
+                                                            <a href="{{ url('/shop') }}">New Arrivals</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Best Sellers</a>
+                                                            <a href="{{ url('/shop') }}">Best Sellers</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Trending</a>
+                                                            <a href="{{ url('/shop') }}">Trending</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Clothing</a>
+                                                            <a href="{{ url('/shop') }}">Clothing</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Shoes</a>
+                                                            <a href="{{ url('/shop') }}">Shoes</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Bags</a>
+                                                            <a href="{{ url('/shop') }}">Bags</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Accessories</a>
+                                                            <a href="{{ url('/shop') }}">Accessories</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Jewlery & Watches</a>
+                                                            <a href="{{ url('/shop') }}">Jewlery & Watches</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -508,28 +512,28 @@
                                                     <hr class="divider" />
                                                     <ul>
                                                         <li>
-                                                            <a href="shop.html">New Arrivals</a>
+                                                            <a href="{{ url('/shop') }}">New Arrivals</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Best Sellers</a>
+                                                            <a href="{{ url('/shop') }}">Best Sellers</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Trending</a>
+                                                            <a href="{{ url('/shop') }}">Trending</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Clothing</a>
+                                                            <a href="{{ url('/shop') }}">Clothing</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Shoes</a>
+                                                            <a href="{{ url('/shop') }}">Shoes</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Bags</a>
+                                                            <a href="{{ url('/shop') }}">Bags</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Accessories</a>
+                                                            <a href="{{ url('/shop') }}">Accessories</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Jewlery & Watches</a>
+                                                            <a href="{{ url('/shop') }}">Jewlery & Watches</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -546,7 +550,7 @@
                                                                     class="text-primary text-uppercase">20%Off</strong>
                                                             </div>
                                                             <h3 class="banner-title ls-normal">Hot Sales</h3>
-                                                            <a href="shop.html"
+                                                            <a href="{{ url('/shop') }}"
                                                                 class="btn btn-dark btn-sm btn-link btn-slide-right btn-icon-right">
                                                                 Shop Now<i class="w-icon-long-arrow-right"></i> </a>
                                                         </div>
@@ -555,26 +559,27 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="shop.html"> <i class="w-icon-home"></i>Home & Garden </a>
+                                            <a href="{{ url('/shop') }}"> <i class="w-icon-home"></i>Home & Garden
+                                            </a>
                                             <ul class="megamenu">
                                                 <li>
                                                     <h4 class="menu-title">Bedroom</h4>
                                                     <hr class="divider" />
                                                     <ul>
                                                         <li>
-                                                            <a href="shop.html">Beds, Frames & Bases</a>
+                                                            <a href="{{ url('/shop') }}">Beds, Frames & Bases</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Dressers</a>
+                                                            <a href="{{ url('/shop') }}">Dressers</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Nightstands</a>
+                                                            <a href="{{ url('/shop') }}">Nightstands</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Kid's Beds & Headboards</a>
+                                                            <a href="{{ url('/shop') }}">Kid's Beds & Headboards</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Armoires</a>
+                                                            <a href="{{ url('/shop') }}">Armoires</a>
                                                         </li>
                                                     </ul>
 
@@ -582,19 +587,19 @@
                                                     <hr class="divider" />
                                                     <ul>
                                                         <li>
-                                                            <a href="shop.html">Coffee Tables</a>
+                                                            <a href="{{ url('/shop') }}">Coffee Tables</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Chairs</a>
+                                                            <a href="{{ url('/shop') }}">Chairs</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Tables</a>
+                                                            <a href="{{ url('/shop') }}">Tables</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Futons & Sofa Beds</a>
+                                                            <a href="{{ url('/shop') }}">Futons & Sofa Beds</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Cabinets & Chests</a>
+                                                            <a href="{{ url('/shop') }}">Cabinets & Chests</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -603,19 +608,19 @@
                                                     <hr class="divider" />
                                                     <ul>
                                                         <li>
-                                                            <a href="shop.html">Office Chairs</a>
+                                                            <a href="{{ url('/shop') }}">Office Chairs</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Desks</a>
+                                                            <a href="{{ url('/shop') }}">Desks</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Bookcases</a>
+                                                            <a href="{{ url('/shop') }}">Bookcases</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">File Cabinets</a>
+                                                            <a href="{{ url('/shop') }}">File Cabinets</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Breakroom Tables</a>
+                                                            <a href="{{ url('/shop') }}">Breakroom Tables</a>
                                                         </li>
                                                     </ul>
 
@@ -623,22 +628,22 @@
                                                     <hr class="divider" />
                                                     <ul>
                                                         <li>
-                                                            <a href="shop.html">Dining Sets</a>
+                                                            <a href="{{ url('/shop') }}">Dining Sets</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Kitchen Storage Cabinets</a>
+                                                            <a href="{{ url('/shop') }}">Kitchen Storage Cabinets</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Bashers Racks</a>
+                                                            <a href="{{ url('/shop') }}">Bashers Racks</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Dining Chairs</a>
+                                                            <a href="{{ url('/shop') }}">Dining Chairs</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Dining Room Tables</a>
+                                                            <a href="{{ url('/shop') }}">Dining Room Tables</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Bar Stools</a>
+                                                            <a href="{{ url('/shop') }}">Bar Stools</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -662,7 +667,7 @@
                                                                     class="text-secondary text-uppercase font-weight-bold">25%
                                                                     Off</span>
                                                             </div>
-                                                            <a href="shop.html"
+                                                            <a href="{{ url('/shop') }}"
                                                                 class="btn btn-white btn-link btn-sm btn-slide-right btn-icon-right">
                                                                 Shop Now<i class="w-icon-long-arrow-right"></i> </a>
                                                         </div>
@@ -671,26 +676,28 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="shop.html"> <i class="w-icon-electronics"></i>Electronics </a>
+                                            <a href="{{ url('/shop') }}"> <i
+                                                    class="w-icon-electronics"></i>Electronics </a>
                                             <ul class="megamenu">
                                                 <li>
                                                     <h4 class="menu-title">Laptops &amp; Computers</h4>
                                                     <hr class="divider" />
                                                     <ul>
                                                         <li>
-                                                            <a href="shop.html">Desktop Computers</a>
+                                                            <a href="{{ url('/shop') }}">Desktop Computers</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Monitors</a>
+                                                            <a href="{{ url('/shop') }}">Monitors</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Laptops</a>
+                                                            <a href="{{ url('/shop') }}">Laptops</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Hard Drives &amp; Storage</a>
+                                                            <a href="{{ url('/shop') }}">Hard Drives &amp;
+                                                                Storage</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Computer Accessories</a>
+                                                            <a href="{{ url('/shop') }}">Computer Accessories</a>
                                                         </li>
                                                     </ul>
 
@@ -698,16 +705,16 @@
                                                     <hr class="divider" />
                                                     <ul>
                                                         <li>
-                                                            <a href="shop.html">TVs</a>
+                                                            <a href="{{ url('/shop') }}">TVs</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Home Audio Speakers</a>
+                                                            <a href="{{ url('/shop') }}">Home Audio Speakers</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Projectors</a>
+                                                            <a href="{{ url('/shop') }}">Projectors</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Media Streaming Devices</a>
+                                                            <a href="{{ url('/shop') }}">Media Streaming Devices</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -716,19 +723,19 @@
                                                     <hr class="divider" />
                                                     <ul>
                                                         <li>
-                                                            <a href="shop.html">Digital SLR Cameras</a>
+                                                            <a href="{{ url('/shop') }}">Digital SLR Cameras</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Sports & Action Cameras</a>
+                                                            <a href="{{ url('/shop') }}">Sports & Action Cameras</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Camera Lenses</a>
+                                                            <a href="{{ url('/shop') }}">Camera Lenses</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Photo Printer</a>
+                                                            <a href="{{ url('/shop') }}">Photo Printer</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Digital Memory Cards</a>
+                                                            <a href="{{ url('/shop') }}">Digital Memory Cards</a>
                                                         </li>
                                                     </ul>
 
@@ -736,16 +743,16 @@
                                                     <hr class="divider" />
                                                     <ul>
                                                         <li>
-                                                            <a href="shop.html">Carrier Phones</a>
+                                                            <a href="{{ url('/shop') }}">Carrier Phones</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Unlocked Phones</a>
+                                                            <a href="{{ url('/shop') }}">Unlocked Phones</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Phone & Cellphone Cases</a>
+                                                            <a href="{{ url('/shop') }}">Phone & Cellphone Cases</a>
                                                         </li>
                                                         <li>
-                                                            <a href="shop.html">Cellphone Chargers</a>
+                                                            <a href="{{ url('/shop') }}">Cellphone Chargers</a>
                                                         </li>
                                                     </ul>
                                                 </li>
@@ -763,7 +770,7 @@
                                                             <div
                                                                 class="banner-price-info text-secondary font-weight-bolder text-uppercase text-secondary">
                                                                 20% Off</div>
-                                                            <a href="shop.html"
+                                                            <a href="{{ url('/shop') }}"
                                                                 class="btn btn-white btn-outline btn-sm btn-rounded">Shop
                                                                 Now</a>
                                                         </div>
@@ -772,7 +779,8 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="shop.html"> <i class="w-icon-furniture"></i>Furniture </a>
+                                            <a href="{{ url('/shop') }}"> <i class="w-icon-furniture"></i>Furniture
+                                            </a>
                                             <ul class="megamenu type2">
                                                 <li class="row">
                                                     <div class="col-md-3 col-lg-3 col-6">
@@ -780,19 +788,19 @@
                                                         <hr class="divider" />
                                                         <ul>
                                                             <li>
-                                                                <a href="shop.html">Sofas & Couches</a>
+                                                                <a href="{{ url('/shop') }}">Sofas & Couches</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Armchairs</a>
+                                                                <a href="{{ url('/shop') }}">Armchairs</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Bed Frames</a>
+                                                                <a href="{{ url('/shop') }}">Bed Frames</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Beside Tables</a>
+                                                                <a href="{{ url('/shop') }}">Beside Tables</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Dressing Tables</a>
+                                                                <a href="{{ url('/shop') }}">Dressing Tables</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -801,19 +809,19 @@
                                                         <hr class="divider" />
                                                         <ul>
                                                             <li>
-                                                                <a href="shop.html">Light Bulbs</a>
+                                                                <a href="{{ url('/shop') }}">Light Bulbs</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Lamps</a>
+                                                                <a href="{{ url('/shop') }}">Lamps</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Celling Lights</a>
+                                                                <a href="{{ url('/shop') }}">Celling Lights</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Wall Lights</a>
+                                                                <a href="{{ url('/shop') }}">Wall Lights</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Bathroom Lighting</a>
+                                                                <a href="{{ url('/shop') }}">Bathroom Lighting</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -822,19 +830,20 @@
                                                         <hr class="divider" />
                                                         <ul>
                                                             <li>
-                                                                <a href="shop.html">Decorative Accessories</a>
+                                                                <a href="{{ url('/shop') }}">Decorative
+                                                                    Accessories</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Candals & Holders</a>
+                                                                <a href="{{ url('/shop') }}">Candals & Holders</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Home Fragrance</a>
+                                                                <a href="{{ url('/shop') }}">Home Fragrance</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Mirrors</a>
+                                                                <a href="{{ url('/shop') }}">Mirrors</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Clocks</a>
+                                                                <a href="{{ url('/shop') }}">Clocks</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -843,19 +852,19 @@
                                                         <hr class="divider" />
                                                         <ul>
                                                             <li>
-                                                                <a href="shop.html">Garden Furniture</a>
+                                                                <a href="{{ url('/shop') }}">Garden Furniture</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Lawn Mowers</a>
+                                                                <a href="{{ url('/shop') }}">Lawn Mowers</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Pressure Washers</a>
+                                                                <a href="{{ url('/shop') }}">Pressure Washers</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">All Garden Tools</a>
+                                                                <a href="{{ url('/shop') }}">All Garden Tools</a>
                                                             </li>
                                                             <li>
-                                                                <a href="shop.html">Outdoor Dining</a>
+                                                                <a href="{{ url('/shop') }}">Outdoor Dining</a>
                                                             </li>
                                                         </ul>
                                                     </div>
@@ -905,28 +914,35 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="shop.html"> <i class="w-icon-heartbeat"></i>Healthy & Beauty </a>
+                                            <a href="{{ url('/shop') }}"> <i class="w-icon-heartbeat"></i>Healthy &
+                                                Beauty </a>
                                         </li>
                                         <li>
-                                            <a href="shop.html"> <i class="w-icon-gift"></i>Gift Ideas </a>
+                                            <a href="{{ url('/shop') }}"> <i class="w-icon-gift"></i>Gift Ideas
+                                            </a>
                                         </li>
                                         <li>
-                                            <a href="shop.html"> <i class="w-icon-gamepad"></i>Toy & Games </a>
+                                            <a href="{{ url('/shop') }}"> <i class="w-icon-gamepad"></i>Toy & Games
+                                            </a>
                                         </li>
                                         <li>
-                                            <a href="shop.html"> <i class="w-icon-ice-cream"></i>Cooking </a>
+                                            <a href="{{ url('/shop') }}"> <i class="w-icon-ice-cream"></i>Cooking
+                                            </a>
                                         </li>
                                         <li>
-                                            <a href="shop.html"> <i class="w-icon-ios"></i>Smart Phones </a>
+                                            <a href="{{ url('/shop') }}"> <i class="w-icon-ios"></i>Smart Phones
+                                            </a>
                                         </li>
                                         <li>
-                                            <a href="shop.html"> <i class="w-icon-camera"></i>Cameras & Photo </a>
+                                            <a href="{{ url('/shop') }}"> <i class="w-icon-camera"></i>Cameras &
+                                                Photo </a>
                                         </li>
                                         <li>
-                                            <a href="shop.html"> <i class="w-icon-ruby"></i>Accessories </a>
+                                            <a href="{{ url('/shop') }}"> <i class="w-icon-ruby"></i>Accessories
+                                            </a>
                                         </li>
                                         <li>
-                                            <a href="shop.html"
+                                            <a href="{{ url('/shop') }}"
                                                 class="font-weight-bold text-primary text-uppercase ls-25"> View All
                                                 Categories<i class="w-icon-angle-right"></i> </a>
                                         </li>
@@ -936,32 +952,32 @@
                             <nav class="main-nav">
                                 <ul class="menu active-underline">
                                     <li class="active">
-                                        <a href="index.html">Home</a>
+                                        <a href="{{ url('/') }}">Home</a>
                                     </li>
                                     <li>
-                                        <a href="shop.html">Shop</a>
+                                        <a href="{{ url('/shop') }}">Shop</a>
                                     </li>
                                     <li>
-                                        <a href="vendor-shop.html">Vendor</a>
+                                        <a href="{{ url('/vendor-shop') }}">Vendor</a>
                                     </li>
                                     <li>
-                                        <a href="blog.html">Blog</a>
+                                        <a href="{{ url('/blogs') }}">Blog</a>
                                     </li>
                                     <li>
                                         <a href="#">Pages</a>
                                         <ul>
-                                            <li><a href="about-us.html">About Us</a></li>
+                                            <li><a href="{{ url('/about') }}">About Us</a></li>
                                             <li>
-                                                <a href="become-a-vendor.html">Become A Vendor</a>
+                                                <a href="{{ url('/become/a/vendor') }}">Become A Vendor</a>
                                             </li>
-                                            <li><a href="contact-us.html">Contact Us</a></li>
-                                            <li><a href="faq.html">FAQs</a></li>
-                                            <li><a href="blog.html">Blog</a></li>
-                                            <li><a href="vendor-shop.html">Vendor</a></li>
-                                            <li><a href="error-404.html">Error 404</a></li>
-                                            <li><a href="wishlist.html">Wishlist</a></li>
-                                            <li><a href="cart.html">Cart</a></li>
-                                            <li><a href="checkout.html">Checkout</a></li>
+                                            <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
+                                            <li><a href="{{ url('/faq') }}">FAQs</a></li>
+                                            <li><a href="{{ url('/blogs') }}">Blog</a></li>
+                                            <li><a href="{{ url('/vendor-shop') }}">Vendor</a></li>
+                                            <li><a href="{{ url('/error-404') }}">Error 404</a></li>
+                                            <li><a href="{{ url('/wishlist') }}">Wishlist</a></li>
+                                            <li><a href="{{ url('/cart') }}">Cart</a></li>
+                                            <li><a href="{{ url('/checkout') }}">Checkout</a></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -988,11 +1004,11 @@
 
     <!-- Start of Sticky Footer -->
     <div class="sticky-footer sticky-content fix-bottom">
-        <a href="index.html" class="sticky-link active">
+        <a href="{{ url('/') }}" class="sticky-link active">
             <i class="w-icon-home"></i>
             <p>Home</p>
         </a>
-        <a href="category.html" class="sticky-link">
+        <a href="{{ url('/category') }}" class="sticky-link">
             <i class="w-icon-category"></i>
             <p>Category</p>
         </a>
@@ -1001,7 +1017,7 @@
             <p>Account</p>
         </a>
         <div class="cart-dropdown dir-up">
-            <a href="cart.html" class="sticky-link">
+            <a href="{{ url('/cart') }}" class="sticky-link">
                 <i class="w-icon-cart"></i>
                 <p>Cart</p>
             </a>
@@ -1010,7 +1026,7 @@
                     <div class="product product-cart">
                         <div class="product-detail">
                             <h3 class="product-name">
-                                <a href="product-details.html">Beige knitted elas<br />tic runner shoes</a>
+                                <a href="{{ url('/product/details') }}">Beige knitted elas<br />tic runner shoes</a>
                             </h3>
                             <div class="price-box">
                                 <span class="product-quantity">1</span>
@@ -1018,9 +1034,9 @@
                             </div>
                         </div>
                         <figure class="product-media">
-                            <a href="product-details.html">
-                                <img src="{{ url('assets') }}/images/cart/product-1.jpg" alt="product" height="84"
-                                    width="94" />
+                            <a href="{{ url('/product/details') }}">
+                                <img src="{{ url('assets') }}/images/cart/product-1.jpg" alt="product"
+                                    height="84" width="94" />
                             </a>
                         </figure>
                         <button class="btn btn-link btn-close" aria-label="button">
@@ -1031,7 +1047,7 @@
                     <div class="product product-cart">
                         <div class="product-detail">
                             <h3 class="product-name">
-                                <a href="product-details.html">Blue utility pina<br />fore denim dress</a>
+                                <a href="{{ url('/product/details') }}">Blue utility pina<br />fore denim dress</a>
                             </h3>
                             <div class="price-box">
                                 <span class="product-quantity">1</span>
@@ -1039,9 +1055,9 @@
                             </div>
                         </div>
                         <figure class="product-media">
-                            <a href="product-details.html">
-                                <img src="{{ url('assets') }}/images/cart/product-2.jpg" alt="product" width="84"
-                                    height="94" />
+                            <a href="{{ url('/product/details') }}">
+                                <img src="{{ url('assets') }}/images/cart/product-2.jpg" alt="product"
+                                    width="84" height="94" />
                             </a>
                         </figure>
                         <button class="btn btn-link btn-close" aria-label="button">
@@ -1056,8 +1072,8 @@
                 </div>
 
                 <div class="cart-action">
-                    <a href="cart.html" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
-                    <a href="checkout.html" class="btn btn-primary btn-rounded">Checkout</a>
+                    <a href="{{ url('/cart') }}" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
+                    <a href="{{ url('/checkout') }}" class="btn btn-primary btn-rounded">Checkout</a>
                 </div>
             </div>
             <!-- End of Dropdown Box -->
@@ -1119,31 +1135,31 @@
             <div class="tab-content">
                 <div class="tab-pane active" id="main-menu">
                     <ul class="mobile-menu">
-                        <li><a href="index.html">Home</a></li>
+                        <li><a href="{{ url('/') }}">Home</a></li>
                         <li>
-                            <a href="shop.html">Shop</a>
+                            <a href="{{ url('/shop') }}">Shop</a>
                         </li>
                         <li>
-                            <a href="vendor-shop.html">Vendor</a>
+                            <a href="{{ url('/vendor-shop') }}">Vendor</a>
                         </li>
                         <li>
-                            <a href="blog.html">Blog</a>
+                            <a href="{{ url('/blogs') }}">Blog</a>
                         </li>
                         <li>
                             <a href="#">Pages</a>
                             <ul>
-                                <li><a href="about-us.html">About Us</a></li>
+                                <li><a href="{{ url('/about') }}">About Us</a></li>
                                 <li>
-                                    <a href="become-a-vendor.html">Become A Vendor</a>
+                                    <a href="{{ url('/become/a/vendor') }}">Become A Vendor</a>
                                 </li>
-                                <li><a href="contact-us.html">Contact Us</a></li>
-                                <li><a href="faq.html">FAQs</a></li>
-                                <li><a href="blog.html">Blog</a></li>
-                                <li><a href="vendor-shop.html">Vendor</a></li>
-                                <li><a href="error-404.html">Error 404</a></li>
-                                <li><a href="wishlist.html">Wishlist</a></li>
-                                <li><a href="cart.html">Cart</a></li>
-                                <li><a href="checkout.html">Checkout</a></li>
+                                <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
+                                <li><a href="{{ url('/faq') }}">FAQs</a></li>
+                                <li><a href="{{ url('/blogs') }}">Blog</a></li>
+                                <li><a href="{{ url('/vendor-shop') }}">Vendor</a></li>
+                                <li><a href="{{ url('/error-404') }}">Error 404</a></li>
+                                <li><a href="{{ url('/wishlist') }}">Wishlist</a></li>
+                                <li><a href="{{ url('/cart') }}">Cart</a></li>
+                                <li><a href="{{ url('/checkout') }}">Checkout</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -1151,26 +1167,26 @@
                 <div class="tab-pane" id="categories">
                     <ul class="mobile-menu">
                         <li>
-                            <a href="shop.html"> <i class="w-icon-tshirt2"></i>Fashion </a>
+                            <a href="{{ url('/shop') }}"> <i class="w-icon-tshirt2"></i>Fashion </a>
                             <ul>
                                 <li>
                                     <a href="#">Women</a>
                                     <ul>
                                         <li>
-                                            <a href="shop.html">New Arrivals</a>
+                                            <a href="{{ url('/shop') }}">New Arrivals</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Best Sellers</a>
+                                            <a href="{{ url('/shop') }}">Best Sellers</a>
                                         </li>
-                                        <li><a href="shop.html">Trending</a></li>
-                                        <li><a href="shop.html">Clothing</a></li>
-                                        <li><a href="shop.html">Shoes</a></li>
-                                        <li><a href="shop.html">Bags</a></li>
+                                        <li><a href="{{ url('/shop') }}">Trending</a></li>
+                                        <li><a href="{{ url('/shop') }}">Clothing</a></li>
+                                        <li><a href="{{ url('/shop') }}">Shoes</a></li>
+                                        <li><a href="{{ url('/shop') }}">Bags</a></li>
                                         <li>
-                                            <a href="shop.html">Accessories</a>
+                                            <a href="{{ url('/shop') }}">Accessories</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Jewlery & Watches</a>
+                                            <a href="{{ url('/shop') }}">Jewlery & Watches</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -1178,57 +1194,57 @@
                                     <a href="#">Men</a>
                                     <ul>
                                         <li>
-                                            <a href="shop.html">New Arrivals</a>
+                                            <a href="{{ url('/shop') }}">New Arrivals</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Best Sellers</a>
+                                            <a href="{{ url('/shop') }}">Best Sellers</a>
                                         </li>
-                                        <li><a href="shop.html">Trending</a></li>
-                                        <li><a href="shop.html">Clothing</a></li>
-                                        <li><a href="shop.html">Shoes</a></li>
-                                        <li><a href="shop.html">Bags</a></li>
+                                        <li><a href="{{ url('/shop') }}">Trending</a></li>
+                                        <li><a href="{{ url('/shop') }}">Clothing</a></li>
+                                        <li><a href="{{ url('/shop') }}">Shoes</a></li>
+                                        <li><a href="{{ url('/shop') }}">Bags</a></li>
                                         <li>
-                                            <a href="shop.html">Accessories</a>
+                                            <a href="{{ url('/shop') }}">Accessories</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Jewlery & Watches</a>
+                                            <a href="{{ url('/shop') }}">Jewlery & Watches</a>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="shop.html"> <i class="w-icon-home"></i>Home & Garden </a>
+                            <a href="{{ url('/shop') }}"> <i class="w-icon-home"></i>Home & Garden </a>
                             <ul>
                                 <li>
                                     <a href="#">Bedroom</a>
                                     <ul>
                                         <li>
-                                            <a href="shop.html">Beds, Frames & Bases</a>
+                                            <a href="{{ url('/shop') }}">Beds, Frames & Bases</a>
                                         </li>
-                                        <li><a href="shop.html">Dressers</a></li>
+                                        <li><a href="{{ url('/shop') }}">Dressers</a></li>
                                         <li>
-                                            <a href="shop.html">Nightstands</a>
+                                            <a href="{{ url('/shop') }}">Nightstands</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Kid's Beds & Headboards</a>
+                                            <a href="{{ url('/shop') }}">Kid's Beds & Headboards</a>
                                         </li>
-                                        <li><a href="shop.html">Armoires</a></li>
+                                        <li><a href="{{ url('/shop') }}">Armoires</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="#">Living Room</a>
                                     <ul>
                                         <li>
-                                            <a href="shop.html">Coffee Tables</a>
+                                            <a href="{{ url('/shop') }}">Coffee Tables</a>
                                         </li>
-                                        <li><a href="shop.html">Chairs</a></li>
-                                        <li><a href="shop.html">Tables</a></li>
+                                        <li><a href="{{ url('/shop') }}">Chairs</a></li>
+                                        <li><a href="{{ url('/shop') }}">Tables</a></li>
                                         <li>
-                                            <a href="shop.html">Futons & Sofa Beds</a>
+                                            <a href="{{ url('/shop') }}">Futons & Sofa Beds</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Cabinets & Chests</a>
+                                            <a href="{{ url('/shop') }}">Cabinets & Chests</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -1236,17 +1252,17 @@
                                     <a href="#">Office</a>
                                     <ul>
                                         <li>
-                                            <a href="shop.html">Office Chairs</a>
+                                            <a href="{{ url('/shop') }}">Office Chairs</a>
                                         </li>
-                                        <li><a href="shop.html">Desks</a></li>
+                                        <li><a href="{{ url('/shop') }}">Desks</a></li>
                                         <li>
-                                            <a href="shop.html">Bookcases</a>
-                                        </li>
-                                        <li>
-                                            <a href="shop.html">File Cabinets</a>
+                                            <a href="{{ url('/shop') }}">Bookcases</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Breakroom Tables</a>
+                                            <a href="{{ url('/shop') }}">File Cabinets</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('/shop') }}">Breakroom Tables</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -1254,58 +1270,58 @@
                                     <a href="#">Kitchen & Dining</a>
                                     <ul>
                                         <li>
-                                            <a href="shop.html">Dining Sets</a>
+                                            <a href="{{ url('/shop') }}">Dining Sets</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Kitchen Storage Cabinets</a>
+                                            <a href="{{ url('/shop') }}">Kitchen Storage Cabinets</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Bashers Racks</a>
+                                            <a href="{{ url('/shop') }}">Bashers Racks</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Dining Chairs</a>
+                                            <a href="{{ url('/shop') }}">Dining Chairs</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Dining Room Tables</a>
+                                            <a href="{{ url('/shop') }}">Dining Room Tables</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Bar Stools</a>
+                                            <a href="{{ url('/shop') }}">Bar Stools</a>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="shop.html"> <i class="w-icon-electronics"></i>Electronics </a>
+                            <a href="{{ url('/shop') }}"> <i class="w-icon-electronics"></i>Electronics </a>
                             <ul>
                                 <li>
                                     <a href="#">Laptops &amp; Computers</a>
                                     <ul>
                                         <li>
-                                            <a href="shop.html">Desktop Computers</a>
+                                            <a href="{{ url('/shop') }}">Desktop Computers</a>
                                         </li>
-                                        <li><a href="shop.html">Monitors</a></li>
-                                        <li><a href="shop.html">Laptops</a></li>
+                                        <li><a href="{{ url('/shop') }}">Monitors</a></li>
+                                        <li><a href="{{ url('/shop') }}">Laptops</a></li>
                                         <li>
-                                            <a href="shop.html">Hard Drives &amp; Storage</a>
+                                            <a href="{{ url('/shop') }}">Hard Drives &amp; Storage</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Computer Accessories</a>
+                                            <a href="{{ url('/shop') }}">Computer Accessories</a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="#">TV &amp; Video</a>
                                     <ul>
-                                        <li><a href="shop.html">TVs</a></li>
+                                        <li><a href="{{ url('/shop') }}">TVs</a></li>
                                         <li>
-                                            <a href="shop.html">Home Audio Speakers</a>
+                                            <a href="{{ url('/shop') }}">Home Audio Speakers</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Projectors</a>
+                                            <a href="{{ url('/shop') }}">Projectors</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Media Streaming Devices</a>
+                                            <a href="{{ url('/shop') }}">Media Streaming Devices</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -1313,19 +1329,19 @@
                                     <a href="#">Digital Cameras</a>
                                     <ul>
                                         <li>
-                                            <a href="shop.html">Digital SLR Cameras</a>
+                                            <a href="{{ url('/shop') }}">Digital SLR Cameras</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Sports & Action Cameras</a>
+                                            <a href="{{ url('/shop') }}">Sports & Action Cameras</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Camera Lenses</a>
+                                            <a href="{{ url('/shop') }}">Camera Lenses</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Photo Printer</a>
+                                            <a href="{{ url('/shop') }}">Photo Printer</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Digital Memory Cards</a>
+                                            <a href="{{ url('/shop') }}">Digital Memory Cards</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -1333,41 +1349,41 @@
                                     <a href="#">Cell Phones</a>
                                     <ul>
                                         <li>
-                                            <a href="shop.html">Carrier Phones</a>
+                                            <a href="{{ url('/shop') }}">Carrier Phones</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Unlocked Phones</a>
+                                            <a href="{{ url('/shop') }}">Unlocked Phones</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Phone & Cellphone Cases</a>
+                                            <a href="{{ url('/shop') }}">Phone & Cellphone Cases</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Cellphone Chargers</a>
+                                            <a href="{{ url('/shop') }}">Cellphone Chargers</a>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="shop.html"> <i class="w-icon-furniture"></i>Furniture </a>
+                            <a href="{{ url('/shop') }}"> <i class="w-icon-furniture"></i>Furniture </a>
                             <ul>
                                 <li>
                                     <a href="#">Furniture</a>
                                     <ul>
                                         <li>
-                                            <a href="shop.html">Sofas & Couches</a>
+                                            <a href="{{ url('/shop') }}">Sofas & Couches</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Armchairs</a>
+                                            <a href="{{ url('/shop') }}">Armchairs</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Bed Frames</a>
+                                            <a href="{{ url('/shop') }}">Bed Frames</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Beside Tables</a>
+                                            <a href="{{ url('/shop') }}">Beside Tables</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Dressing Tables</a>
+                                            <a href="{{ url('/shop') }}">Dressing Tables</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -1375,17 +1391,17 @@
                                     <a href="#">Lighting</a>
                                     <ul>
                                         <li>
-                                            <a href="shop.html">Light Bulbs</a>
+                                            <a href="{{ url('/shop') }}">Light Bulbs</a>
                                         </li>
-                                        <li><a href="shop.html">Lamps</a></li>
+                                        <li><a href="{{ url('/shop') }}">Lamps</a></li>
                                         <li>
-                                            <a href="shop.html">Celling Lights</a>
-                                        </li>
-                                        <li>
-                                            <a href="shop.html">Wall Lights</a>
+                                            <a href="{{ url('/shop') }}">Celling Lights</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Bathroom Lighting</a>
+                                            <a href="{{ url('/shop') }}">Wall Lights</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('/shop') }}">Bathroom Lighting</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -1393,63 +1409,64 @@
                                     <a href="#">Home Accessories</a>
                                     <ul>
                                         <li>
-                                            <a href="shop.html">Decorative Accessories</a>
+                                            <a href="{{ url('/shop') }}">Decorative Accessories</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Candals & Holders</a>
+                                            <a href="{{ url('/shop') }}">Candals & Holders</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Home Fragrance</a>
+                                            <a href="{{ url('/shop') }}">Home Fragrance</a>
                                         </li>
-                                        <li><a href="shop.html">Mirrors</a></li>
-                                        <li><a href="shop.html">Clocks</a></li>
+                                        <li><a href="{{ url('/shop') }}">Mirrors</a></li>
+                                        <li><a href="{{ url('/shop') }}">Clocks</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <a href="#">Garden & Outdoors</a>
                                     <ul>
                                         <li>
-                                            <a href="shop.html">Garden Furniture</a>
+                                            <a href="{{ url('/shop') }}">Garden Furniture</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Lawn Mowers</a>
+                                            <a href="{{ url('/shop') }}">Lawn Mowers</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Pressure Washers</a>
+                                            <a href="{{ url('/shop') }}">Pressure Washers</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">All Garden Tools</a>
+                                            <a href="{{ url('/shop') }}">All Garden Tools</a>
                                         </li>
                                         <li>
-                                            <a href="shop.html">Outdoor Dining</a>
+                                            <a href="{{ url('/shop') }}">Outdoor Dining</a>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
                         <li>
-                            <a href="shop.html"> <i class="w-icon-heartbeat"></i>Healthy & Beauty </a>
+                            <a href="{{ url('/shop') }}"> <i class="w-icon-heartbeat"></i>Healthy & Beauty </a>
                         </li>
                         <li>
-                            <a href="shop.html"> <i class="w-icon-gift"></i>Gift Ideas </a>
+                            <a href="{{ url('/shop') }}"> <i class="w-icon-gift"></i>Gift Ideas </a>
                         </li>
                         <li>
-                            <a href="shop.html"> <i class="w-icon-gamepad"></i>Toy & Games </a>
+                            <a href="{{ url('/shop') }}"> <i class="w-icon-gamepad"></i>Toy & Games </a>
                         </li>
                         <li>
-                            <a href="shop.html"> <i class="w-icon-ice-cream"></i>Cooking </a>
+                            <a href="{{ url('/shop') }}"> <i class="w-icon-ice-cream"></i>Cooking </a>
                         </li>
                         <li>
-                            <a href="shop.html"> <i class="w-icon-ios"></i>Smart Phones </a>
+                            <a href="{{ url('/shop') }}"> <i class="w-icon-ios"></i>Smart Phones </a>
                         </li>
                         <li>
-                            <a href="shop.html"> <i class="w-icon-camera"></i>Cameras & Photo </a>
+                            <a href="{{ url('/shop') }}"> <i class="w-icon-camera"></i>Cameras & Photo </a>
                         </li>
                         <li>
-                            <a href="shop.html"> <i class="w-icon-ruby"></i>Accessories </a>
+                            <a href="{{ url('/shop') }}"> <i class="w-icon-ruby"></i>Accessories </a>
                         </li>
                         <li>
-                            <a href="shop.html" class="font-weight-bold text-primary text-uppercase ls-25"> View All
+                            <a href="{{ url('/shop') }}"
+                                class="font-weight-bold text-primary text-uppercase ls-25"> View All
                                 Categories<i class="w-icon-angle-right"></i> </a>
                         </li>
                     </ul>
@@ -1530,20 +1547,20 @@
                   }">
                         <div class="product-thumbs swiper-wrapper row cols-4 gutter-sm">
                             <div class="product-thumb swiper-slide">
-                                <img src="{{ url('assets') }}/images/products/popup/1-103x116.jpg" alt="Product Thumb"
-                                    width="103" height="116" />
+                                <img src="{{ url('assets') }}/images/products/popup/1-103x116.jpg"
+                                    alt="Product Thumb" width="103" height="116" />
                             </div>
                             <div class="product-thumb swiper-slide">
-                                <img src="{{ url('assets') }}/images/products/popup/2-103x116.jpg" alt="Product Thumb"
-                                    width="103" height="116" />
+                                <img src="{{ url('assets') }}/images/products/popup/2-103x116.jpg"
+                                    alt="Product Thumb" width="103" height="116" />
                             </div>
                             <div class="product-thumb swiper-slide">
-                                <img src="{{ url('assets') }}/images/products/popup/3-103x116.jpg" alt="Product Thumb"
-                                    width="103" height="116" />
+                                <img src="{{ url('assets') }}/images/products/popup/3-103x116.jpg"
+                                    alt="Product Thumb" width="103" height="116" />
                             </div>
                             <div class="product-thumb swiper-slide">
-                                <img src="{{ url('assets') }}/images/products/popup/4-103x116.jpg" alt="Product Thumb"
-                                    width="103" height="116" />
+                                <img src="{{ url('assets') }}/images/products/popup/4-103x116.jpg"
+                                    alt="Product Thumb" width="103" height="116" />
                             </div>
                         </div>
                         <button class="swiper-button-next"></button>
@@ -1556,8 +1573,8 @@
                     <h2 class="product-title">Electronics Black Wrist Watch</h2>
                     <div class="product-bm-wrapper">
                         <figure class="brand">
-                            <img src="{{ url('assets') }}/images/products/brand/brand-1.jpg" alt="Brand" width="102"
-                                height="48" />
+                            <img src="{{ url('assets') }}/images/products/brand/brand-1.jpg" alt="Brand"
+                                width="102" height="48" />
                         </figure>
                     </div>
 
@@ -1645,254 +1662,88 @@
     <!-- Main JS -->
     <script src="{{ url('assets') }}/js/main.js"></script>
 
+    <!-- Plugin JS File -->
+    <script src="assets/vendor/sticky/sticky.js"></script>
+    <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="assets/vendor/nouislider/nouislider.min.js"></script>
+    <script src="assets/vendor/popper/popper.min.js"></script>
+    <script src="assets/vendor/bootstrap-multiselect/bootstrap-multiselect.min.js"></script>
+    <script src="assets/vendor/photoswipe/photoswipe.js"></script>
+    <script src="assets/vendor/photoswipe/photoswipe-ui-default.js"></script>
 
-    {{-- <script src="{{url('assets')}}/vendor/jquery/jquery.min.js"></script>
-    <script src="{{url('assets')}}/vendor/jquery.plugin/jquery.plugin.min.js"></script>
-    <script src="{{url('assets')}}/vendor/parallax/parallax.min.js"></script>
-    <script src="{{url('assets')}}/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="{{url('assets')}}/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
-    <script src="{{url('assets')}}/vendor/jquery.countdown/jquery.countdown.min.js"></script>
-    <script src="{{url('assets')}}/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script src="{{url('assets')}}/vendor/floating-parallax/parallax.min.js"></script>
-    <script src="{{url('assets')}}/vendor/zoom/jquery.zoom.js"></script>
-    <script src="{{url('assets')}}/vendor/skrollr/skrollr.min.js"></script>
-    <script src="{{url('assets')}}/js/main.min.js"></script> --}}
+    <!-- Image Upload JS -->
+    <script type="text/javascript">
+        function uploadLibraryPhoto(event, inputId) {
+            const fileInput = event.target;
+            const files = fileInput.files;
 
-    {{-- for lazy load image --}}
-    {{-- <script>
+            const uploadImageList = document.getElementById("upload-image-list" +
+                inputId); // Dynamically get the correct upload image list
 
-        // Fejmo.initPopup(),
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const reader = new FileReader();
 
-        function renderLazyImage() {
-            var lazyloadImages;
-            if ("IntersectionObserver" in window) {
-                lazyloadImages = document.querySelectorAll(".lazy");
-                var imageObserver = new IntersectionObserver(function(entries, observer) {
-                    entries.forEach(function(entry) {
-                        if (entry.isIntersecting) {
-                            var image = entry.target;
-                            image.src = image.dataset.src;
-                            image.classList.remove("lazy");
-                            imageObserver.unobserve(image);
-                        }
+                reader.onload = function() {
+                    const imageElement = document.createElement("img");
+                    imageElement.src = reader.result;
+
+                    const removeIcon = document.createElement("div");
+                    removeIcon.classList.add("remove-icon");
+                    removeIcon.innerHTML = '<i class="fa fa-times"></i>';
+
+                    const imageContainer = document.createElement("div");
+                    imageContainer.style.position = "relative ";
+                    imageContainer.appendChild(removeIcon);
+                    imageContainer.appendChild(imageElement);
+
+                    uploadImageList.appendChild(imageContainer);
+
+                    // Add event listener to remove image
+                    removeIcon.addEventListener("click", function() {
+                        uploadImageList.removeChild(imageContainer);
                     });
-                });
+                };
 
-                lazyloadImages.forEach(function(image) {
-                    imageObserver.observe(image);
-                });
-            } else {
-                var lazyloadThrottleTimeout;
-                lazyloadImages = document.querySelectorAll(".lazy");
-
-                function lazyload() {
-                    if (lazyloadThrottleTimeout) {
-                        clearTimeout(lazyloadThrottleTimeout);
-                    }
-
-                    lazyloadThrottleTimeout = setTimeout(function() {
-                        var scrollTop = window.pageYOffset;
-                        lazyloadImages.forEach(function(img) {
-                            if (img.offsetTop < (window.innerHeight + scrollTop)) {
-                                img.src = img.dataset.src;
-                                img.classList.remove('lazy');
-                            }
-                        });
-                        if (lazyloadImages.length == 0) {
-                            document.removeEventListener("scroll", lazyload);
-                            window.removeEventListener("resize", lazyload);
-                            window.removeEventListener("orientationChange", lazyload);
-                        }
-                    }, 20);
-                }
-
-                document.addEventListener("scroll", lazyload);
-                window.addEventListener("resize", lazyload);
-                window.addEventListener("orientationChange", lazyload);
+                reader.readAsDataURL(file);
             }
         }
+
+        function removeImage(inputId) {
+            const uploadImageList = document.getElementById("upload-image-list" + inputId);
+            uploadImageList.innerHTML = ""; // Remove all child elements
+        }
+    </script>
+
+    <!-- Password Show/Hidden JS -->
+    <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
-            renderLazyImage();
-        })
-    </script> --}}
+            const passwordField = document.getElementById("password");
+            const togglePassword = document.getElementById("togglePassword");
 
-    {{-- <script>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        function liveSearchProduct() {
-
-            var searchKeyword = $("#search_keyword").val();
-
-            if (searchKeyword && searchKeyword != '' && searchKeyword != null) {
-                var formData = new FormData();
-                formData.append("search_keyword", $("#search_keyword").val());
-
-                $.ajax({
-                    data: formData,
-                    url: "{{ url('product/live/search') }}",
-                    type: "POST",
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    success: function(data) {
-                        $('.live_search_box').removeClass('d-none');
-                        $('.live_search_box').html(data.searchResults);
-                        renderLazyImage();
-                    },
-                    error: function(data) {
-                        toastr.options.positionClass = 'toast-bottom-right';
-                        toastr.options.timeOut = 1000;
-                        toastr.error("Something Went Wrong");
-                    }
-                });
-            } else {
-                $('.live_search_box').addClass('d-none');
-            }
-
-        }
-
-        $('body').on('click', '.addToCart', function() {
-            var id = $(this).data('id');
-            $.get("{{ url('add/to/cart') }}" + '/' + id, function(data) {
-                toastr.options.positionClass = 'toast-bottom-right';
-                toastr.options.timeOut = 1000;
-                toastr.success("Added to Cart");
-                $("#dropdown_box_sidebar_cart").html(data.rendered_cart);
-                $("span.cart-count").html(data.cartTotalQty);
-
-                @if ($generalInfo->google_tag_manager_status)
-                    // data layer
-                    dataLayer.push({
-                        ecommerce: null
-                    }); // Clear the previous ecommerce object.
-                    dataLayer.push({
-                        event: "add_to_cart",
-                        ecommerce: {
-                            items: [{
-                                item_name: data
-                                .p_name_data_layer, // Name or ID is required.
-                                item_id: id,
-                                price: data.p_price_data_layer,
-                                item_brand: data.p_brand_name,
-                                item_category: data.p_category_name,
-                                item_category2: "",
-                                item_category3: "",
-                                item_category4: "",
-                                item_variant: "",
-                                item_list_name: "", // If associated with a list selection.
-                                item_list_id: "", // If associated with a list selection.
-                                index: 0, // If associated with a list selection.
-                                quantity: data.p_qauntity,
-                            }]
-                        }
-                    });
-                @endif
-            })
-            // $(this).html("<span class='add__to--cart__text'> Remove</span>");
-            // $(this).removeClass("addToCart");
-            // $(this).addClass("removeFromCart");
-            // $(this).blur();
-        });
-
-        $('body').on('click', '.sidebar-product-remove', function() {
-            var id = $(this).data('id');
-
-            $.get("{{ url('remove/cart/item') }}" + '/' + id, function(data) {
-                $("#dropdown_box_sidebar_cart").html(data.rendered_cart);
-                $("#view_cart_items").html(data.viewCartItems);
-                $("#view_cart_calculation").html(data.viewCartCalculation);
-                $("span.cart-count").html(data.cartTotalQty);
-                $("#product_details_cart_qty").val(1);
-                // $("table.cart-single-product-table tbody").html(data.checkoutCartItems);
-                // $(".order-review-summary").html(data.checkoutTotalAmount);
-            })
-
-            // $('.cart-' + id).html("<i class='fi fi-rr-shopping-cart product__items--action__btn--svg'></i><span class='add__to--cart__text'> Add to cart</span>");
-            // $('.cart-' + id).attr('data-id', id).removeClass("removeFromCart");
-            // $('.cart-' + id).attr('data-id', id).addClass("addToCart");
-            // $('.cart-' + id).blur();
-
-            $('.cart-qty-' + id).html("<i class='w-icon-cart'></i><span> Add to cart</span>");
-            $('.cart-qty-' + id).attr('data-id', id).removeClass("removeFromCartQty");
-            $('.cart-qty-' + id).attr('data-id', id).addClass("addToCartWithQty");
-            $('.cart-qty-' + id).blur();
-        });
-
-        $('body').on('click', '.quantity__value_details', function() {
-            var id = $(this).data('id');
-            var quantityInput = this.parentElement.querySelector("input");
-            var currentQuantity = parseInt(quantityInput.value);
-
-            if (this.classList.contains("decrease")) {
-                quantityInput.value = Math.max(currentQuantity - 1, 1);
-            } else if (this.classList.contains("increase")) {
-                quantityInput.value = currentQuantity + 1;
-            }
-
-            var formData = new FormData();
-            formData.append("cart_id", id);
-            formData.append("cart_qty", quantityInput.value);
-            $.ajax({
-                data: formData,
-                url: "{{ url('update/cart/qty') }}",
-                type: "POST",
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    $("#dropdown_box_sidebar_cart").html(data.rendered_cart);
-                    $("#view_cart_items").html(data.viewCartItems);
-                    $("#view_cart_calculation").html(data.viewCartCalculation);
-                },
-                error: function(data) {
-                    console.log('Error:', data);
+            togglePassword.addEventListener("click", function() {
+                if (passwordField.type === "password") {
+                    passwordField.type = "text";
+                    togglePassword.classList.remove("fa-eye-slash");
+                    togglePassword.classList.add("fa-eye");
+                } else {
+                    passwordField.type = "password";
+                    togglePassword.classList.remove("fa-eye");
+                    togglePassword.classList.add("fa-eye-slash");
                 }
             });
         });
+    </script>
 
-        $('body').on('click', '.quantity__value', function() {
-            var id = $(this).data('id');
-            var quantityInput = this.parentElement.querySelector("input");
-            var currentQuantity = parseInt(quantityInput.value);
-
-            if (this.classList.contains("decrease")) {
-                quantityInput.value = Math.max(currentQuantity - 1, 1);
-            } else if (this.classList.contains("increase")) {
-                quantityInput.value = currentQuantity + 1;
-            }
-
-            // in product details page qty button
-            $("#product_details_cart_qty").val(quantityInput.value);
-
-            var formData = new FormData();
-            formData.append("cart_id", id);
-            formData.append("cart_qty", quantityInput.value);
-            $.ajax({
-                data: formData,
-                url: "{{ url('update/cart/qty') }}",
-                type: "POST",
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function(data) {
-                    // updateCartTotal();
-                    // cartSidebarQtyButtons();
-                    $(".offCanvas__minicart").html(data.rendered_cart);
-                    $(".checkout-order-review-inner").html(data.checkoutCartItems);
-                    $(".order-review-summary").html(data.checkoutTotalAmount);
-                },
-                error: function(data) {
-                    console.log('Error:', data);
-                }
+    <!-- Multiple Select JS -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#multiple-checkboxes").multiselect({
+                includeSelectAllOption: true,
             });
-
-            // $("#quantity-number-" + id).html(quantityInput.value);
         });
-    </script> --}}
+    </script>
+
 
     @yield('footer_js')
 

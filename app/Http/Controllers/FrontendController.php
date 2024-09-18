@@ -15,6 +15,35 @@ class FrontendController extends Controller
         return view('index');
     }
 
+    public function login()
+    {
+        return view('login');
+    }
+
+    public function register()
+    {
+        return view('register');
+    }
+
+    public function setPassword()
+    {
+        return view('set_password');
+    }
+
+    public function forgetPassword(){
+        return view('forget_password');
+    }
+
+    public function verifySuccess()
+    {
+        return view('verify_success');
+    }
+
+    public function verifyOtp()
+    {
+        return view('verify_otp');
+    }
+
     public function about(){
         return view('about');
     }
@@ -27,8 +56,48 @@ class FrontendController extends Controller
         return view('blog_details');
     }
 
+    public function productDetails()
+    {
+        return view('product_details');
+    }
+
+    public function order()
+    {
+        return view('order');
+    }
+
+    public function orderSuccessful()
+    {
+        return view('order_successful');
+    }
+
+    public function orderView()
+    {
+        return view('order_view');
+    }
+
     public function becomeaVendor(){
         return view('become-a-vendor');
+    }
+
+    public function vendorShopDetails()
+    {
+        return view('vendor_shop_details');
+    }
+
+    public function vendorShop()
+    {
+        return view('vendor_shop');
+    }
+
+    public function vendorRegister()
+    {
+        return view('vendor_register');
+    }
+
+    public function shop()
+    {
+        return view('shop');
     }
 
     public function cart(){
@@ -38,6 +107,40 @@ class FrontendController extends Controller
     public function category(){
         return view('category');
     }
+
+    public function checkout(){
+        return view('checkout');
+    }
+
+    public function contactUs(){
+        return view('contact_us');
+    }
+
+    public function faq(){
+        return view('faq');
+    }
+
+    public function wishlist()
+    {
+        return view('wishlist');
+    }
+
+    public function error_404()
+    {
+        return view('error_404');
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

@@ -62,7 +62,7 @@
             <div class="container">
                 <ul class="breadcrumb">
                     <li><a href="index.html">Home</a></li>
-                    <li><a href="blog.html">Blog</a></li>
+                    <li><a href="{{ url('/blogs') }}">Blog</a></li>
                     <li>Classic</li>
                 </ul>
             </div>
@@ -76,7 +76,7 @@
                     <div class="main-content">
                         <article class="post post-classic overlay-zoom mb-4">
                             <figure class="post-media br-sm">
-                                <a href="blog-details.html">
+                                <a href="{{ url('/blog/details') }}">
                                     <img src="{{ url('assets') }}/images/blog/classic/1.jpg" width="930" height="500"
                                         alt="blog" />
                                 </a>
@@ -86,13 +86,13 @@
                                     <a href="#">Fashion</a>
                                 </div>
                                 <h4 class="post-title">
-                                    <a href="blog-details.html">New found the men dress for summer</a>
+                                    <a href="{{ url('/blog/details') }}">New found the men dress for summer</a>
                                 </h4>
                                 <div class="post-content">
                                     <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget
                                         blandit nunc tortor eu nibh. Suspendisse potenti.Sed egstas, ant at vulputate
                                         volutpat, uctus metus libero eu augue, vitae luctus…</p>
-                                    <a href="blog-details.html" class="btn btn-link btn-primary">(read more)</a>
+                                    <a href="{{ url('/blog/details') }}" class="btn btn-link btn-primary">(read more)</a>
                                 </div>
                                 <div class="post-meta">
                                     by <a href="#" class="post-author">John Doe</a> -
@@ -102,7 +102,7 @@
                         </article>
                         <article class="post post-classic overlay-zoom mb-4">
                             <figure class="post-media br-sm">
-                                <a href="blog-details.html">
+                                <a href="{{ url('/blog/details') }}">
                                     <img src="{{ url('assets') }}/images/blog/classic/2.jpg" width="930" height="500"
                                         alt="blog" />
                                 </a>
@@ -113,13 +113,14 @@
                                     <a href="#">Technology</a>
                                 </div>
                                 <h4 class="post-title">
-                                    <a href="blog-details.html">Recognitory the needs is primary condition for design</a>
+                                    <a href="{{ url('/blog/details') }}">Recognitory the needs is primary condition for
+                                        design</a>
                                 </h4>
                                 <div class="post-content">
                                     <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget
                                         blandit nunc tortor eu nibh. Suspendisse potenti.Sed egstas, ant at vulputate
                                         volutpat, uctus metus libero eu augue, vitae luctus…</p>
-                                    <a href="blog-details.html" class="btn btn-link btn-primary">(read more)</a>
+                                    <a href="{{ url('/blog/details') }}" class="btn btn-link btn-primary">(read more)</a>
                                 </div>
                                 <div class="post-meta">
                                     by <a href="#" class="post-author">John Doe</a> -
@@ -129,7 +130,7 @@
                         </article>
                         <article class="post post-classic overlay-zoom mb-4">
                             <figure class="post-media br-sm">
-                                <a href="blog-details.html">
+                                <a href="{{ url('/blog/details') }}">
                                     <img src="{{ url('assets') }}/images/blog/classic/3.jpg" width="930" height="500"
                                         alt="blog" />
                                 </a>
@@ -139,13 +140,13 @@
                                     <a href="#">Clothes</a>
                                 </div>
                                 <h4 class="post-title">
-                                    <a href="blog-details.html">New found the women’s shirt for summer season</a>
+                                    <a href="{{ url('/blog/details') }}">New found the women’s shirt for summer season</a>
                                 </h4>
                                 <div class="post-content">
                                     <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget
                                         blandit nunc tortor eu nibh. Suspendisse potenti.Sed egstas, ant at vulputate
                                         volutpat, uctus metus libero eu augue, vitae luctus…</p>
-                                    <a href="blog-details.html" class="btn btn-link btn-primary">(read more)</a>
+                                    <a href="{{ url('/blog/details') }}" class="btn btn-link btn-primary">(read more)</a>
                                 </div>
                                 <div class="post-meta">
                                     by <a href="#" class="post-author">John Doe</a> -
@@ -155,7 +156,7 @@
                         </article>
                         <article class="post post-classic overlay-zoom mb-4">
                             <figure class="post-media br-sm">
-                                <a href="blog-details.html">
+                                <a href="{{ url('/blog/details') }}">
                                     <img src="{{ url('assets') }}/images/blog/classic/4.jpg" width="930"
                                         height="500" alt="blog" />
                                 </a>
@@ -165,14 +166,14 @@
                                     <a href="#">Lifestyle</a>
                                 </div>
                                 <h4 class="post-title">
-                                    <a href="blog-details.html">We want to be different and fashion gives to me that
+                                    <a href="{{ url('/blog/details') }}">We want to be different and fashion gives to me that
                                         outlet</a>
                                 </h4>
                                 <div class="post-content">
                                     <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget
                                         blandit nunc tortor eu nibh. Suspendisse potenti.Sed egstas, ant at vulputate
                                         volutpat, uctus metus libero eu augue, vitae luctus…</p>
-                                    <a href="blog-details.html" class="btn btn-link btn-primary">(read more)</a>
+                                    <a href="{{ url('/blog/details') }}" class="btn btn-link btn-primary">(read more)</a>
                                 </div>
                                 <div class="post-meta">
                                     by <a href="#" class="post-author">John Doe</a> -
@@ -182,7 +183,7 @@
                         </article>
                         <article class="post post-classic overlay-zoom mb-4">
                             <figure class="post-media br-sm">
-                                <a href="blog-details.html">
+                                <a href="{{ url('/blog/details') }}">
                                     <img src="{{ url('assets') }}/images/blog/classic/5.jpg" width="930"
                                         height="500" alt="blog" />
                                 </a>
@@ -193,13 +194,13 @@
                                     <a href="#">Others</a>
                                 </div>
                                 <h4 class="post-title">
-                                    <a href="blog-details.html">Comes a cool blog post with Images</a>
+                                    <a href="{{ url('/blog/details') }}">Comes a cool blog post with Images</a>
                                 </h4>
                                 <div class="post-content">
                                     <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget
                                         blandit nunc tortor eu nibh. Suspendisse potenti.Sed egstas, ant at vulputate
                                         volutpat, uctus metus libero eu augue, vitae luctus…</p>
-                                    <a href="blog-details.html" class="btn btn-link btn-primary">(read more)</a>
+                                    <a href="{{ url('/blog/details') }}" class="btn btn-link btn-primary">(read more)</a>
                                 </div>
                                 <div class="post-meta">
                                     by <a href="#" class="post-author">John Doe</a> -
@@ -209,7 +210,7 @@
                         </article>
                         <article class="post post-classic overlay-zoom mb-2">
                             <figure class="post-media br-sm">
-                                <a href="blog-details.html">
+                                <a href="{{ url('/blog/details') }}">
                                     <img src="{{ url('assets') }}/images/blog/classic/6.jpg" width="930"
                                         height="500" alt="blog" />
                                 </a>
@@ -220,13 +221,13 @@
                                     <a href="#">Technology</a>
                                 </div>
                                 <h4 class="post-title">
-                                    <a href="blog-details.html">Fusce lacinia arcuet nulla</a>
+                                    <a href="{{ url('/blog/details') }}">Fusce lacinia arcuet nulla</a>
                                 </h4>
                                 <div class="post-content">
                                     <p>Sed pretium, ligula sollicitudin laoreet viverra, tortor libero sodales leo, eget
                                         blandit nunc tortor eu nibh. Suspendisse potenti.Sed egstas, ant at vulputate
                                         volutpat, uctus metus libero eu augue, vitae luctus…</p>
-                                    <a href="blog-details.html" class="btn btn-link btn-primary">(read more)</a>
+                                    <a href="{{ url('/blog/details') }}" class="btn btn-link btn-primary">(read more)</a>
                                 </div>
                                 <div class="post-meta">
                                     by <a href="#" class="post-author">John Doe</a> -
@@ -276,13 +277,13 @@
                                 <div class="widget widget-categories">
                                     <h3 class="widget-title bb-no mb-0">Categories</h3>
                                     <ul class="widget-body filter-items search-ul">
-                                        <li><a href="blog.html">Clothes</a></li>
-                                        <li><a href="blog.html">Entertainment</a></li>
-                                        <li><a href="blog.html">Fashion</a></li>
-                                        <li><a href="blog.html">Lifestyle</a></li>
-                                        <li><a href="blog.html">Others</a></li>
-                                        <li><a href="blog.html">Shoes</a></li>
-                                        <li><a href="blog.html">Technology</a></li>
+                                        <li><a href="{{ url('/blogs') }}">Clothes</a></li>
+                                        <li><a href="{{ url('/blogs') }}">Entertainment</a></li>
+                                        <li><a href="{{ url('/blogs') }}">Fashion</a></li>
+                                        <li><a href="{{ url('/blogs') }}">Lifestyle</a></li>
+                                        <li><a href="{{ url('/blogs') }}">Others</a></li>
+                                        <li><a href="{{ url('/blogs') }}">Shoes</a></li>
+                                        <li><a href="{{ url('/blogs') }}">Technology</a></li>
                                     </ul>
                                 </div>
                                 <!-- End of Widget categories -->
@@ -307,7 +308,8 @@
                                                                     <a href="#" class="post-date">March 1, 2021</a>
                                                                 </div>
                                                                 <h4 class="post-title">
-                                                                    <a href="blog-details.html">Fashion tells about who you
+                                                                    <a href="{{ url('/blog/details') }}">Fashion tells
+                                                                        about who you
                                                                         are from external point</a>
                                                                 </h4>
                                                             </div>
@@ -322,7 +324,8 @@
                                                                     <a href="#" class="post-date">March 5, 2021</a>
                                                                 </div>
                                                                 <h4 class="post-title">
-                                                                    <a href="blog-details.html">New found the men dress for
+                                                                    <a href="{{ url('/blog/details') }}">New found the men
+                                                                        dress for
                                                                         summer</a>
                                                                 </h4>
                                                             </div>
@@ -337,7 +340,8 @@
                                                                     <a href="#" class="post-date">March 1, 2021</a>
                                                                 </div>
                                                                 <h4 class="post-title">
-                                                                    <a href="blog-details.html">Cras ornare tristique
+                                                                    <a href="{{ url('/blog/details') }}">Cras ornare
+                                                                        tristique
                                                                         elit</a>
                                                                 </h4>
                                                             </div>
@@ -354,7 +358,8 @@
                                                                     <a href="#" class="post-date">March 1, 2021</a>
                                                                 </div>
                                                                 <h4 class="post-title">
-                                                                    <a href="blog-details.html">Vivamus vestibulum ntulla
+                                                                    <a href="{{ url('/blog/details') }}">Vivamus
+                                                                        vestibulum ntulla
                                                                         nec ante</a>
                                                                 </h4>
                                                             </div>
@@ -369,7 +374,8 @@
                                                                     <a href="#" class="post-date">March 5, 2021</a>
                                                                 </div>
                                                                 <h4 class="post-title">
-                                                                    <a href="blog-details.html">Fusce lacinia arcuet
+                                                                    <a href="{{ url('/blog/details') }}">Fusce lacinia
+                                                                        arcuet
                                                                         nulla</a>
                                                                 </h4>
                                                             </div>
@@ -384,7 +390,8 @@
                                                                     <a href="#" class="post-date">March 1, 2021</a>
                                                                 </div>
                                                                 <h4 class="post-title">
-                                                                    <a href="blog-details.html">Comes a cool blog post with
+                                                                    <a href="{{ url('/blog/details') }}">Comes a cool blog
+                                                                        post with
                                                                         Images</a>
                                                                 </h4>
                                                             </div>
