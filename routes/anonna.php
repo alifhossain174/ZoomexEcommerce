@@ -21,4 +21,7 @@ Route::get('/index', [App\Http\Controllers\FrontendController::class, 'index'])-
 Route::get('/about', [App\Http\Controllers\FrontendController::class, 'about'])->name('about');
 Route::get('/blogs', [App\Http\Controllers\FrontendController::class, 'blogs'])->name('blogs');
 Route::get('/blog/details', [App\Http\Controllers\FrontendController::class, 'blogDetails'])->name('blog.details');
+Route::get('/become/a/vendor', [App\Http\Controllers\FrontendController::class, 'becomeaVendor'])->name('becomeaVendor');
+Route::get('/cart', [App\Http\Controllers\FrontendController::class, 'cart'])->name('cart');
+Route::get('/category', [App\Http\Controllers\FrontendController::class, 'category'])->name('category');
 

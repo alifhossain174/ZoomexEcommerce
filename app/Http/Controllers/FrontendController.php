@@ -27,4 +27,17 @@ class FrontendController extends Controller
         return view('blog_details');
     }
 
+    public function becomeaVendor(){
+        return view('become-a-vendor');
+    }
+
+    public function cart(){
+        return view('cart');
+    }
+
+    public function category(){
+        return view('category');
+    }
+
+
 }
