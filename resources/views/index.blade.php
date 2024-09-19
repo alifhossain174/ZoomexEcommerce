@@ -158,13 +158,13 @@
 
             <!-- Start of Banner Fashion -->
             {{-- Top Banner --}}
-                @include('homepage_sections.top_banner')
+            @include('homepage_sections.top_banner')
             {{-- End Top Banner --}}
             <!-- End of Banner Fashion -->
 
             <!-- Start of category-section top-category -->
             {{-- Featured Categories --}}
-                @include('homepage_sections.featured_categories')
+            @include('homepage_sections.featured_categories')
             {{-- End Featured Categories --}}
             <!-- End of category-section top-category -->
 
@@ -230,8 +230,8 @@
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ url('/product/details') }}">
-                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-2.jpg"
-                                            alt="Product" width="300" height="338" />
+                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-2.jpg" alt="Product"
+                                            width="300" height="338" />
                                     </a>
                                     <div class="product-action-vertical">
                                         <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -312,8 +312,8 @@
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ url('/product/details') }}">
-                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-4.jpg"
-                                            alt="Product" width="300" height="338" />
+                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-4.jpg" alt="Product"
+                                            width="300" height="338" />
                                     </a>
                                     <div class="product-action-vertical">
                                         <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -351,8 +351,8 @@
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ url('/product/details') }}">
-                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-5.jpg"
-                                            alt="Product" width="300" height="338" />
+                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-5.jpg" alt="Product"
+                                            width="300" height="338" />
                                     </a>
                                     <div class="product-action-vertical">
                                         <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -431,8 +431,8 @@
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ url('/product/details') }}">
-                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-2.jpg"
-                                            alt="Product" width="300" height="338" />
+                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-2.jpg" alt="Product"
+                                            width="300" height="338" />
                                     </a>
                                     <div class="product-action-vertical">
                                         <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -517,8 +517,8 @@
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ url('/product/details') }}">
-                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-2.jpg"
-                                            alt="Product" width="300" height="338" />
+                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-2.jpg" alt="Product"
+                                            width="300" height="338" />
                                     </a>
                                     <div class="product-action-vertical">
                                         <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -599,8 +599,8 @@
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ url('/product/details') }}">
-                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-4.jpg"
-                                            alt="Product" width="300" height="338" />
+                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-4.jpg" alt="Product"
+                                            width="300" height="338" />
                                     </a>
                                     <div class="product-action-vertical">
                                         <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -638,8 +638,8 @@
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ url('/product/details') }}">
-                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-5.jpg"
-                                            alt="Product" width="300" height="338" />
+                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-5.jpg" alt="Product"
+                                            width="300" height="338" />
                                     </a>
                                     <div class="product-action-vertical">
                                         <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -718,8 +718,8 @@
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ url('/product/details') }}">
-                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-2.jpg"
-                                            alt="Product" width="300" height="338" />
+                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-2.jpg" alt="Product"
+                                            width="300" height="338" />
                                     </a>
                                     <div class="product-action-vertical">
                                         <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -804,8 +804,8 @@
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ url('/product/details') }}">
-                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-2.jpg"
-                                            alt="Product" width="300" height="338" />
+                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-2.jpg" alt="Product"
+                                            width="300" height="338" />
                                     </a>
                                     <div class="product-action-vertical">
                                         <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -886,8 +886,8 @@
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ url('/product/details') }}">
-                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-4.jpg"
-                                            alt="Product" width="300" height="338" />
+                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-4.jpg" alt="Product"
+                                            width="300" height="338" />
                                     </a>
                                     <div class="product-action-vertical">
                                         <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -925,8 +925,8 @@
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ url('/product/details') }}">
-                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-5.jpg"
-                                            alt="Product" width="300" height="338" />
+                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-5.jpg" alt="Product"
+                                            width="300" height="338" />
                                     </a>
                                     <div class="product-action-vertical">
                                         <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -1005,8 +1005,8 @@
                             <div class="product text-center">
                                 <figure class="product-media">
                                     <a href="{{ url('/product/details') }}">
-                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-2.jpg"
-                                            alt="Product" width="300" height="338" />
+                                        <img src="{{ url('assets') }}/images/demos/demo2/products/1-2.jpg" alt="Product"
+                                            width="300" height="338" />
                                     </a>
                                     <div class="product-action-vertical">
                                         <a href="#" class="btn-product-icon btn-cart w-icon-cart"
@@ -1407,13 +1407,13 @@
                         }
                     }">
 
-                    <div class="swiper-wrapper row cols-lg-5 cols-md-4 cols-2">
-                        {{-- loop start --}}
-                        <div class="swiper-slide product-wrap">
-                            @include('single_product.product')
-                        </div>
-                        {{-- loop end --}}
+                <div class="swiper-wrapper row cols-lg-5 cols-md-4 cols-2">
+                    {{-- loop start --}}
+                    <div class="swiper-slide product-wrap">
+                        @include('single_product.product')
                     </div>
+                    {{-- loop end --}}
+                </div>
 
                 {{-- <div class="swiper-wrapper row cols-lg-5 cols-md-4 cols-2">
                     <div class="swiper-slide product-wrap">
@@ -2064,7 +2064,6 @@
         <!-- End Product Slider Area -->
     </main>
     <!-- End of Main -->
-
 @endsection
 
 {{-- @section('footer_js')
