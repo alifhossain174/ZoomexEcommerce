@@ -36,8 +36,7 @@
     @endif
 
     <!-- Open Graph general (Facebook, Pinterest)-->
-    <meta property="og:title"
-        content="@if ($generalInfo && $generalInfo->meta_og_title) {{ $generalInfo->meta_og_title }} @else {{ $generalInfo->company_name }} @endif" />
+    <meta property="og:title" content="@if ($generalInfo && $generalInfo->meta_og_title) {{ $generalInfo->meta_og_title }} @else {{ $generalInfo->company_name }} @endif" />
     <meta property="og:type" content="Ecommerce" />
     <meta property="og:url" content="{{ env('APP_URL') }}" />
     <meta property="og:image" content="{{ env('ADMIN_URL') . '/' . $generalInfo->meta_og_image }}" />

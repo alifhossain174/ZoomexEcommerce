@@ -105,6 +105,56 @@
             --border-color: {{ $generalInfo->border_color }};
         }
 
+        /* live search css start */
+        ul.live_search_box{
+            position: absolute;
+            top: 75%;
+            left: 0px;
+            z-index: 999;
+            background: white;
+            border: 1px solid lightgray;
+            width: 100%;
+            padding: 0px;
+            border-radius: 0px 0px 4px 4px;
+        }
+        ul.live_search_box li.live_search_item{
+            list-style: none;
+            border-bottom: 1px solid lightgray;
+        }
+        ul.live_search_box li.live_search_item:last-child{
+            border-bottom: none;
+        }
+        ul.live_search_box li.live_search_item a.live_search_product_link{
+            display:flex;
+            padding: 10px;
+            transition: all .1s linear;
+        }
+        ul.live_search_box li.live_search_item a.live_search_product_link:hover{
+            box-shadow: 1px 1px 5px #cecece inset;
+        }
+        ul.live_search_box li.live_search_item a.live_search_product_link img.live_search_product_image{
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            min-height: 40px;
+            border: 1px solid lightgray;
+            border-radius: 4px
+        }
+        ul.live_search_box li.live_search_item a.live_search_product_link h6.live_search_product_title{
+            margin-left: 8px;
+            margin-top: 2px;
+            margin-bottom: 0px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        ul.live_search_box li.live_search_item a.live_search_product_link span.live_search_product_price{
+            display: block;
+            margin-top: 2px;
+            color: var(--primary-color);
+        }
+        /* live search css end */
+
         {!! $generalInfo->custom_css !!}
     </style>
 
@@ -206,8 +256,8 @@
     @endif
 
     @if ($generalInfo->messenger_chat_status)
-        <a href="{{ $generalInfo->fb_page_id }}" target="_blank" style="position: fixed; right: 25px; width: 60px; bottom: 20px; z-index: 99999;">
-            <img src="{{ url('assets') }}/img/messenger_icon.png" style="width: 100px">
+        <a href="{{ $generalInfo->fb_page_id }}" target="_blank" style="position: fixed; right: 10px; width: 60px; bottom: 20px; z-index: 99999;">
+            <img src="{{ url('assets') }}/images/messenger_icon.png" style="width: 60px; max-width: 60px">
         </a>
     @endif
 
@@ -218,30 +268,14 @@
             <div class="header-top">
                 <div class="container">
                     <div class="header-left">
-                        <p class="welcome-msg">Welcome to Zomex Store</p>
+                        <p class="welcome-msg">Welcome to {{env('APP_NAME')}}</p>
                     </div>
                     <div class="header-right">
-                        <a href="#" class="d-lg-show">Save more on app</a><span class="divider d-lg-show"></span>
-                        <a href="{{ url('/become/a/vendor') }}" class="d-lg-show">Sell on Zomex</a><span
-                            class="divider d-lg-show"></span> <a href="#" class="d-lg-show">Track Order</a><span
-                            class="divider d-lg-show"></span> <a href="#" class="d-lg-show">Customer Care</a><span
-                            class="divider d-lg-show"></span>
-                        <div class="dropdown">
-                            <a href="#language"><img src="{{ url('assets') }}/images/flags/eng.png" alt="ENG Flag"
-                                    width="14" height="8" class="dropdown-image" /> ENG</a>
-                            <div class="dropdown-box">
-                                <a href="#ENG">
-                                    <img src="{{ url('assets') }}/images/flags/eng.png" alt="ENG Flag"
-                                        width="14" height="8" class="dropdown-image" />
-                                    ENG
-                                </a>
-                                <a href="#FRA">
-                                    <img src="{{ url('assets') }}/images/flags/fra.png" alt="FRA Flag"
-                                        width="14" height="8" class="dropdown-image" />
-                                    FRA
-                                </a>
-                            </div>
-                        </div>
+                        <a href="{{$generalInfo->play_store_link}}" target="_blank" class="d-lg-show">Save more on app</a>
+                        <span class="divider d-lg-show"></span>
+                        <a href="{{ url('vendor/registration') }}" class="d-lg-show">Sell on Zomex</a>
+                        <span class="divider d-lg-show"></span>
+                        <a href="{{url('track/order')}}" class="d-lg-show">Track Order</a>
                     </div>
                 </div>
             </div>
@@ -251,26 +285,25 @@
                 <div class="container">
                     <div class="header-left mr-md-4">
                         <a href="#" class="mobile-menu-toggle w-icon-hamburger" aria-label="menu-toggle"> </a>
+
                         <a href="{{ url('/') }}" class="logo ml-lg-0">
-                            <img src="{{ url('assets') }}/images/logo.png" alt="logo" width="144"
-                                height="45" />
+                            <img src="{{ url(env('ADMIN_URL') . '/' . $generalInfo->logo) }}" alt="{{ $generalInfo->company_name }}" width="144" height="45" />
                         </a>
-                        <form method="get" action="#"
-                            class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
-                            <input type="text" class="form-control" name="search" id="search"
-                                placeholder="Search in..." required />
+
+                        <form action="{{ url('search/for/products') }}" method="GET" class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
+                            @csrf
+                            <input type="text" autocomplete="off" @if (isset($search_keyword)) value="{{ $search_keyword }}" @endif name="search_keyword" id="search_keyword" onkeyup="liveSearchProduct()" class="form-control" placeholder="Search for products..." required />
                             <button class="btn btn-search" type="submit">
                                 <i class="w-icon-search"></i>
                             </button>
+                            <ul class="live_search_box d-none">
+
+                            </ul>
                         </form>
+
                     </div>
                     <div class="header-right ml-4">
-                        <a class="wishlist label-down link d-xs-show" href="#">
-                            <i class="w-icon-map-marker"></i>
-                            <span class="wishlist-label d-lg-show">Deliver To</span>
-                        </a>
-
-                        <a class="wishlist label-down link d-xs-show" href="{{ url('/wishlist') }}">
+                        <a class="wishlist label-down link d-xs-show" href="{{ url('/view/wishlist') }}">
                             <i class="w-icon-heart"></i>
                             <span class="wishlist-label d-lg-show">Wishlist</span>
                         </a>
@@ -283,74 +316,27 @@
                                 </i>
                                 <span class="cart-label">Cart</span>
                             </a>
-                            <div class="dropdown-box">
-                                <div class="cart-header">
-                                    <span>Shopping Cart</span>
-                                    <a href="#" class="btn-close">Close<i
-                                            class="w-icon-long-arrow-right"></i></a>
-                                </div>
+                            <div class="dropdown-box" id="dropdown_box_sidebar_cart">
 
-                                <div class="products">
-                                    <div class="product product-cart">
-                                        <div class="product-detail">
-                                            <a href="{{ url('/product/details') }}" class="product-name">Beige
-                                                knitted
-                                                elas<br />tic runner shoes</a>
-                                            <div class="price-box">
-                                                <span class="product-quantity">1</span>
-                                                <span class="product-price">$25.68</span>
-                                            </div>
-                                        </div>
-                                        <figure class="product-media">
-                                            <a href="{{ url('/product/details') }}">
-                                                <img src="{{ url('assets') }}/images/cart/product-1.jpg"
-                                                    alt="product" height="84" width="94" />
-                                            </a>
-                                        </figure>
-                                        <button class="btn btn-link btn-close" aria-label="button">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>
+                                @include('sidebar_cart')
 
-                                    <div class="product product-cart">
-                                        <div class="product-detail">
-                                            <a href="{{ url('/product/details') }}" class="product-name">Blue utility
-                                                pina<br />fore denim dress</a>
-                                            <div class="price-box">
-                                                <span class="product-quantity">1</span>
-                                                <span class="product-price">$32.99</span>
-                                            </div>
-                                        </div>
-                                        <figure class="product-media">
-                                            <a href="{{ url('/product/details') }}">
-                                                <img src="{{ url('assets') }}/images/cart/product-2.jpg"
-                                                    alt="product" width="84" height="94" />
-                                            </a>
-                                        </figure>
-                                        <button class="btn btn-link btn-close" aria-label="button">
-                                            <i class="fas fa-times"></i>
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <div class="cart-total">
-                                    <label>Subtotal:</label>
-                                    <span class="price">$58.67</span>
-                                </div>
-
-                                <div class="cart-action">
-                                    <a href="{{ url('/cart') }}" class="btn btn-dark btn-outline btn-rounded">View
-                                        Cart</a>
-                                    <a href="{{ url('/checkout') }}" class="btn btn-primary btn-rounded">Checkout</a>
-                                </div>
                             </div>
                             <!-- End of Dropdown Box -->
                         </div>
 
-                        <a class="wishlist label-down link d-xs-show mr-0" href="{{ url('/login') }}">
+                        @auth
+                        <a class="wishlist label-down link d-xs-show mr-0" href="{{url('/home')}}">
                             <i class="w-icon-account"></i>
-                            <span class="wishlist-label d-lg-show">Login</span>
+                            <span class="my-account-label d-lg-show">My Account</span>
                         </a>
+                        @endauth
+
+                        @guest
+                        <a class="wishlist label-down link d-xs-show mr-0" href="{{url('/login')}}">
+                            <i class="w-icon-account"></i>
+                            <span class="my-account-label d-lg-show">Login/Register</span>
+                        </a>
+                        @endguest
                     </div>
                 </div>
             </div>
@@ -572,109 +558,6 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="{{ url('/shop') }}"> <i
-                                                    class="w-icon-electronics"></i>Electronics </a>
-                                            <ul class="megamenu">
-                                                <li>
-                                                    <h4 class="menu-title">Laptops &amp; Computers</h4>
-                                                    <hr class="divider" />
-                                                    <ul>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Desktop Computers</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Monitors</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Laptops</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Hard Drives &amp;
-                                                                Storage</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Computer Accessories</a>
-                                                        </li>
-                                                    </ul>
-
-                                                    <h4 class="menu-title mt-1">TV &amp; Video</h4>
-                                                    <hr class="divider" />
-                                                    <ul>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">TVs</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Home Audio Speakers</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Projectors</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Media Streaming Devices</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <h4 class="menu-title">Digital Cameras</h4>
-                                                    <hr class="divider" />
-                                                    <ul>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Digital SLR Cameras</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Sports & Action Cameras</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Camera Lenses</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Photo Printer</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Digital Memory Cards</a>
-                                                        </li>
-                                                    </ul>
-
-                                                    <h4 class="menu-title mt-1">Cell Phones</h4>
-                                                    <hr class="divider" />
-                                                    <ul>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Carrier Phones</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Unlocked Phones</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Phone & Cellphone Cases</a>
-                                                        </li>
-                                                        <li>
-                                                            <a href="{{ url('/shop') }}">Cellphone Chargers</a>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                                <li>
-                                                    <div class="menu-banner banner-fixed menu-banner4">
-                                                        <figure>
-                                                            <img src="{{ url('assets') }}/images/menu/banner-4.jpg"
-                                                                alt="Menu Banner" width="235" height="433" />
-                                                        </figure>
-                                                        <div class="banner-content">
-                                                            <h4 class="banner-subtitle font-weight-normal">Deals Of The
-                                                                Week</h4>
-                                                            <h3 class="banner-title text-white">Save On Smart EarPhone
-                                                            </h3>
-                                                            <div
-                                                                class="banner-price-info text-secondary font-weight-bolder text-uppercase text-secondary">
-                                                                20% Off</div>
-                                                            <a href="{{ url('/shop') }}"
-                                                                class="btn btn-white btn-outline btn-sm btn-rounded">Shop
-                                                                Now</a>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li>
                                             <a href="{{ url('/shop') }}"> <i class="w-icon-furniture"></i>Furniture
                                             </a>
                                             <ul class="megamenu type2">
@@ -814,33 +697,9 @@
                                                 Beauty </a>
                                         </li>
                                         <li>
-                                            <a href="{{ url('/shop') }}"> <i class="w-icon-gift"></i>Gift Ideas
+                                            <a href="{{ url('/shop') }}" class="font-weight-bold text-primary text-uppercase ls-25">
+                                                View All Categories<i class="w-icon-angle-right"></i>
                                             </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}"> <i class="w-icon-gamepad"></i>Toy & Games
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}"> <i class="w-icon-ice-cream"></i>Cooking
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}"> <i class="w-icon-ios"></i>Smart Phones
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}"> <i class="w-icon-camera"></i>Cameras &
-                                                Photo </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}"> <i class="w-icon-ruby"></i>Accessories
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}"
-                                                class="font-weight-bold text-primary text-uppercase ls-25"> View All
-                                                Categories<i class="w-icon-angle-right"></i> </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -1544,7 +1403,6 @@
     </div>
     <!-- End of Quick view -->
 
-
     <!-- Plugin JS File -->
     <script src="{{ url('assets') }}/vendor/jquery/jquery.min.js"></script>
     <script src="{{ url('assets') }}/vendor/jquery.plugin/jquery.plugin.min.js"></script>
@@ -1555,6 +1413,100 @@
     <script src="{{ url('assets') }}/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="{{ url('assets') }}/vendor/skrollr/skrollr.min.js"></script>
     <script src="{{ url('assets') }}/js/main.js"></script>
+
+    <script>
+
+        function renderLazyImage() {
+            var lazyloadImages;
+            if ("IntersectionObserver" in window) {
+                lazyloadImages = document.querySelectorAll(".lazy");
+                var imageObserver = new IntersectionObserver(function(entries, observer) {
+                    entries.forEach(function(entry) {
+                        if (entry.isIntersecting) {
+                            var image = entry.target;
+                            image.src = image.dataset.src;
+                            image.classList.remove("lazy");
+                            imageObserver.unobserve(image);
+                        }
+                    });
+                });
+
+                lazyloadImages.forEach(function(image) {
+                    imageObserver.observe(image);
+                });
+            } else {
+                var lazyloadThrottleTimeout;
+                lazyloadImages = document.querySelectorAll(".lazy");
+
+                function lazyload() {
+                    if (lazyloadThrottleTimeout) {
+                        clearTimeout(lazyloadThrottleTimeout);
+                    }
+
+                    lazyloadThrottleTimeout = setTimeout(function() {
+                        var scrollTop = window.pageYOffset;
+                        lazyloadImages.forEach(function(img) {
+                            if (img.offsetTop < (window.innerHeight + scrollTop)) {
+                                img.src = img.dataset.src;
+                                img.classList.remove('lazy');
+                            }
+                        });
+                        if (lazyloadImages.length == 0) {
+                            document.removeEventListener("scroll", lazyload);
+                            window.removeEventListener("resize", lazyload);
+                            window.removeEventListener("orientationChange", lazyload);
+                        }
+                    }, 20);
+                }
+
+                document.addEventListener("scroll", lazyload);
+                window.addEventListener("resize", lazyload);
+                window.addEventListener("orientationChange", lazyload);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function() {
+            renderLazyImage();
+        })
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        function liveSearchProduct(){
+
+            var searchKeyword = $("#search_keyword").val();
+
+            if(searchKeyword && searchKeyword != '' && searchKeyword != null){
+                var formData = new FormData();
+                formData.append("search_keyword", $("#search_keyword").val());
+
+                $.ajax({
+                    data: formData,
+                    url: "{{ url('product/live/search') }}",
+                    type: "POST",
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
+                        $('.live_search_box').removeClass('d-none');
+                        $('.live_search_box').html(data.searchResults);
+                        renderLazyImage();
+                    },
+                    error: function(data) {
+                        toastr.options.positionClass = 'toast-bottom-right';
+                        toastr.options.timeOut = 1000;
+                        toastr.error("Something Went Wrong");
+                    }
+                });
+            } else {
+                $('.live_search_box').addClass('d-none');
+            }
+
+        }
+    </script>
 
     @yield('footer_js')
 
