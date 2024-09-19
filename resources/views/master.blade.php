@@ -23,6 +23,7 @@
             'telegram',
             'youtube',
             'facebook',
+            'pinterest',
             'twitter',
             'linkedin',
             'instagram',
@@ -43,70 +44,22 @@
             'messenger_chat_status',
             'fb_page_id',
             'short_description',
+            'trade_license_no'
         )
         ->where('id', 1)
         ->first();
-
-    $categories = DB::table('categories')
-        ->select('name', 'id', 'slug', 'show_on_navbar', 'icon', 'banner_image')
-        ->where('status', 1)
-        ->orderBy('serial', 'asc')
-        ->get();
 @endphp
 
 <head>
     <!-- Start Meta Data -->
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
-    <title>Zomex - Marketplace HTML5 Template</title>
-
-    <meta name="keywords" content="Marketplace ecommerce responsive HTML5 Template" />
-    <meta name="description" content="Zomex is powerful marketplace &amp; ecommerce responsive Html5 Template." />
-    <meta name="author" content="D-THEMES" />
-
-    {{-- <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charset="UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="facebook-domain-verification" content="mqojk4x0lp4wedg7z9z54dbk94ikpt" /> --}}
     <!-- End Meta Data -->
 
     @stack('site-seo')
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="{{ url('assets') }}/images/icons/favicon.png" />
-
-    <link rel="preload" href="{{ url('assets') }}/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font"
-        type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="{{ url('assets') }}/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" as="font"
-        type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="{{ url('assets') }}/vendor/fontawesome-free/webfonts/fa-brands-400.woff2" as="font"
-        type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="{{ url('assets') }}/fonts/Zomex.woff?png09e" as="font" type="font/woff"
-        crossorigin="anonymous" />
-
-    <!-- Vendor CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/fontawesome-free/css/all.min.css" />
-
-    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/animate/animate.min.css" />
-    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/magnific-popup/magnific-popup.min.css" />
-    <link rel="stylesheet" href="{{ url('assets') }}/vendor/swiper/swiper-bundle.min.css" />
-
-    <!-- Main CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/style.css" />
-    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/demo.css" />
-    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/variable-colors.css" />
-
-    <!-- Vendor CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/bootstrap/bootstrap.min.css" />
-
-    <!-- Plugins CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/nouislider/nouislider.min.css" />
-    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/photoswipe/photoswipe.min.css" />
-    <link rel="stylesheet" type="text/css"
-        href="{{ url('assets') }}/vendor/photoswipe/default-skin/default-skin.min.css" />
-
-    <!-- Main CSS -->
-    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/style.css" />
 
     <!-- WebFont.js -->
     <script>
@@ -124,90 +77,36 @@
         })(document);
     </script>
 
+    <link rel="preload" href="{{ url('assets') }}/vendor/fontawesome-free/webfonts/fa-regular-400.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="{{ url('assets') }}/vendor/fontawesome-free/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="{{ url('assets') }}/vendor/fontawesome-free/webfonts/fa-brands-400.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="{{ url('assets') }}/fonts/Zomex.woff?png09e" as="font" type="font/woff" crossorigin="anonymous" />
+
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/fontawesome-free/css/all.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/animate/animate.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/magnific-popup/magnific-popup.min.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/vendor/swiper/swiper-bundle.min.css" />
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/style.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/variable-colors.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/toastr.min.css" />
+
     @yield('header_css')
 
-    {{-- <style>
+    <style>
         :root {
             --primary-color: {{ $generalInfo->primary_color }};
-            --primary-color-light: {{App\Models\Color::darkenColor($generalInfo->primary_color, 40)}};
             --secondary-color: {{ $generalInfo->secondary_color }};
-            --secondary-color-light: {{App\Models\Color::darkenColor($generalInfo->secondary_color, 40)}};
+            --title-color: {{ $generalInfo->title_color }};
+            --paragraph-color: {{ $generalInfo->paragraph_color }};
             --border-color: {{ $generalInfo->border_color }};
-            --border-color-light: {{App\Models\Color::darkenColor($generalInfo->border_color, 40)}};
         }
-
-        .toast {
-            font-size: 14px;
-        }
-
-        .subcategory_box{
-            width: 50%;
-            float: left;
-        }
-
-        .subcategory_box hr:first-of-type {
-            margin-right: 20px;
-        }
-
-        .subcategory_box a.subcategory_box_link{
-            padding: 0px;
-            margin: 0px;
-            line-height: 14px;
-            display: inline-block;
-        }
-
-        /* live search css start */
-        ul.live_search_box{
-            position: absolute;
-            top: 75%;
-            left: 145px;
-            z-index: 999;
-            background: white;
-            border: 1px solid lightgray;
-            width: 72%;
-            padding: 0px;
-            border-radius: 0px 0px 4px 4px;
-        }
-        ul.live_search_box li.live_search_item{
-            list-style: none;
-            border-bottom: 1px solid lightgray;
-        }
-        ul.live_search_box li.live_search_item:last-child{
-            border-bottom: none;
-        }
-        ul.live_search_box li.live_search_item a.live_search_product_link{
-            display:flex;
-            padding: 10px;
-            transition: all .1s linear;
-        }
-        ul.live_search_box li.live_search_item a.live_search_product_link:hover{
-            box-shadow: 1px 1px 5px #cecece inset;
-        }
-        ul.live_search_box li.live_search_item a.live_search_product_link img.live_search_product_image{
-            width: 40px;
-            height: 40px;
-            min-width: 40px;
-            min-height: 40px;
-            border: 1px solid lightgray;
-            border-radius: 4px
-        }
-        ul.live_search_box li.live_search_item a.live_search_product_link h6.live_search_product_title{
-            margin-left: 8px;
-            margin-top: 2px;
-            margin-bottom: 0px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        ul.live_search_box li.live_search_item a.live_search_product_link span.live_search_product_price{
-            display: block;
-            margin-top: 2px;
-            color: var(--primary-color);
-        }
-        /* live search css end */
 
         {!! $generalInfo->custom_css !!}
-    </style> --}}
+    </style>
 
     @if ($generalInfo->google_tag_manager_status)
         <!-- Google Tag Manager -->
@@ -232,17 +131,16 @@
 
     @if ($generalInfo->google_analytic_status)
         <!-- Google tag (gtag.js) google analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $generalInfo->google_analytic_tracking_id }}"
-            type="53191a76ba85f8f784cbe351-text/javascript"></script>
+        <script async src="https://www.googletagmanager.com/gtag/js?id={{ $generalInfo->google_analytic_tracking_id }}" type="53191a76ba85f8f784cbe351-text/javascript"></script>
         <script type="53191a76ba85f8f784cbe351-text/javascript">
-        window.dataLayer = window.dataLayer || [];
+            window.dataLayer = window.dataLayer || [];
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-        gtag('config', '{{$generalInfo->google_analytic_tracking_id}}');
-    </script>
+            function gtag() {
+                dataLayer.push(arguments);
+            }
+            gtag('js', new Date());
+            gtag('config', '{{$generalInfo->google_analytic_tracking_id}}');
+        </script>
     @endif
 
     @if ($generalInfo->fb_pixel_status)
@@ -301,19 +199,17 @@
 
     @if ($generalInfo->google_tag_manager_status)
         <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{ $generalInfo->google_tag_manager_id }}"
-                height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <noscript>
+            <iframe src="https://www.googletagmanager.com/ns.html?id={{ $generalInfo->google_tag_manager_id }}" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+        </noscript>
         <!-- End Google Tag Manager (noscript) -->
     @endif
 
-    {{-- @if ($generalInfo->messenger_chat_status)
-        <a href="{{ $generalInfo->fb_page_id }}" target="_blank"
-            style="position: fixed; right: 25px; width: 60px; bottom: 20px; z-index: 99999;">
+    @if ($generalInfo->messenger_chat_status)
+        <a href="{{ $generalInfo->fb_page_id }}" target="_blank" style="position: fixed; right: 25px; width: 60px; bottom: 20px; z-index: 99999;">
             <img src="{{ url('assets') }}/img/messenger_icon.png" style="width: 100px">
         </a>
-    @endif --}}
-
-    @stack('user_dashboard_menu')
+    @endif
 
     <div class="page-wrapper">
 
@@ -1658,99 +1554,14 @@
     <script src="{{ url('assets') }}/vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
     <script src="{{ url('assets') }}/vendor/swiper/swiper-bundle.min.js"></script>
     <script src="{{ url('assets') }}/vendor/skrollr/skrollr.min.js"></script>
-
-    <!-- Main JS -->
     <script src="{{ url('assets') }}/js/main.js"></script>
-
-    <!-- Plugin JS File -->
-    <script src="assets/vendor/sticky/sticky.js"></script>
-    <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
-    <script src="assets/vendor/nouislider/nouislider.min.js"></script>
-    <script src="assets/vendor/popper/popper.min.js"></script>
-    <script src="assets/vendor/bootstrap-multiselect/bootstrap-multiselect.min.js"></script>
-    <script src="assets/vendor/photoswipe/photoswipe.js"></script>
-    <script src="assets/vendor/photoswipe/photoswipe-ui-default.js"></script>
-
-    <!-- Image Upload JS -->
-    <script type="text/javascript">
-        function uploadLibraryPhoto(event, inputId) {
-            const fileInput = event.target;
-            const files = fileInput.files;
-
-            const uploadImageList = document.getElementById("upload-image-list" +
-                inputId); // Dynamically get the correct upload image list
-
-            for (let i = 0; i < files.length; i++) {
-                const file = files[i];
-                const reader = new FileReader();
-
-                reader.onload = function() {
-                    const imageElement = document.createElement("img");
-                    imageElement.src = reader.result;
-
-                    const removeIcon = document.createElement("div");
-                    removeIcon.classList.add("remove-icon");
-                    removeIcon.innerHTML = '<i class="fa fa-times"></i>';
-
-                    const imageContainer = document.createElement("div");
-                    imageContainer.style.position = "relative ";
-                    imageContainer.appendChild(removeIcon);
-                    imageContainer.appendChild(imageElement);
-
-                    uploadImageList.appendChild(imageContainer);
-
-                    // Add event listener to remove image
-                    removeIcon.addEventListener("click", function() {
-                        uploadImageList.removeChild(imageContainer);
-                    });
-                };
-
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function removeImage(inputId) {
-            const uploadImageList = document.getElementById("upload-image-list" + inputId);
-            uploadImageList.innerHTML = ""; // Remove all child elements
-        }
-    </script>
-
-    <!-- Password Show/Hidden JS -->
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function() {
-            const passwordField = document.getElementById("password");
-            const togglePassword = document.getElementById("togglePassword");
-
-            togglePassword.addEventListener("click", function() {
-                if (passwordField.type === "password") {
-                    passwordField.type = "text";
-                    togglePassword.classList.remove("fa-eye-slash");
-                    togglePassword.classList.add("fa-eye");
-                } else {
-                    passwordField.type = "password";
-                    togglePassword.classList.remove("fa-eye");
-                    togglePassword.classList.add("fa-eye-slash");
-                }
-            });
-        });
-    </script>
-
-    <!-- Multiple Select JS -->
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $("#multiple-checkboxes").multiselect({
-                includeSelectAllOption: true,
-            });
-        });
-    </script>
-
 
     @yield('footer_js')
 
     {!! $generalInfo->footer_script !!}
 
-    {{-- <script src="{{ url('assets') }}/js/toastr.min.js"></script>
-    {!! Toastr::message() !!} --}}
+    <script src="{{ url('assets') }}/js/toastr.min.js"></script>
+    {!! Toastr::message() !!}
 
 </body>
 

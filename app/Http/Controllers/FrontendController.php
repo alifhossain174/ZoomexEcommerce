@@ -130,17 +130,4 @@ class FrontendController extends Controller
         return view('error_404');
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 }
