@@ -60,7 +60,9 @@
                         <!-- End of Toolbox -->
 
                         <div class="row cols-sm-2">
+                            {{-- Vendor Shop loop start --}}
                             @include('vendor_shop.vendor_shop')
+                            {{-- Vendor Shop loop start --}}
                         </div>
                     </div>
                     <!-- End of Main Content -->
