@@ -1,35 +1,59 @@
-<div class="product">
+@php
+    $totalStockAllVariants = $product->stock; // jekonon variant er at least ekta stock e thakleo stock in dekhabe
+    $variants = DB::table('product_variants')
+        ->select('discounted_price', 'price', 'stock')
+        ->where('product_id', $product->id)
+        ->get();
+    if ($variants && count($variants) > 0) {
+        $totalStockAllVariants = 0;
+        $variantMinDiscountPrice = 0;
+        $variantMinPrice = 0;
+        $variantMinDiscountPriceArray = [];
+        $variantMinPriceArray = [];
+
+        foreach ($variants as $variant) {
+            $variantMinDiscountPriceArray[] = $variant->discounted_price;
+            $variantMinPriceArray[] = $variant->price;
+            $totalStockAllVariants = $totalStockAllVariants + (int) $variant->stock;
+        }
+
+        $variantMinDiscountPrice = min($variantMinDiscountPriceArray);
+        $variantMinPrice = min($variantMinPriceArray);
+    }
+@endphp
+
+<div class="product-wrap product" style="min-height: 342px;">
     <figure class="product-media">
-        <a href="{{ url('/product/details') }}">
-            <img src="{{ url('assets') }}/images/demos/demo2/products/1-1-1.jpg" alt="Product" width="300"
-                height="338" />
-            <img src="{{ url('assets') }}/images/demos/demo2/products/1-1-2.jpg" alt="Product" width="300"
-                height="338" />
+        <a href="{{ url('product') }}/{{ $product->slug }}">
+            <img class="lazy" src="{{ url('assets') }}/img/product-load.gif"
+                data-src="{{ url(env('ADMIN_URL') . '/' . $product->image) }}" alt=""
+                style="width: 100%; height: 232px" />
         </a>
         <div class="product-action-vertical">
-            <a href="#" class="btn-product-icon btn-cart w-icon-cart" title="Add to cart"></a>
-            <a href="#" class="btn-product-icon btn-wishlist w-icon-heart" title="Add to wishlist"></a>
-            <a href="#" class="btn-product-icon btn-quickview w-icon-search" title="Quickview"></a>
+            @include('single_product.cart_wishlist_compare')
         </div>
+
+        @if($product->flag_name)
         <div class="product-label-group">
-            <label class="product-label label-new">New</label>
+            <label class="product-label label-new">{{ $product->flag_name }}</label>
         </div>
+        @endif
+
+        @if($product->category_name)
         <div class="product-label-fixed">
-            <label>Zomex <span>Choice</span></label>
+            <label>{{ $product->category_name }}</label>
         </div>
+        @endif
+
     </figure>
     <div class="product-details">
         <h4 class="product-name">
-            <a href="{{ url('/product/details') }}">Women's Comforter</a>
+            <a href="{{ url('product') }}/{{ $product->slug }}">{{ $product->name }}</a>
         </h4>
         <div class="product-price"><ins class="new-price">৳10.000</ins><del class="old-price">৳11,000</del></div>
         <div class="ratings-container">
-            <div class="ratings-full">
-                <span class="ratings" style="width: 100%"></span>
-                <span class="tooltiptext tooltip-top"></span>
-            </div>
-            <a href="{{ url('/product/details') }}" class="rating-reviews">(3 Reviews)</a>
-            <span class="sold-item">Sold (1530)</span>
+            @include('single_product.review_rating')
         </div>
+        @include('single_product.offer_countdown')
     </div>
 </div>

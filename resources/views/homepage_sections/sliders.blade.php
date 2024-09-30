@@ -8,53 +8,18 @@
             }
         }">
         <div class="swiper-wrapper">
-            <div class="swiper-slide banner banner-fixed intro-slide intro-slide1"
-                style="background-image: url({{ url('assets') }}/images/demos/demo1/sliders/slide-1.jpg); background-color: #ebeef2">
+
+            @foreach ($sliders as $slider)
+            <div class="swiper-slide banner banner-fixed intro-slide intro-slide1" style="background-image: url({{ url(env('ADMIN_URL') . '/' . $slider->image) }}); background-color: #ebedec;">
                 <div class="container">
-                    <figure class="slide-image skrollable slide-animate">
-                        <img src="{{ url('assets') }}/images/demos/demo1/sliders/shoes.png" alt="Banner"
-                            data-bottom-top="transform: translateY(10vh);"
+                    {{-- <figure class="slide-image skrollable slide-animate">
+                        <img src="{{ url('assets') }}/images/demos/demo1/sliders/shoes.png" alt="Banner" data-bottom-top="transform: translateY(10vh);"
                             data-top-bottom="transform: translateY(-10vh);" width="474" height="397" />
-                    </figure>
-                </div>
-                <!-- End of .container -->
-            </div>
-            <!-- End of .intro-slide1 -->
-
-            <div class="swiper-slide banner banner-fixed intro-slide intro-slide2"
-                style="background-image: url({{ url('assets') }}/images/demos/demo1/sliders/slide-2.jpg); background-color: #ebeef2">
-                <div class="container">
-                    <figure class="slide-image skrollable slide-animate"
-                        data-animation-options="{
-                            'name': 'fadeInUpShorter',
-                            'duration': '1s'
-                        }">
-                        <img src="{{ url('assets') }}/images/demos/demo1/sliders/men.png" alt="Banner"
-                            data-bottom-top="transform: translateX(10vh);"
-                            data-top-bottom="transform: translateX(-10vh);" width="480" height="633" />
-                    </figure>
-                </div>
-                <!-- End of .container -->
-            </div>
-            <!-- End of .intro-slide2 -->
-
-            <div class="swiper-slide banner banner-fixed intro-slide intro-slide3"
-                style="background-image: url({{ url('assets') }}/images/demos/demo1/sliders/slide-3.jpg); background-color: #f0f1f2">
-                <div class="container">
-                    <figure class="slide-image skrollable slide-animate"
-                        data-animation-options="{
-                            'name': 'fadeInDownShorter',
-                            'duration': '1s'
-                        }">
-                        <img src="{{ url('assets') }}/images/demos/demo1/sliders/skate.png" alt="Banner"
-                            data-bottom-top="transform: translateY(10vh);"
-                            data-top-bottom="transform: translateY(-10vh);" width="310" height="444" />
-                    </figure>
-
-                    <!-- End of .container -->
+                    </figure> --}}
                 </div>
             </div>
-            <!-- End of .intro-slide3 -->
+            @endforeach
+
         </div>
         <div class="swiper-pagination"></div>
         <button class="swiper-button-next"></button>

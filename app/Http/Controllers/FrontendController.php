@@ -12,7 +12,122 @@ class FrontendController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $sliders = DB::table('banners')->where('type', 1)->where('status', 1)->orderBy('serial', 'asc')->get();
+
+        $flashSales = DB::table('products')
+                        ->leftJoin('categories', 'products.category_id', 'categories.id')
+                        ->leftJoin('flags', 'products.flag_id', 'flags.id')
+                        ->select('categories.name as category_name', 'flags.name as flag_name', 'products.*')
+                        ->where('special_offer', 1)
+                        ->where('offer_end_time', '>', date("Y-m-d H:i:s"))
+                        ->where('products.status', 1)
+                        ->inRandomOrder()
+                        ->skip(0)
+                        ->limit(20)
+                        ->get();
+
+        $featuredFlags = DB::table('flags')->where('featured', 1)->where('status', 1)->orderBy('serial', 'asc')->get();
+        $topBanners = DB::table('banners')->where('type', 2)->where('position', 'top')->where('status', 1)->orderBy('serial', 'asc')->get();
+        $featuredCategories = DB::table('categories')->where('featured', 1)->where('status', 1)->orderBy('serial', 'asc')->get();
+
+        $topSellingVendors = DB::table('stores')
+                                ->leftJoin('order_details', 'order_details.store_id', 'stores.id')
+                                ->select('stores.store_name', 'stores.store_logo', 'stores.store_banner', 'stores.slug', 'order_details.store_id', DB::raw('SUM(order_details.qty) as total_sold'))
+                                ->where('stores.status', 1)
+                                ->groupBy('order_details.store_id')
+                                ->orderByDesc('total_sold')
+                                ->skip(0)
+                                ->limit(6)
+                                ->get();
+
+        $middleBanners = DB::table('banners')->where('type', 2)->where('position', 'middle')->where('status', 1)->orderBy('serial', 'asc')->get();
+        $bottomBanners = DB::table('banners')->where('type', 2)->where('position', 'bottom')->where('status', 1)->orderBy('serial', 'asc')->get();
+        $productsForYou = $this->productsForYou();
+
+        return view('index', compact('sliders', 'flashSales', 'featuredFlags', 'topBanners', 'featuredCategories', 'topSellingVendors', 'middleBanners', 'bottomBanners', 'productsForYou'));
+    }
+
+    public function productsForYou($productSkip = 0){
+
+        $alreadyOrdered = array();
+        $similarCategories = array();
+        $similarSubCategories = array();
+        // $similarChildCategories = array();
+
+        if(Auth::user()){
+
+            // calculating already ordered products category start
+            $similarOrderedProducts = DB::table('order_details')
+                ->leftJoin('products', 'order_details.product_id', '=', 'products.id')
+                ->leftJoin('orders', 'order_details.order_id', '=', 'orders.id')
+                ->where('orders.user_id', Auth::user()->id)
+                ->select('products.category_id', 'products.subcategory_id', 'products.childcategory_id', 'products.id as product_id')
+                ->groupBy('order_details.product_id')
+                ->get();
+
+            foreach($similarOrderedProducts as $item){
+                array_push($alreadyOrdered, $item->product_id);
+                array_push($similarCategories, $item->category_id);
+                array_push($similarSubCategories, $item->subcategory_id);
+                // array_push($similarChildCategories, $item->childcategory_id);
+            }
+
+            $query = DB::table('products')
+                ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+                ->leftJoin('subcategories', 'products.subcategory_id', '=', 'subcategories.id')
+                ->leftJoin('flags', 'products.flag_id', 'flags.id')
+                ->select('products.*', 'flags.name as flag_name', 'categories.name as category_name', 'subcategories.name as subcategory_name')
+                ->where('products.status', 1);
+
+            // custom lagic for products you may like start
+            if(count($alreadyOrdered) > 0){
+                $query->whereNotIn('products.id', $alreadyOrdered);
+            }
+            if(count($similarCategories) > 0){
+                $query->whereIn('products.category_id', $similarCategories);
+            }
+            if(count($similarSubCategories) > 0){
+                $query->whereIn('products.subcategory_id', $similarSubCategories);
+            }
+            // if(count($similarChildCategories) > 0){
+            //     $query->whereIn('products.childcategory_id', $similarChildCategories);
+            // }
+            // custom lagic for products you may like end
+
+            $productsForYou = $query->orderBy('products.id', 'desc')->skip($productSkip)->limit(20)->get();
+
+        } else {
+            $productsForYou = DB::table('products')
+                ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+                ->leftJoin('subcategories', 'products.subcategory_id', '=', 'subcategories.id')
+                ->leftJoin('flags', 'products.flag_id', 'flags.id')
+                ->select('products.*', 'flags.name as flag_name', 'categories.name as category_name', 'subcategories.name as subcategory_name')
+                ->where('products.status', 1)
+                ->orderBy('products.id', 'desc')
+                ->skip($productSkip)
+                ->limit(20)
+                ->get();
+        }
+
+        return $productsForYou;
+    }
+
+    public function fetchMoreProducts(Request $request){
+        $product_fetch_skip = $request->product_fetch_skip;
+        $totalProducts = DB::table('products')->where('products.status', 1)->count();
+
+        if($product_fetch_skip < $totalProducts){
+
+            $products = $this->productsForYou($product_fetch_skip);
+
+            $countFetchedProducts = count($products);
+            $returnHTML = view('homepage_sections.more_products', compact('products'))->render();
+            return response()->json(['more_products' => $returnHTML, 'fetched_products' => $countFetchedProducts, 'total_products' => $totalProducts]);
+
+        } else {
+            $countFetchedProducts = 0;
+            return response()->json(['fetched_products' => $countFetchedProducts, 'total_products' => $totalProducts]);
+        }
     }
 
     public function searchForProducts(Request $request){
@@ -198,11 +313,6 @@ class FrontendController extends Controller
     public function orderView()
     {
         return view('order_view');
-    }
-
-    public function vendorShopDetails()
-    {
-        return view('vendor_shop_details');
     }
 
     public function vendorShop()

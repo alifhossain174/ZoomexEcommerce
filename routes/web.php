@@ -10,6 +10,7 @@ Auth::routes();
 @include('anonna.php');
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::post('/fetch/more/products', [FrontendController::class, 'fetchMoreProducts'])->name('FetchMoreProducts');
 Route::get('/search/for/products', [FrontendController::class, 'searchForProducts'])->name('SearchForProducts');
 Route::post('/product/live/search', [FrontendController::class, 'productLiveSearch'])->name('ProductLiveSearch');
 Route::get('/product/{slug}', [FrontendController::class, 'productDetails'])->name('ProductDetails');
@@ -35,7 +36,6 @@ Route::get('/order-view', [FrontendController::class, 'orderView'])->name('Order
 
 Route::get('/vendor-register', [FrontendController::class, 'vendorRegister'])->name('VendorRegister');
 Route::get('/vendor-shop', [FrontendController::class, 'vendorShop'])->name('VendorShop');
-Route::get('/vendor-shop-details', [FrontendController::class, 'vendorShopDetails'])->name('VendorShopDetails');
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
 
 Route::get('/category', [FrontendController::class, 'category'])->name('Category');
