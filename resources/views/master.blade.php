@@ -777,28 +777,7 @@
     </div>
     <!-- End of Mobile Menu -->
 
-    <!-- Start of Newsletter popup -->
-    <div class="newsletter-popup mfp-hide">
-        <div class="newsletter-content">
-            <h4 class="text-uppercase font-weight-normal ls-25">Get Up to<span class="text-primary">25% Off</span>
-            </h4>
-            <h2 class="ls-25">Sign up to Zomex</h2>
-            <p class="text-light ls-10">Subscribe to the Zomex market newsletter to receive updates on special offers.
-            </p>
-            <form action="#" method="get" class="input-wrapper input-wrapper-inline input-wrapper-round">
-                <input type="email" class="form-control email font-size-md" name="email" id="email2"
-                    placeholder="Your email address" required="" />
-                <button class="btn btn-dark" type="submit">SUBMIT</button>
-            </form>
-            <div class="form-checkbox d-flex align-items-center">
-                <input type="checkbox" class="custom-checkbox" id="hide-newsletter-popup"
-                    name="hide-newsletter-popup" required="" />
-                <label for="hide-newsletter-popup" class="font-size-sm text-light">Don't show this popup
-                    again.</label>
-            </div>
-        </div>
-    </div>
-    <!-- End of Newsletter popup -->
+    @include('newsletter')
 
     <!-- Start of Quick View -->
     <div class="product product-single product-popup">
@@ -1052,6 +1031,46 @@
             }
 
         }
+
+
+        $('body').on('click', '.addToCart', function() {
+            var id = $(this).data('id');
+            $.get("{{ url('add/to/cart') }}" + '/' + id, function(data) {
+                toastr.options.positionClass = 'toast-bottom-right';
+                toastr.options.timeOut = 1000;
+                toastr.success("Added to Cart");
+                $("#dropdown_box_sidebar_cart").html(data.rendered_cart);
+                $("span.cart-count").html(data.cartTotalQty);
+            })
+            // $(this).html("<span class='add__to--cart__text'> Remove</span>");
+            // $(this).removeClass("addToCart");
+            // $(this).addClass("removeFromCart");
+            // $(this).blur();
+        });
+
+        $('body').on('click', '.sidebar-product-remove', function() {
+            var id = $(this).data('id');
+
+            $.get("{{ url('remove/cart/item') }}" + '/' + id, function(data) {
+                $("span.cart-count").html(data.cartTotalQty);
+                $("#dropdown_box_sidebar_cart").html(data.rendered_cart);
+                // $("#view_cart_items").html(data.viewCartItems);
+                // $("#view_cart_calculation").html(data.viewCartCalculation);
+                // $("#product_details_cart_qty").val(1);
+                // $("table.cart-single-product-table tbody").html(data.checkoutCartItems);
+                // $(".order-review-summary").html(data.checkoutTotalAmount);
+            })
+
+            // $('.cart-' + id).html("<i class='fi fi-rr-shopping-cart product__items--action__btn--svg'></i><span class='add__to--cart__text'> Add to cart</span>");
+            // $('.cart-' + id).attr('data-id', id).removeClass("removeFromCart");
+            // $('.cart-' + id).attr('data-id', id).addClass("addToCart");
+            // $('.cart-' + id).blur();
+
+            // $('.cart-qty-' + id).html("<i class='w-icon-cart'></i><span> Add to cart</span>");
+            // $('.cart-qty-' + id).attr('data-id', id).removeClass("removeFromCartQty");
+            // $('.cart-qty-' + id).attr('data-id', id).addClass("addToCartWithQty");
+            // $('.cart-qty-' + id).blur();
+        });
     </script>
 
     @yield('footer_js')

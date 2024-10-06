@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CartController;
+use Spatie\Honeypot\ProtectAgainstSpam;
 
 Auth::routes();
 
@@ -13,10 +15,19 @@ Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::post('/fetch/more/products', [FrontendController::class, 'fetchMoreProducts'])->name('FetchMoreProducts');
 Route::get('/search/for/products', [FrontendController::class, 'searchForProducts'])->name('SearchForProducts');
 Route::post('/product/live/search', [FrontendController::class, 'productLiveSearch'])->name('ProductLiveSearch');
+Route::post('/subscribe/for/newsletter', [FrontendController::class, 'subscribeForNewsletter'])->name('SubscribeForNewsletter')->middleware(ProtectAgainstSpam::class)->middleware(['throttle:3,1']);
 Route::get('/product/{slug}', [FrontendController::class, 'productDetails'])->name('ProductDetails');
 Route::get('track/order/{order_no}', [FrontendController::class, 'trackOrder'])->name('TrackOrder');
 Route::get('track/order', [FrontendController::class, 'trackOrderNo'])->name('TrackOrderNo');
 
+
+// cart
+Route::get('add/to/cart/{id}', [CartController::class, 'addToCart'])->name('AddToCart');
+Route::post('add/to/cart/with/qty', [CartController::class, 'addToCartWithQty'])->name('AddToCartWithQty');
+Route::get('remove/cart/item/{id}', [CartController::class, 'removeCartTtem'])->name('RemoveCartTtem');
+Route::post('update/cart/qty', [CartController::class, 'updateCartQty'])->name('UpdateCartQty');
+Route::get('view/cart', [CartController::class, 'viewCart'])->name('ViewCart');
+Route::get('clear/cart', [CartController::class, 'clearCart'])->name('ClearCart');
 
 
 Route::get('/login', [FrontendController::class, 'login'])->name('login');

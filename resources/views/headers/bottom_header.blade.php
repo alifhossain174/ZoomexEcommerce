@@ -8,6 +8,25 @@
                         <span>Browse Categories</span>
                     </a>
 
+                    @if(Request::path() != '/')
+                    <style>
+                        .header-bottom:not(.fixed) .dropdown-box{
+                            visibility: hidden;
+                        }
+
+                        a.category-toggle:hover{
+                            visibility: visible;
+
+                        }
+                        a.category-toggle span,a.category-toggle i{
+                            color: #1e1e1e !important;
+                        }
+                        .category-dropdown > a::after {
+                            color: #1e1e1e !important;
+                        }
+                    </style>
+                    @endif
+
                     <div class="dropdown-box">
                         <ul class="menu vertical-menu category-menu">
                             @foreach ($categories as $category)

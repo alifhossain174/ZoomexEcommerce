@@ -25,9 +25,7 @@
 <div class="product-wrap product" style="min-height: 342px;">
     <figure class="product-media">
         <a href="{{ url('product') }}/{{ $product->slug }}">
-            <img class="lazy" src="{{ url('assets') }}/img/product-load.gif"
-                data-src="{{ url(env('ADMIN_URL') . '/' . $product->image) }}" alt=""
-                style="width: 100%; height: 232px" />
+            <img class="lazy" src="{{ url('assets') }}/img/product-load.gif" data-src="{{ url(env('ADMIN_URL') . '/' . $product->image) }}" alt="" style="width: 100%; height: 232px" />
         </a>
         <div class="product-action-vertical">
             @include('single_product.cart_wishlist_compare')

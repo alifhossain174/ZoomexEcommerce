@@ -149,6 +149,23 @@ class FrontendController extends Controller
         return response()->json(['searchResults' => $searchResults]);
     }
 
+    public function subscribeForNewsletter(Request $request){
+
+        $data = DB::table('subscribed_users')->where('email', trim($request->email))->first();
+        if($data){
+            Toastr::warning('Already Subscribed', 'Success');
+            return back();
+        } else {
+            DB::table('subscribed_users')->insert([
+                'email' => $request->email,
+                'created_at' => Carbon::now()
+            ]);
+            Toastr::success('Successfully Subscribed', 'Success');
+            return back();
+        }
+    }
+
+
     public function trackOrder($orderNo){
         $orderInfo = DB::table('orders')->where('order_no', $orderNo)->first();
 
