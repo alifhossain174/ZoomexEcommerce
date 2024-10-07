@@ -1071,6 +1071,39 @@
             // $('.cart-qty-' + id).attr('data-id', id).addClass("addToCartWithQty");
             // $('.cart-qty-' + id).blur();
         });
+
+        $('body').on('click', '.quantity__value_details', function() {
+            var id = $(this).data('id');
+            var quantityInput = this.parentElement.querySelector("input");
+            var currentQuantity = parseInt(quantityInput.value);
+
+            if (this.classList.contains("decrease")) {
+                quantityInput.value = Math.max(currentQuantity - 1, 1);
+            } else if (this.classList.contains("increase")) {
+                quantityInput.value = currentQuantity + 1;
+            }
+
+            var formData = new FormData();
+            formData.append("cart_id", id);
+            formData.append("cart_qty", quantityInput.value);
+            $.ajax({
+                data: formData,
+                url: "{{ url('update/cart/qty') }}",
+                type: "POST",
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function(data) {
+                    $("#dropdown_box_sidebar_cart").html(data.rendered_cart);
+                    $("#view_cart_items").html(data.viewCartItems);
+                    // $("#view_cart_calculation").html(data.viewCartCalculation);
+                },
+                error: function(data) {
+                    console.log('Error:', data);
+                }
+            });
+
+        });
     </script>
 
     @yield('footer_js')

@@ -9,7 +9,6 @@ use Spatie\Honeypot\ProtectAgainstSpam;
 
 Auth::routes();
 
-@include('anonna.php');
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
 Route::post('/fetch/more/products', [FrontendController::class, 'fetchMoreProducts'])->name('FetchMoreProducts');
@@ -19,6 +18,7 @@ Route::post('/subscribe/for/newsletter', [FrontendController::class, 'subscribeF
 Route::get('/product/{slug}', [FrontendController::class, 'productDetails'])->name('ProductDetails');
 Route::get('track/order/{order_no}', [FrontendController::class, 'trackOrder'])->name('TrackOrder');
 Route::get('track/order', [FrontendController::class, 'trackOrderNo'])->name('TrackOrderNo');
+Route::post('check/product/variant', [FrontendController::class, 'checkProductVariant'])->name('CheckProductVariant');
 
 
 // cart
@@ -57,6 +57,13 @@ Route::get('/faq', [FrontendController::class, 'faq'])->name('faq');
 
 Route::get('/error-404', [FrontendController::class, 'error_404'])->name('error-404');
 
-
-Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/view/wishlist', [HomeController::class, 'viewWishList'])->name('ViewWishList');
+
+
+Route::group(['middleware' => ['auth']], function () {
+
+    Route::get('add/to/wishlist/{slug}', [HomeController::class, 'addToWishlist'])->name('AddToWishlist');
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+});

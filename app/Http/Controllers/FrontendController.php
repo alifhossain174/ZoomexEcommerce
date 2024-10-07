@@ -165,6 +165,33 @@ class FrontendController extends Controller
         }
     }
 
+    public function checkProductVariant(Request $request){
+
+        $query = DB::table('product_variants')->where('product_id', $request->product_id);
+        if($request->color_id != 'null'){
+            $query->where('color_id', $request->color_id);
+        }
+        if($request->size_id != 'null'){
+            $query->where('size_id', $request->size_id);
+        }
+
+        $data = $query->where('stock', '>', 0)->orderBy('discounted_price', 'asc')->orderBy('price', 'asc')->first();
+        if($data){
+
+            $product = DB::table('products')->where('id', $request->product_id)->first();
+            $returnHTML = view('product_details.cart_buy_button', compact('product'))->render();
+            return response()->json([
+                'rendered_button' => $returnHTML,
+                'price' => $data->price,
+                'discounted_price' => $data->discounted_price,
+                'stock' => $data->stock
+            ]);
+
+        }else {
+            return response()->json(['price' => 0, 'discounted_price' => 0, 'save' => 0, 'stock' => 0]);
+        }
+
+    }
 
     public function trackOrder($orderNo){
         $orderInfo = DB::table('orders')->where('order_no', $orderNo)->first();
@@ -261,9 +288,11 @@ class FrontendController extends Controller
 
         if($product->store_id){
             $vendorProducts = DB::table('products')
-                        ->select('products.image', 'products.name', 'price', 'discount_price', 'products.id', 'products.slug', 'stock', 'has_variant')
-                        ->where('store_id', $product->store_id)
-                        ->where('id', '!=', $product->id)
+                        ->leftJoin('categories', 'products.category_id', 'categories.id')
+                        ->leftJoin('flags', 'products.flag_id', 'flags.id')
+                        ->select('categories.name as category_name', 'flags.name as flag_name', 'products.*')
+                        ->where('products.store_id', $product->store_id)
+                        ->where('products.id', '!=', $product->id)
                         ->inRandomOrder()
                         ->skip(0)
                         ->limit(12)
@@ -273,9 +302,11 @@ class FrontendController extends Controller
         }
 
         $relatedProducts = DB::table('products')
-                            ->select('products.image', 'products.name', 'price', 'discount_price', 'products.id', 'products.slug', 'stock', 'has_variant')
-                            ->where('category_id', $product->category_id)
-                            ->where('id', '!=', $product->id)
+                            ->leftJoin('categories', 'products.category_id', 'categories.id')
+                            ->leftJoin('flags', 'products.flag_id', 'flags.id')
+                            ->select('categories.name as category_name', 'flags.name as flag_name', 'products.*')
+                            ->where('products.category_id', $product->category_id)
+                            ->where('products.id', '!=', $product->id)
                             ->inRandomOrder()
                             ->skip(0)
                             ->limit(12)
@@ -314,7 +345,7 @@ class FrontendController extends Controller
 
         $configSetup = DB::table('config_setups')->get();
 
-        return view('product_details', compact('vendorProducts', 'relatedProducts', 'mayLikedProducts', 'product', 'averageRating', 'totalReviews', 'productReviews', 'productMultipleImages', 'variants', 'configSetup'));
+        return view('product_details.details', compact('vendorProducts', 'relatedProducts', 'mayLikedProducts', 'product', 'averageRating', 'totalReviews', 'productReviews', 'productMultipleImages', 'variants', 'configSetup'));
     }
 
     public function order()
