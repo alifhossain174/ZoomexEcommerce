@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\FilterController;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
 Auth::routes();
@@ -19,6 +20,8 @@ Route::get('/product/{slug}', [FrontendController::class, 'productDetails'])->na
 Route::get('track/order/{order_no}', [FrontendController::class, 'trackOrder'])->name('TrackOrder');
 Route::get('track/order', [FrontendController::class, 'trackOrderNo'])->name('TrackOrderNo');
 Route::post('check/product/variant', [FrontendController::class, 'checkProductVariant'])->name('CheckProductVariant');
+Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
+Route::post('/filter/products', [FilterController::class, 'filterProducts'])->name('FilterProducts');
 
 
 // cart
@@ -47,7 +50,6 @@ Route::get('/order-view', [FrontendController::class, 'orderView'])->name('Order
 
 Route::get('/vendor-register', [FrontendController::class, 'vendorRegister'])->name('VendorRegister');
 Route::get('/vendor-shop', [FrontendController::class, 'vendorShop'])->name('VendorShop');
-Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
 
 Route::get('/category', [FrontendController::class, 'category'])->name('Category');
 Route::get('/cart', [FrontendController::class, 'cart'])->name('cart');

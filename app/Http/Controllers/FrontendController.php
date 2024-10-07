@@ -348,6 +348,142 @@ class FrontendController extends Controller
         return view('product_details.details', compact('vendorProducts', 'relatedProducts', 'mayLikedProducts', 'product', 'averageRating', 'totalReviews', 'productReviews', 'productMultipleImages', 'variants', 'configSetup'));
     }
 
+    public function shop(Request $request)
+    {
+        $categories = DB::table('categories')->where('status', 1)->orderBy('serial', 'asc')->get();
+        $flags = DB::table('flags')->where('status', 1)->orderBy('id', 'desc')->get();
+        $brands = DB::table('brands')->where('status', 1)->orderBy('serial', 'asc')->get();
+        $sizes = DB::table('product_sizes')->where('status', 1)->orderBy('serial', 'asc')->get();
+        $shopBanner = DB::table('banners')->where('type', 2)->where('position', 'shop')->orderBy('id', 'desc')->first();
+        $colors = DB::table('product_variants')
+                    ->join('colors', 'product_variants.color_id', 'colors.id')
+                    ->select('colors.*')
+                    ->groupBy('product_variants.color_id')
+                    ->orderBy('colors.name', 'asc')
+                    ->get();
+
+        $query = DB::table('products')
+            ->leftJoin('stores', 'products.store_id', '=', 'stores.id')
+            ->leftJoin('categories', 'products.category_id', '=', 'categories.id')
+            ->leftJoin('subcategories', 'products.subcategory_id', '=', 'subcategories.id')
+            ->leftJoin('child_categories', 'products.childcategory_id', '=', 'child_categories.id')
+            ->leftJoin('flags', 'products.flag_id', 'flags.id')
+            ->leftJoin('brands', 'products.brand_id', 'brands.id')
+            ->leftJoin('product_variants', 'products.id', 'product_variants.product_id')
+            ->leftJoin('product_sizes', 'product_variants.size_id', 'product_sizes.id')
+            ->leftJoin('colors', 'product_variants.color_id', 'colors.id')
+            ->select('products.*', 'flags.name as flag_name', 'categories.name as category_name')
+            ->groupBy('products.id')
+            ->where('products.status', 1)
+            ->where('stores.status', 1);
+
+
+        // ============== applying filters from url parameter start ================
+        $parameters = '';
+        $categorySlug = isset($request->category) ? $request->category : '';
+        $subcategorySlug = isset($request->subcategory) ? $request->subcategory : '';
+        $childcategorySlug = isset($request->childcategory) ? $request->childcategory : '';
+        $flagSlug = isset($request->flag) ? $request->flag : '';
+        $brandSlug = isset($request->brand) ? $request->brand : '';
+        $sizeSlug = isset($request->size) ? $request->size : '';
+        $colorId = isset($request->color) ? $request->color : '';
+        $sort_by = isset($request->sort_by) ? $request->sort_by : '';
+        $min_price = isset($request->min_price) ? $request->min_price : '';
+        $max_price = isset($request->max_price) ? $request->max_price : '';
+        $search_keyword = isset($request->search_keyword) ? $request->search_keyword : '';
+        $storeSlug = isset($request->store) ? $request->store : '';
+        $parameters = '';
+
+        if($categorySlug){
+            $query->whereIn('categories.slug', explode(",", $categorySlug));
+            $parameters == '' ? $parameters .= '?category=' . $categorySlug : $parameters .= '&category=' . $categorySlug;
+        }
+        if($subcategorySlug){
+            $query->where('subcategories.slug', $subcategorySlug);
+            $parameters == '' ? $parameters .= '?subcategory=' . $subcategorySlug : $parameters .= '&subcategory=' . $subcategorySlug;
+        }
+        if($childcategorySlug){
+            $query->where('child_categories.slug', $childcategorySlug);
+            $parameters == '' ? $parameters .= '?childcategory=' . $childcategorySlug : $parameters .= '&childcategory=' . $childcategorySlug;
+        }
+        if($flagSlug){
+            $query->whereIn('flags.slug', explode(",",$flagSlug));
+            $parameters == '' ? $parameters .= '?flag=' . $flagSlug : $parameters .= '&flag=' . $flagSlug;
+        }
+        if($brandSlug){
+            $query->whereIn('brands.slug', explode(",",$brandSlug));
+            $parameters == '' ? $parameters .= '?brand=' . $brandSlug : $parameters .= '&brand=' . $brandSlug;
+        }
+        if($sizeSlug){
+            $query->whereIn('product_sizes.slug', explode(",",$sizeSlug));
+            $parameters == '' ? $parameters .= '?size=' . $sizeSlug : $parameters .= '&size=' . $sizeSlug;
+        }
+        if($colorId){
+            $query->whereIn('colors.id', explode(",",$colorId));
+            $parameters == '' ? $parameters .= '?color=' . $colorId : $parameters .= '&color=' . $colorId;
+        }
+
+        // sorting
+        if($sort_by && $sort_by > 0){
+            if($sort_by == 1){
+                $query->orderBy('products.id', 'desc');
+            }
+            if($sort_by == 2){
+                $query->orderBy('products.discount_price', 'asc')->orderBy('products.price', 'asc');
+            }
+            if($sort_by == 3){
+                $query->orderBy('products.discount_price', 'desc')->orderBy('products.price', 'desc');
+            }
+            $parameters == '' ? $parameters .= '?sort_by=' . $sort_by : $parameters .= '&sort_by=' . $sort_by;
+        } else {
+            $query->orderBy('products.id', 'desc');
+        }
+
+        // min price
+        if($min_price && $min_price > 0){
+            $query->where(function($query) use ($min_price) {
+                $query->where('products.discount_price', '>=', $min_price)->orWhere('products.price', '>=', $min_price);
+            });
+            $parameters == '' ? $parameters .= '?min_price=' . $min_price : $parameters .= '&min_price=' . $min_price;
+        }
+        // max price
+        if($max_price && $max_price > 0){
+            $query->where(function($query) use ($max_price) {
+                $query->where([['products.discount_price', '<=', $max_price], ['products.discount_price', '>', 0]])->orWhere([['products.price', '<=', $max_price], ['products.price', '>', 0]]);
+            });
+            $parameters == '' ? $parameters .= '?max_price=' . $max_price : $parameters .= '&max_price=' . $max_price;
+        }
+
+        // search keyword
+        if($search_keyword){
+            $query->where('products.name', 'LIKE', '%'.$search_keyword.'%');
+            $parameters == '' ? $parameters .= '?search_keyword=' . $search_keyword : $parameters .= '&search_keyword=' . $search_keyword;
+        }
+
+        // store
+        $storeInfo = null;
+        $productReviewsOfStore = null;
+        if($storeSlug){
+            $storeInfo = DB::table('stores')->where('slug', $storeSlug)->first();
+            $query->where('stores.slug', $storeSlug);
+            $parameters == '' ? $parameters .= '?store=' . $storeSlug : $parameters .= '&store=' . $storeSlug;
+
+            $productReviewsOfStore = DB::table('product_reviews')
+                                    ->leftJoin('products', 'product_reviews.product_id', 'products.id')
+                                    ->leftJoin('users', 'product_reviews.user_id', 'users.id')
+                                    ->select('product_reviews.*', 'products.name', 'products.image', 'users.image as customer_image', 'users.name as customer_name')
+                                    ->where('products.store_id', $storeInfo->id)
+                                    ->paginate(10);
+        }
+
+        // setting pagination with custom path and parameters
+
+        $products = $query->paginate(16);
+        $products->withPath('/shop'.$parameters);
+        $showingResults = "Showing ".(($products->currentpage()-1)*$products->perpage()+1)." - ".$products->currentpage()*$products->perpage()." of ".$products->total()." results";
+        return view('shop.shop', compact('productReviewsOfStore', 'shopBanner', 'sizes', 'showingResults', 'products', 'categories', 'flags', 'brands', 'colors',  'categorySlug', 'subcategorySlug', 'childcategorySlug', 'flagSlug', 'brandSlug', 'sizeSlug', 'colorId', 'sort_by', 'min_price', 'max_price', 'search_keyword', 'storeInfo'));
+    }
+
     public function order()
     {
         return view('order');
@@ -371,11 +507,6 @@ class FrontendController extends Controller
     public function vendorRegister()
     {
         return view('vendor_register');
-    }
-
-    public function shop()
-    {
-        return view('shop');
     }
 
     public function cart(){

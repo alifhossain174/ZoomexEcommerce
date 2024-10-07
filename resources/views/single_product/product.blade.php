@@ -4,6 +4,7 @@
         ->select('discounted_price', 'price', 'stock')
         ->where('product_id', $product->id)
         ->get();
+
     if ($variants && count($variants) > 0) {
         $totalStockAllVariants = 0;
         $variantMinDiscountPrice = 0;
@@ -48,7 +49,15 @@
         <h4 class="product-name">
             <a href="{{ url('product') }}/{{ $product->slug }}">{{ $product->name }}</a>
         </h4>
-        <div class="product-price"><ins class="new-price">৳10.000</ins><del class="old-price">৳11,000</del></div>
+
+        <div class="product-price">
+            @if($totalStockAllVariants)
+            @include('single_product.price')
+            @else
+            <span style="background: #df0000; display: block; border-radius: 4px; color: whitesmoke; font-weight: 500;">Stock Out</span>
+            @endif
+        </div>
+
         <div class="ratings-container">
             @include('single_product.review_rating')
         </div>
