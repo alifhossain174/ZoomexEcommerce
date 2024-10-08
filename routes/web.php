@@ -6,6 +6,9 @@ use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\FilterController;
+use App\Http\Controllers\VendorController;
+use App\Http\Controllers\BlogController;
+use App\Http\Controllers\GoogleController;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
 Auth::routes();
@@ -24,6 +27,32 @@ Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
 Route::post('/filter/products', [FilterController::class, 'filterProducts'])->name('FilterProducts');
 
 
+Route::get('/about', [FrontendController::class, 'about'])->name('About');
+Route::get('/contact', [FrontendController::class, 'contact'])->name('Contact');
+Route::post('/submit/contact/request', [FrontendController::class, 'submitContactRequest'])->name('SubmitContactRequest')->middleware(ProtectAgainstSpam::class)->middleware(['throttle:3,1']);
+
+
+// policy pages
+Route::get('privacy/policy', [FrontendController::class, 'privacyPolicy'])->name('PrivacyPolicy');
+Route::get('terms/of/services', [FrontendController::class, 'termsOfServices'])->name('TermsOfServices');
+Route::get('return/policy', [FrontendController::class, 'returnPolicy'])->name('ReturnPolicy');
+Route::get('shipping/policy', [FrontendController::class, 'shippingPolicy'])->name('ShippingPolicy');
+
+
+// vendor
+Route::get('/vendor/shops', [VendorController::class, 'vendorShops'])->name('VendorShops');
+Route::get('/vendor/registration', [VendorController::class, 'vendorRegistration'])->name('VendorRegistration');
+Route::post('/submit/vendor/registration/request', [VendorController::class, 'submitVendorRegistration'])->name('SubmitVendorRegistration');
+Route::get('/vendor/verification', [VendorController::class, 'vendorVerification'])->name('VendorVerification');
+Route::get('/vendor/verification/resend', [VendorController::class, 'vendorVerificationResend'])->name('vendorVerificationResend');
+Route::post('/vendor/verify/check', [VendorController::class, 'vendorVerificationCheck'])->name('VendorVerificationCheck');
+
+
+// social login
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('RedirectToGoogle');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('HandleGoogleCallback');
+
+
 // cart
 Route::get('add/to/cart/{id}', [CartController::class, 'addToCart'])->name('AddToCart');
 Route::post('add/to/cart/with/qty', [CartController::class, 'addToCartWithQty'])->name('AddToCartWithQty');
@@ -33,39 +62,25 @@ Route::get('view/cart', [CartController::class, 'viewCart'])->name('ViewCart');
 Route::get('clear/cart', [CartController::class, 'clearCart'])->name('ClearCart');
 
 
-Route::get('/login', [FrontendController::class, 'login'])->name('login');
-Route::get('/register', [FrontendController::class, 'register'])->name('register');
-Route::get('/set-password', [FrontendController::class, 'setPassword'])->name('SetPassword');
-Route::get('/forget-password', [FrontendController::class, 'forgetPassword'])->name('ForgetPassword');
-Route::get('/verify-success', [FrontendController::class, 'verifySuccess'])->name('VerifySuccess');
-Route::get('/verify-otp', [FrontendController::class, 'verifyOtp'])->name('verifyOtp');
+// blog routes
+Route::get('/blogs', [BlogController::class, 'blogs'])->name('Blogs');
+Route::get('/blog/category/{slug}', [BlogController::class, 'blogCategory'])->name('BlogCategory');
+Route::get('/blog/details/{slug}', [BlogController::class, 'blogDetails'])->name('BlogDetails');
 
-Route::get('/about', [FrontendController::class, 'about'])->name('about');
-Route::get('/blogs', [FrontendController::class, 'blogs'])->name('blogs');
-Route::get('/blog/details', [FrontendController::class, 'blogDetails'])->name('BlogDetails');
-
-Route::get('/order', [FrontendController::class, 'order'])->name('order');
-Route::get('/order-successful', [FrontendController::class, 'orderSuccessful'])->name('OrderSuccessful');
-Route::get('/order-view', [FrontendController::class, 'orderView'])->name('OrderView');
-
-Route::get('/vendor-register', [FrontendController::class, 'vendorRegister'])->name('VendorRegister');
-Route::get('/vendor-shop', [FrontendController::class, 'vendorShop'])->name('VendorShop');
-
-Route::get('/category', [FrontendController::class, 'category'])->name('Category');
-Route::get('/cart', [FrontendController::class, 'cart'])->name('cart');
-Route::get('/checkout', [FrontendController::class, 'checkout'])->name('Checkout');
-Route::get('/contact-us', [FrontendController::class, 'contactUs'])->name('ContactUs');
-Route::get('/faq', [FrontendController::class, 'faq'])->name('faq');
-
-Route::get('/error-404', [FrontendController::class, 'error_404'])->name('error-404');
-
-Route::get('/view/wishlist', [HomeController::class, 'viewWishList'])->name('ViewWishList');
 
 
 Route::group(['middleware' => ['auth']], function () {
 
-    Route::get('add/to/wishlist/{slug}', [HomeController::class, 'addToWishlist'])->name('AddToWishlist');
+    Route::get('/user/verification', [HomeController::class, 'userVerification'])->name('UserVerification');
+    Route::post('/user/verify/check', [HomeController::class, 'userVerifyCheck'])->name('UserVerifyCheck');
+    Route::get('/user/verification/resend', [HomeController::class, 'userVerificationResend'])->name('UserVerificationResend');
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::group(['middleware' => ['CheckUserVerification']], function () {
+
+        Route::post('submit/product/review', [HomeController::class, 'submitProductReview'])->name('SubmitProductReview');
+        Route::get('add/to/wishlist/{slug}', [HomeController::class, 'addToWishlist'])->name('AddToWishlist');
+        Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+    });
 
 });

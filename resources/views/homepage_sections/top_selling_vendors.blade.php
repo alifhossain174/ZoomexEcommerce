@@ -20,7 +20,8 @@
                             <h4 class="vendor-name">
                                 <a href="{{url('shop')}}?store={{$topSellingVendor->slug}}">{{$topSellingVendor->store_name}}</a>
                             </h4>
-                            <span class="vendor-product-count">({{DB::table('products')->where('status', 1)->where('store_id', $topSellingVendor->store_id)->count()}} Products)</span>
+                            <span class="vendor-product-count">
+                                ({{DB::table('products')->where('status', 1)->where('store_id', $topSellingVendor->store_id)->count()}} Products)</span>
                             {{-- <p class="vendor-location">Dhaka</p> --}}
                             <a href="{{url('shop')}}?store={{$topSellingVendor->slug}}" class="btn btn-primary btn-icon-right">
                                 Visit Store<i class="w-icon-long-arrow-right"></i>

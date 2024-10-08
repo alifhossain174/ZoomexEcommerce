@@ -1,5 +1,6 @@
 @extends('master')
 
+
 @push('site-seo')
     @php
         $generalInfo = DB::table('general_infos')
@@ -47,237 +48,141 @@
 
 
 @section('content')
-    <!-- Start of Main -->
-    <main class="main">
-        <!-- Start of Page Header -->
-        <div class="page-header">
-            <div class="container">
-                <h1 class="page-title mb-0">Classic</h1>
-            </div>
+    <!-- Start of Page Header -->
+    <div class="page-header">
+        <div class="container">
+            <h1 class="page-title mb-0">
+                @if(isset($blogCategory))
+                    {{$blogCategory->name}} Blogs
+                @else
+                    All Blogs
+                @endif
+            </h1>
         </div>
-        <!-- End of Page Header -->
+    </div>
+    <!-- End of Page Header -->
 
-        <!-- Start of Breadcrumb -->
-        <nav class="breadcrumb-nav mb-6">
-            <div class="container">
-                <ul class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="{{ url('/blogs') }}">Blog</a></li>
-                    <li>Classic</li>
-                </ul>
-            </div>
-        </nav>
-        <!-- End of Breadcrumb -->
+    <!-- Start of Breadcrumb -->
+    <nav class="breadcrumb-nav mb-6">
+        <div class="container">
+            <ul class="breadcrumb" style="padding: 1.5rem 0.2rem 1.6rem;">
+                <li><a href="{{url('/')}}">Home</a></li>
+                <li><a href="{{url('blogs')}}">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+    <!-- End of Breadcrumb -->
 
-        <!-- Start of Page Content -->
-        <div class="page-content">
-            <div class="container">
-                <div class="row gutter-lg mb-10">
-                    <div class="main-content">
-                        {{-- Blog loop Start --}}
-                        @include('blogs.blog')
-                        {{-- Blog loop End --}}
+    <!-- Start of Page Content -->
+    <div class="page-content mb-10 pb-2">
+        <div class="container">
+            <div class="row gutter-lg">
+                <div class="main-content">
+                    <div class="row cols-sm-2">
 
-                        <ul class="pagination justify-content-center pb-2">
-                            <li class="prev disabled">
-                                <a href="#" aria-label="Previous" tabindex="-1" aria-disabled="true"> <i
-                                        class="w-icon-long-arrow-left"></i>Prev </a>
-                            </li>
-                            <li class="page-item active">
-                                <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item">
-                                <a class="page-link" href="#">2</a>
-                            </li>
-                            <li class="next">
-                                <a href="#" aria-label="Next"> Next<i class="w-icon-long-arrow-right"></i> </a>
-                            </li>
-                        </ul>
+                        @foreach ($blogs as $blog)
+                        <article class="post post-grid-type overlay-zoom mb-6 fashion">
+                            <figure class="post-media br-sm">
+                                <a href="{{url('blog/details')}}/{{$blog->slug}}">
+                                    <img class="lazy" src="{{url('assets')}}/img/product-load.gif" data-src="{{url(env('ADMIN_URL')."/".$blog->image)}}" style="width: 100%; height: 420px; max-height: 420px" alt="" />
+                                </a>
+                            </figure>
+                            <div class="post-details">
+                                <div class="post-cats text-primary">
+                                    <a href="#">{{$blog->category_name}}</a>
+                                </div>
+                                <h4 class="post-title">
+                                    <a href="{{url('blog/details')}}/{{$blog->slug}}">{{$blog->title}}</a>
+                                </h4>
+                                <div class="post-content">
+                                    <p>
+                                        {{$blog->short_description}}
+                                    </p>
+                                    <a href="{{url('blog/details')}}/{{$blog->slug}}" class="btn btn-link btn-primary">(read more)</a>
+                                </div>
+                                <div class="post-meta">
+                                    by <a href="javascript:void(0)" class="post-author">{{$generalInfo->company_name}}</a> -
+                                    <a href="javascript:void(0)" class="post-date">{{date('d M, Y', strtotime($blog->created_at))}}</a>
+                                </div>
+                            </div>
+                        </article>
+                        @endforeach
+
+
                     </div>
-                    <aside class="sidebar right-sidebar blog-sidebar sidebar-fixed sticky-sidebar-wrapper">
-                        <div class="sidebar-overlay">
-                            <a href="#" class="sidebar-close">
-                                <i class="close-icon"></i>
-                            </a>
-                        </div>
-                        <a href="#" class="sidebar-toggle">
-                            <i class="fas fa-chevron-left"></i>
+
+                    @if($blogs->total() > 6)
+                    <div class="pagination__area bg__gray--color">
+                        <nav class="pagination justify-content-center">
+                            {{ $blogs->links() }}
+                        </nav>
+                    </div>
+                    @endif
+
+                </div>
+                <!-- End of Main Content -->
+                <aside class="sidebar right-sidebar blog-sidebar sidebar-fixed sticky-sidebar-wrapper">
+                    <div class="sidebar-overlay">
+                        <a href="#" class="sidebar-close">
+                            <i class="close-icon"></i>
                         </a>
-                        <div class="sidebar-content">
-                            <div class="sticky-sidebar">
-                                <div class="widget widget-search-form">
-                                    <div class="widget-body">
-                                        <form action="#" method="GET" class="input-wrapper input-wrapper-inline">
-                                            <input type="text" class="form-control" placeholder="Search in Blog"
-                                                autocomplete="off" required />
-                                            <button class="btn btn-search">
-                                                <i class="w-icon-search"></i>
-                                            </button>
-                                        </form>
-                                    </div>
-                                </div>
-                                <!-- End of Widget search form -->
-                                <div class="widget widget-categories">
-                                    <h3 class="widget-title bb-no mb-0">Categories</h3>
-                                    @include('blogs.blog_category')
-                                </div>
-                                <!-- End of Widget categories -->
-                                <div class="widget widget-posts">
-                                    <h3 class="widget-title bb-no">Popular Posts</h3>
-                                    <div class="widget-body">
-                                        <div class="swiper">
-                                            <div class="swiper-container swiper-theme nav-top"
-                                                data-swiper-options="{
-                                                'spaceBetween': 20,
-                                                'slidesPerView': 1}">
-                                                <div class="swiper-wrapper row cols-1">
-                                                    <div class="swiper-slide widget-col">
-                                                        <div class="post-widget mb-4">
-                                                            <figure class="post-media br-sm">
-                                                                <img src="{{ url('assets') }}/images/blog/sidebar/1.jpg"
-                                                                    alt="150" height="150" />
-                                                            </figure>
-                                                            <div class="post-details">
-                                                                <div class="post-meta">
-                                                                    <a href="#" class="post-date">March 1, 2021</a>
-                                                                </div>
-                                                                <h4 class="post-title">
-                                                                    <a href="{{ url('/blog/details') }}">Fashion tells
-                                                                        about who you
-                                                                        are from external point</a>
-                                                                </h4>
+                    </div>
+                    <a href="#" class="sidebar-toggle">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                    <div class="sidebar-content">
+                        <div class="sticky-sidebar">
+                            <div class="widget widget-categories mb-0">
+                                <h3 class="widget-title" style="border-bottom: 1px solid lightgray">Blog Categories</h3>
+                                <ul class="widget-body filter-items search-ul">
+                                    @foreach($blogCategories as $blogCat)
+                                    <li><a href="{{url('blog/category')}}/{{$blogCat->slug}}" @if(isset($blogCategory) && $blogCategory->id == $blogCat->id) style="color: var(--primary-color)" @endif>{{$blogCat->name}} - {{DB::table('blogs')->where('category_id', $blogCat->id)->count()}}</a></li>
+                                    @endforeach
+                                    <li><a href="{{url('blogs')}}">View All - {{DB::table('blogs')->count()}}</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="widget widget-posts">
+                                <h3 class="widget-title" style="border-bottom: 1px solid lightgray">Random Posts</h3>
+                                <div class="widget-body">
+                                    <div class="swiper">
+                                        <div class="swiper-container swiper-theme nav-top"
+                                            data-swiper-options="{
+                                                  'spaceBetween': 20,
+                                                  'slidesPerView': 1
+                                              }">
+                                            <div class="swiper-wrapper row cols-1">
+                                                <div class="swiper-slide widget-col">
+
+                                                    @foreach($randomBlogs as $randomBlog)
+                                                    <div class="post-widget mb-4">
+                                                        <figure class="post-media br-sm">
+                                                            <img class="lazy" src="{{url('assets')}}/img/product-load.gif" data-src="{{url(env('ADMIN_URL')."/".$randomBlog->image)}}" style="height: 85px; max-height: 85px; width: 100%" alt=""/>
+                                                        </figure>
+                                                        <div class="post-details">
+                                                            <div class="post-meta">
+                                                                <a href="#" class="post-date">{{date('d M, Y', strtotime($randomBlog->created_at))}}</a>
                                                             </div>
-                                                        </div>
-                                                        <div class="post-widget mb-4">
-                                                            <figure class="post-media br-sm">
-                                                                <img src="{{ url('assets') }}/images/blog/sidebar/2.jpg"
-                                                                    alt="150" height="150" />
-                                                            </figure>
-                                                            <div class="post-details">
-                                                                <div class="post-meta">
-                                                                    <a href="#" class="post-date">March 5, 2021</a>
-                                                                </div>
-                                                                <h4 class="post-title">
-                                                                    <a href="{{ url('/blog/details') }}">New found the men
-                                                                        dress for
-                                                                        summer</a>
-                                                                </h4>
-                                                            </div>
-                                                        </div>
-                                                        <div class="post-widget mb-2">
-                                                            <figure class="post-media br-sm">
-                                                                <img src="{{ url('assets') }}/images/blog/sidebar/3.jpg"
-                                                                    alt="150" height="150" />
-                                                            </figure>
-                                                            <div class="post-details">
-                                                                <div class="post-meta">
-                                                                    <a href="#" class="post-date">March 1, 2021</a>
-                                                                </div>
-                                                                <h4 class="post-title">
-                                                                    <a href="{{ url('/blog/details') }}">Cras ornare
-                                                                        tristique
-                                                                        elit</a>
-                                                                </h4>
-                                                            </div>
+                                                            <h4 class="post-title">
+                                                                <a href="{{url('blog/details')}}/{{$randomBlog->slug}}">{{$randomBlog->title}}</a>
+                                                            </h4>
                                                         </div>
                                                     </div>
-                                                    <div class="swiper-slide widget-col">
-                                                        <div class="post-widget mb-4">
-                                                            <figure class="post-media br-sm">
-                                                                <img src="{{ url('assets') }}/images/blog/sidebar/4.jpg"
-                                                                    alt="150" height="150" />
-                                                            </figure>
-                                                            <div class="post-details">
-                                                                <div class="post-meta">
-                                                                    <a href="#" class="post-date">March 1, 2021</a>
-                                                                </div>
-                                                                <h4 class="post-title">
-                                                                    <a href="{{ url('/blog/details') }}">Vivamus
-                                                                        vestibulum ntulla
-                                                                        nec ante</a>
-                                                                </h4>
-                                                            </div>
-                                                        </div>
-                                                        <div class="post-widget mb-4">
-                                                            <figure class="post-media br-sm">
-                                                                <img src="{{ url('assets') }}/images/blog/sidebar/5.jpg"
-                                                                    alt="150" height="150" />
-                                                            </figure>
-                                                            <div class="post-details">
-                                                                <div class="post-meta">
-                                                                    <a href="#" class="post-date">March 5, 2021</a>
-                                                                </div>
-                                                                <h4 class="post-title">
-                                                                    <a href="{{ url('/blog/details') }}">Fusce lacinia
-                                                                        arcuet
-                                                                        nulla</a>
-                                                                </h4>
-                                                            </div>
-                                                        </div>
-                                                        <div class="post-widget mb-2">
-                                                            <figure class="post-media br-sm">
-                                                                <img src="{{ url('assets') }}/images/blog/sidebar/6.jpg"
-                                                                    alt="150" height="150" />
-                                                            </figure>
-                                                            <div class="post-details">
-                                                                <div class="post-meta">
-                                                                    <a href="#" class="post-date">March 1, 2021</a>
-                                                                </div>
-                                                                <h4 class="post-title">
-                                                                    <a href="{{ url('/blog/details') }}">Comes a cool blog
-                                                                        post with
-                                                                        Images</a>
-                                                                </h4>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    @endforeach
+
                                                 </div>
-                                                <div class="swiper-button-next"></div>
-                                                <div class="swiper-button-prev"></div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End of Widget posts -->
-                                <div class="widget widget-custom-block">
-                                    <h3 class="widget-title bb-no">Custom Block</h3>
-                                    <div class="widget-body">
-                                        <p class="text-default mb-0">Fringilla urna porttitor rhoncus dolor purus. Luctus
-                                            veneneratis lectus magna fring. Suspendisse potenti. Sed egestas, ante et
-                                            vulputate volutpat, uctus metus libero.</p>
-                                    </div>
-                                </div>
-                                <!-- End of Widget custom block -->
-                                <div class="widget widget-tags">
-                                    <h3 class="widget-title bb-no">Browse Tags</h3>
-                                    <div class="widget-body tags">
-                                        <a href="#" class="tag">Fashion</a>
-                                        <a href="#" class="tag">Style</a>
-                                        <a href="#" class="tag">Travel</a>
-                                        <a href="#" class="tag">Women</a>
-                                        <a href="#" class="tag">Men</a>
-                                        <a href="#" class="tag">Hobbies</a>
-                                        <a href="#" class="tag">Shopping</a>
-                                        <a href="#" class="tag">Photography</a>
-                                    </div>
-                                </div>
-                                <div class="widget widget-calendar">
-                                    <h3 class="widget-title bb-no">Calendar</h3>
-                                    <div class="widget-body">
-                                        <div class="calendar-container"
-                                            data-calendar-options="{
-                                            'dayExcerpt': 1
-                                        }">
+                                            {{-- <button class="swiper-button-next"></button>
+                                            <button class="swiper-button-prev"></button> --}}
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </aside>
-                </div>
+                    </div>
+                </aside>
             </div>
         </div>
-        <!-- End of Page Content -->
-    </main>
-    <!-- End of Main -->
+    </div>
+    <!-- End of Page Content -->
 @endsection

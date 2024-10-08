@@ -14293,6 +14293,7 @@ body .product-popup {
   -webkit-transform: translateY(-1rem);
   transform: translateY(-1rem);
 }
+
 .store-grid .store-title:hover {
   color: var(--secondary-color);
 }
@@ -17428,7 +17429,7 @@ body .product-popup {
   }
 }
 @media (max-width: 767px) {
- 
+
   .footer-newsletter .icon-box-icon {
     margin-right: 0;
   }

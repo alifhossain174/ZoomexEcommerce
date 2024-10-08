@@ -235,45 +235,41 @@ class FrontendController extends Controller
         return view('track_order', compact('orderInfo', 'orderdItems', 'orderProgress'));
     }
 
-    public function login()
-    {
-        return view('login');
-    }
-
-    public function register()
-    {
-        return view('register');
-    }
-
-    public function setPassword()
-    {
-        return view('set_password');
-    }
-
-    public function forgetPassword(){
-        return view('forget_password');
-    }
-
-    public function verifySuccess()
-    {
-        return view('verify_success');
-    }
-
-    public function verifyOtp()
-    {
-        return view('verify_otp');
-    }
-
     public function about(){
-        return view('about');
+        $data = DB::table('about_us')->where('id', 1)->first();
+        $testimonials = DB::table('testimonials')->orderBy('id', 'desc')->get();
+        $brands = DB::table('brands')->where('logo', '!=', null)->where('logo', '!=', '')->orderBy('serial', 'asc')->get();
+        $stores = DB::table('stores')->inRandomOrder()->get();
+        return view('about', compact('data', 'testimonials', 'brands', 'stores'));
     }
 
-    public function blogs(){
-        return view('blogs');
+    public function contact(){
+        $contactInfo = DB::table('general_infos')
+                                        ->select('email', 'address', 'contact', 'trade_license_no', 'google_map_link')
+                                        ->where('id', 1)
+                                        ->first();
+        $data = DB::table('faqs')->orderBy('id', 'desc')->get();
+        return view('contact', compact('data', 'contactInfo'));
     }
 
-    public function blogDetails(){
-        return view('blog_details');
+    public function submitContactRequest(Request $request){
+
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'max:255'],
+        ]);
+
+        DB::table('contact_requests')->insert([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => null,
+            'message' => $request->message,
+            'status' => 0,
+            'created_at' => Carbon::now()
+        ]);
+
+        Toastr::success('Request is Submitted', 'Success');
+        return back();
     }
 
     public function productDetails($slug)
@@ -484,54 +480,32 @@ class FrontendController extends Controller
         return view('shop.shop', compact('productReviewsOfStore', 'shopBanner', 'sizes', 'showingResults', 'products', 'categories', 'flags', 'brands', 'colors',  'categorySlug', 'subcategorySlug', 'childcategorySlug', 'flagSlug', 'brandSlug', 'sizeSlug', 'colorId', 'sort_by', 'min_price', 'max_price', 'search_keyword', 'storeInfo'));
     }
 
-    public function order()
-    {
-        return view('order');
+    public function privacyPolicy(){
+        $pageTitle = "Privacy Policy";
+        $pageUrl = url('/privacy/policy');
+        $policy = DB::table('terms_and_policies')->select('privacy_policy as policy')->first();
+        return view('policy', compact('pageTitle', 'pageUrl', 'policy'));
     }
 
-    public function orderSuccessful()
-    {
-        return view('order_successful');
+    public function termsOfServices(){
+        $pageTitle = "Terms of Services";
+        $pageUrl = url('/terms/of/services');
+        $policy = DB::table('terms_and_policies')->select('terms as policy')->first();
+        return view('policy', compact('pageTitle', 'pageUrl', 'policy'));
     }
 
-    public function orderView()
-    {
-        return view('order_view');
+    public function returnPolicy(){
+        $pageTitle = "Return Policy";
+        $pageUrl = url('/return/policy');
+        $policy = DB::table('terms_and_policies')->select('return_policy as policy')->first();
+        return view('policy', compact('pageTitle', 'pageUrl', 'policy'));
     }
 
-    public function vendorShop()
-    {
-        return view('vendor_shop');
-    }
-
-    public function vendorRegister()
-    {
-        return view('vendor_register');
-    }
-
-    public function cart(){
-        return view('cart');
-    }
-
-    public function category(){
-        return view('category');
-    }
-
-    public function checkout(){
-        return view('checkout');
-    }
-
-    public function contactUs(){
-        return view('contact_us');
-    }
-
-    public function faq(){
-        return view('faq');
-    }
-
-    public function error_404()
-    {
-        return view('error_404');
+    public function shippingPolicy(){
+        $pageTitle = "Shipping Policy";
+        $pageUrl = url('/shipping/policy');
+        $policy = DB::table('terms_and_policies')->select('shipping_policy as policy')->first();
+        return view('policy', compact('pageTitle', 'pageUrl', 'policy'));
     }
 
 }
