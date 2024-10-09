@@ -1042,10 +1042,10 @@
                 $("#dropdown_box_sidebar_cart").html(data.rendered_cart);
                 $("span.cart-count").html(data.cartTotalQty);
             })
-            // $(this).html("<span class='add__to--cart__text'> Remove</span>");
-            // $(this).removeClass("addToCart");
-            // $(this).addClass("removeFromCart");
-            // $(this).blur();
+            $(this).html("<span class='add__to--cart__text'> Remove</span>");
+            $(this).removeClass("addToCart");
+            $(this).addClass("removeFromCart");
+            $(this).blur();
         });
 
         $('body').on('click', '.sidebar-product-remove', function() {
@@ -1054,22 +1054,22 @@
             $.get("{{ url('remove/cart/item') }}" + '/' + id, function(data) {
                 $("span.cart-count").html(data.cartTotalQty);
                 $("#dropdown_box_sidebar_cart").html(data.rendered_cart);
-                // $("#view_cart_items").html(data.viewCartItems);
-                // $("#view_cart_calculation").html(data.viewCartCalculation);
-                // $("#product_details_cart_qty").val(1);
-                // $("table.cart-single-product-table tbody").html(data.checkoutCartItems);
-                // $(".order-review-summary").html(data.checkoutTotalAmount);
+                $("#view_cart_items").html(data.viewCartItems);
+                $("#view_cart_calculation").html(data.viewCartCalculation);
+                $("#product_details_cart_qty").val(1);
+                $("table.cart-single-product-table tbody").html(data.checkoutCartItems);
+                $(".order-review-summary").html(data.checkoutTotalAmount);
             })
 
-            // $('.cart-' + id).html("<i class='fi fi-rr-shopping-cart product__items--action__btn--svg'></i><span class='add__to--cart__text'> Add to cart</span>");
-            // $('.cart-' + id).attr('data-id', id).removeClass("removeFromCart");
-            // $('.cart-' + id).attr('data-id', id).addClass("addToCart");
-            // $('.cart-' + id).blur();
+            $('.cart-' + id).html("<i class='fi fi-rr-shopping-cart product__items--action__btn--svg'></i><span class='add__to--cart__text'> Add to cart</span>");
+            $('.cart-' + id).attr('data-id', id).removeClass("removeFromCart");
+            $('.cart-' + id).attr('data-id', id).addClass("addToCart");
+            $('.cart-' + id).blur();
 
-            // $('.cart-qty-' + id).html("<i class='w-icon-cart'></i><span> Add to cart</span>");
-            // $('.cart-qty-' + id).attr('data-id', id).removeClass("removeFromCartQty");
-            // $('.cart-qty-' + id).attr('data-id', id).addClass("addToCartWithQty");
-            // $('.cart-qty-' + id).blur();
+            $('.cart-qty-' + id).html("<i class='w-icon-cart'></i><span> Add to cart</span>");
+            $('.cart-qty-' + id).attr('data-id', id).removeClass("removeFromCartQty");
+            $('.cart-qty-' + id).attr('data-id', id).addClass("addToCartWithQty");
+            $('.cart-qty-' + id).blur();
         });
 
         $('body').on('click', '.quantity__value_details', function() {
@@ -1096,7 +1096,7 @@
                 success: function(data) {
                     $("#dropdown_box_sidebar_cart").html(data.rendered_cart);
                     $("#view_cart_items").html(data.viewCartItems);
-                    // $("#view_cart_calculation").html(data.viewCartCalculation);
+                    $("#view_cart_calculation").html(data.viewCartCalculation);
                 },
                 error: function(data) {
                     console.log('Error:', data);

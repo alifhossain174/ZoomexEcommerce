@@ -9,6 +9,7 @@ use App\Http\Controllers\FilterController;
 use App\Http\Controllers\VendorController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\CheckoutController;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
 Auth::routes();
@@ -20,11 +21,13 @@ Route::get('/search/for/products', [FrontendController::class, 'searchForProduct
 Route::post('/product/live/search', [FrontendController::class, 'productLiveSearch'])->name('ProductLiveSearch');
 Route::post('/subscribe/for/newsletter', [FrontendController::class, 'subscribeForNewsletter'])->name('SubscribeForNewsletter')->middleware(ProtectAgainstSpam::class)->middleware(['throttle:3,1']);
 Route::get('/product/{slug}', [FrontendController::class, 'productDetails'])->name('ProductDetails');
-Route::get('track/order/{order_no}', [FrontendController::class, 'trackOrder'])->name('TrackOrder');
-Route::get('track/order', [FrontendController::class, 'trackOrderNo'])->name('TrackOrderNo');
 Route::post('check/product/variant', [FrontendController::class, 'checkProductVariant'])->name('CheckProductVariant');
 Route::get('/shop', [FrontendController::class, 'shop'])->name('shop');
 Route::post('/filter/products', [FilterController::class, 'filterProducts'])->name('FilterProducts');
+
+
+Route::get('track/order/{order_no}', [FrontendController::class, 'trackOrder'])->name('TrackOrder');
+Route::get('track/order', [FrontendController::class, 'trackOrderNo'])->name('TrackOrderNo');
 
 
 Route::get('/about', [FrontendController::class, 'about'])->name('About');
@@ -76,6 +79,16 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('/user/verification/resend', [HomeController::class, 'userVerificationResend'])->name('UserVerificationResend');
 
     Route::group(['middleware' => ['CheckUserVerification']], function () {
+
+        // place order related routes
+        Route::get('checkout', [CheckoutController::class, 'checkout'])->name('Checkout')->middleware(['throttle:5,1']);
+        Route::post('apply/coupon', [CheckoutController::class, 'applyCoupon'])->name('ApplyCoupon');
+        Route::get('remove/applied/coupon', [CheckoutController::class, 'removeAppliedCoupon'])->name('RemoveAppliedCoupon');
+        Route::post('district/wise/thana', [CheckoutController::class, 'districtWiseThana'])->name('DistrictWiseThana');
+        Route::post('change/delivery/method', [CheckoutController::class, 'changeDeliveryMethod'])->name('ChangeDeliveryMethod');
+        Route::post('place/order', [CheckoutController::class, 'placeOrder'])->name('PlaceOrder');
+        Route::get('order/{slug}', [CheckoutController::class, 'orderPreview'])->name('OrderPreview');
+
 
         Route::post('submit/product/review', [HomeController::class, 'submitProductReview'])->name('SubmitProductReview');
         Route::get('add/to/wishlist/{slug}', [HomeController::class, 'addToWishlist'])->name('AddToWishlist');

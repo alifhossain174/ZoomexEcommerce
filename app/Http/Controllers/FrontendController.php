@@ -229,6 +229,7 @@ class FrontendController extends Controller
                             ->select('products.name as product_name', 'products.image as product_image', 'colors.name as color_name', 'product_sizes.name as size_name', 'order_details.product_id', 'order_details.total_price', 'order_details.qty')
                             ->where('orders.id', $orderInfo->id)
                             ->get();
+
             $orderProgress = DB::table('order_progress')->where('order_id', $orderInfo->id)->orderBy('order_status', 'asc')->get();
         }
 

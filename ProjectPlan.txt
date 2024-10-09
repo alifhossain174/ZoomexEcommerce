@@ -1,3 +1,1 @@
-1. Track Order
-3. Checkout / View Cart
-4. User Dashboard
+1. User Dashboard
