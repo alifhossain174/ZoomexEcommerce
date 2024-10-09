@@ -20,7 +20,7 @@
 
         </div>
         <div class="header-right ml-4">
-            <a class="wishlist label-down link d-xs-show" href="{{ url('/view/wishlist') }}">
+            <a class="wishlist label-down link d-xs-show" href="{{ url('/my/wishlists') }}">
                 <i class="w-icon-heart"></i>
                 <span class="wishlist-label d-lg-show">Wishlist</span>
             </a>

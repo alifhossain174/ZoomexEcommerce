@@ -363,15 +363,4 @@ class HomeController extends Controller
         }
 
     }
-
-    public function viewWishList()
-    {
-        $products = DB::table('wish_lists')
-                        ->leftJoin('products', 'wish_lists.product_id', 'products.id')
-                        ->select('products.*')
-                        ->where('user_id', Auth::user()->id)
-                        ->get();
-
-        return view('wishlist', compact('products'));
-    }
 }
