@@ -27,13 +27,13 @@
 
                 @if($variants && count($variants) > 0)
                     @if($variantMinDiscountPrice > 0)
-                        <span class="live_search_product_price"><del>৳{{number_format($variantMinPrice)}}</del> ৳{{number_format($variantMinDiscountPrice)}}</span>
+                        <span class="live_search_product_price">৳{{number_format($variantMinDiscountPrice)}} <del style="color: gray; font-weight: 500">৳{{number_format($variantMinPrice)}}</del></span>
                     @else
                         <span class="live_search_product_price">৳{{number_format($variantMinPrice)}}</span>
                     @endif
                 @else
                     @if($searchProduct->discount_price > 0)
-                        <span class="live_search_product_price"><del>৳{{number_format($searchProduct->price)}}</del> ৳{{number_format($searchProduct->discount_price)}}</span>
+                        <span class="live_search_product_price">৳{{number_format($searchProduct->discount_price)}} <del style="color: gray; font-weight: 500">৳{{number_format($searchProduct->price)}}</del></span>
                     @else
                         <span class="live_search_product_price">৳{{number_format($searchProduct->price)}}</span>
                     @endif

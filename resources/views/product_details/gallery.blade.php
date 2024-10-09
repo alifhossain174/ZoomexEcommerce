@@ -21,7 +21,7 @@
             @foreach ($productMultipleImages as $image)
                 <div class="swiper-slide">
                     <figure class="product-image">
-                        <img class="lazy" src="{{url('assets')}}/img/product-load.gif" data-zoom-image="{{env('ADMIN_URL')."/productImages/".$variant->image}}" data-src="{{env('ADMIN_URL')."/productImages/".$image->image}}" alt="" style="width: 100%; height: 550px"/>
+                        <img class="lazy" src="{{url('assets')}}/img/product-load.gif" data-zoom-image="{{env('ADMIN_URL')."/productImages/".$image->image}}" data-src="{{env('ADMIN_URL')."/productImages/".$image->image}}" alt="" style="width: 100%; height: 550px"/>
                     </figure>
                 </div>
             @endforeach

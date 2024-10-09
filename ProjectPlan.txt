@@ -1,1 +1,2 @@
-1. User Dashboard
+0. View Wishlist
+1. User Dashboard (With Missing Multivendor Features)
