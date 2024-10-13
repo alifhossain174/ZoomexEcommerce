@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('header_css')
-    {{-- <link rel="stylesheet" href="{{url('assets')}}/css/plugins/bootstrap.min.css" /> --}}
+    <link rel="stylesheet" href="{{url('assets')}}/css/plugins/bootstrap.min.css" />
     {{-- <link rel="stylesheet" href="./assets/css/plugins/animate.min.css" /> --}}
     <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/fancybox.css" />
     <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/nice-select.css" />
@@ -170,8 +170,8 @@
 @section('footer_js')
     <script src="{{ url('assets') }}/js/plugins/jquery-migrate.js"></script>
     <script src="{{ url('assets') }}/js/plugins/modernizer.min.js"></script>
-    {{-- <script src="{{ url('assets') }}/js/plugins/popper.js"></script>
-    <script src="{{ url('assets') }}/js/plugins/bootstrap.min.js"></script> --}}
+    <script src="{{ url('assets') }}/js/plugins/popper.js"></script>
+    <script src="{{ url('assets') }}/js/plugins/bootstrap.min.js"></script>
     <script src="{{ url('assets') }}/js/plugins/jquery-fancybox.min.js"></script>
     <script src="{{ url('assets') }}/js/plugins/nice-select.js"></script>
     <script src="{{ url('assets') }}/js/active.js"></script>

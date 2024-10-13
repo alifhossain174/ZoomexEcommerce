@@ -1,11 +1,22 @@
 @extends('master')
 
 @section('header_css')
-    {{-- <link rel="stylesheet" href="{{url('assets')}}/vendor/bootstrap/bootstrap.min.css" /> --}}
-    <link rel="stylesheet" href="{{url('assets')}}/css/fancybox.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/icofont.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/uicons.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/user-pannel.css" />
+    <link rel="stylesheet" href="{{url('assets')}}/css/plugins/bootstrap.min.css" />
+    {{-- <link rel="stylesheet" href="./assets/css/plugins/animate.min.css" /> --}}
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/fancybox.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/nice-select.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/icofont.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/uicons.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/user-pannel.css" />
+
+    <style>
+        .single-order-status-card:last-child::after{
+            background: none
+        }
+        .single-order-status-card:last-child::before{
+            background: none
+        }
+    </style>
 @endsection
 
 @push('site-seo')
@@ -27,16 +38,6 @@
     @endif
 @endpush
 
-@section('header_css')
-    <style>
-        .single-order-status-card:last-child::after{
-            background: none
-        }
-        .single-order-status-card:last-child::before{
-            background: none
-        }
-    </style>
-@endsection
 
 @section('content')
 <div class="ud-full-body">
@@ -47,7 +48,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="getcom-user-body-bg">
-                        <img alt="" src="{{ url('assets') }}/images/user-hero-bg.png" />
+                        <img alt="" src="{{ url('assets') }}/img/user-hero-bg.png" />
                     </div>
                 </div>
             </div>
@@ -67,7 +68,7 @@
                         <div class="order-tracking-card-group">
                             <div class="single-order-tracking-card card-1">
                                 <div class="order-tracking-card-icon">
-                                    <img alt="#" src="{{url('assets')}}/images/order-tracking/card-icon-1.svg">
+                                    <img alt="#" src="{{url('assets')}}/img/order-tracking/card-icon-1.svg">
                                 </div>
                                 <div class="order-tracking-card-info">
                                     <h6>#{{$order->order_no}}</h6>
@@ -76,7 +77,7 @@
                             </div>
                             <div class="single-order-tracking-card card-2">
                                 <div class="order-tracking-card-icon">
-                                    <img alt="#" src="{{url('assets')}}/images/order-tracking/card-icon-2.svg">
+                                    <img alt="#" src="{{url('assets')}}/img/order-tracking/card-icon-2.svg">
                                 </div>
                                 <div class="order-tracking-card-info">
                                     <h6>{{date("F d, Y", strtotime($order->estimated_dd))}}</h6>
@@ -85,7 +86,7 @@
                             </div>
                             <div class="single-order-tracking-card card-3">
                                 <div class="order-tracking-card-icon">
-                                    <img alt="#" src="{{url('assets')}}/images/order-tracking/card-icon-3.svg">
+                                    <img alt="#" src="{{url('assets')}}/img/order-tracking/card-icon-3.svg">
                                 </div>
                                 <div class="order-tracking-card-info">
                                     <h6>{{$totalItems}} items</h6>
@@ -201,4 +202,14 @@
         </div>
     </section>
 </div>
+@endsection
+
+@section('footer_js')
+    <script src="{{ url('assets') }}/js/plugins/jquery-migrate.js"></script>
+    <script src="{{ url('assets') }}/js/plugins/modernizer.min.js"></script>
+    <script src="{{ url('assets') }}/js/plugins/popper.js"></script>
+    <script src="{{ url('assets') }}/js/plugins/bootstrap.min.js"></script>
+    <script src="{{ url('assets') }}/js/plugins/jquery-fancybox.min.js"></script>
+    <script src="{{ url('assets') }}/js/plugins/nice-select.js"></script>
+    <script src="{{ url('assets') }}/js/active.js"></script>
 @endsection

@@ -36,7 +36,7 @@ class UserDashboardController extends Controller
             $query->orderBy('id', 'desc');
         }
 
-        $orders = $query->paginate(10);
+        $orders = $query->paginate(3);
         return view('dashboard.my_orders', compact('orders', 'order_status'));
     }
 
@@ -52,8 +52,10 @@ class UserDashboardController extends Controller
         $orderItems = DB::table('order_details')
                     ->join('products', 'order_details.product_id', 'products.id')
                     ->leftJoin('units', 'products.unit_id', 'units.id')
-                    ->select('products.name', 'order_details.reward_points', 'order_details.unit_price as product_price', 'order_details.qty', 'units.name as unit_name', 'products.image as product_image', 'products.slug as product_slug')
+                    ->leftJoin('stores', 'order_details.store_id', 'stores.id')
+                    ->select('products.name', 'stores.store_name', 'order_details.store_id', 'order_details.reward_points', 'order_details.unit_price as product_price', 'order_details.qty', 'units.name as unit_name', 'products.image as product_image', 'products.slug as product_slug')
                     ->where('order_id', $order->id)
+                    ->groupBy('order_details.store_id')
                     ->get();
 
         return view('dashboard.order_details', compact('order', 'orderItems'));

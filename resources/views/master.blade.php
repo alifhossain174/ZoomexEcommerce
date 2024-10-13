@@ -103,6 +103,9 @@
     @yield('header_css')
 
     <style>
+        a{
+            text-decoration: none;
+        }
         :root {
             --primary-color: {{ $generalInfo->primary_color }} !important;
             --secondary-color: {{ $generalInfo->secondary_color }} !important;

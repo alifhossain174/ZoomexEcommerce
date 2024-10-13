@@ -27,14 +27,11 @@
                         <a href="{{url('/my/orders')}}"><i class="fi fi-sr-rectangle-list"></i>All orders</a>
                     </li>
                     <li>
-                        <a href="order-cancelation.html"><i
-                                class="fi fi-sr-delete-document"></i>Order
-                            cancellation</a>
+                        <a href="order-cancelation.html"><i class="fi fi-sr-delete-document"></i>Order cancellation</a>
                     </li>
-                    <li>
-                        <a href="return-product.html"><i class="fi fi-sr-undo"></i>Return
-                            products</a>
-                    </li>
+                    {{-- <li>
+                        <a href="return-product.html"><i class="fi fi-sr-undo"></i>Return products</a>
+                    </li> --}}
                 </ul>
             </li>
             <li class="{{ (Request::path() == 'my/wishlists') ? 'active' : ''}}">
