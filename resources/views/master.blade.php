@@ -423,335 +423,55 @@
                             <a href="{{ url('/shop') }}">Shop</a>
                         </li>
                         <li>
-                            <a href="{{ url('/vendor-shop') }}">Vendor</a>
+                            <a href="{{ url('/vendor/shops') }}">Vendor</a>
+                        </li>
+                        <li>
+                            <a href="{{ url('/about') }}">About Us</a>
                         </li>
                         <li>
                             <a href="{{ url('/blogs') }}">Blog</a>
                         </li>
                         <li>
-                            <a href="#">Pages</a>
-                            <ul>
-                                <li><a href="{{ url('/about') }}">About Us</a></li>
-                                <li>
-                                    <a href="{{ url('/become/a/vendor') }}">Become A Vendor</a>
-                                </li>
-                                <li><a href="{{ url('/contact-us') }}">Contact Us</a></li>
-                                <li><a href="{{ url('/faq') }}">FAQs</a></li>
-                                <li><a href="{{ url('/blogs') }}">Blog</a></li>
-                                <li><a href="{{ url('/vendor-shop') }}">Vendor</a></li>
-                                <li><a href="{{ url('/error-404') }}">Error 404</a></li>
-                                <li><a href="{{ url('/wishlist') }}">Wishlist</a></li>
-                                <li><a href="{{ url('/cart') }}">Cart</a></li>
-                                <li><a href="{{ url('/checkout') }}">Checkout</a></li>
-                            </ul>
+                            <a href="{{ url('/contact') }}">Contact Us</a>
                         </li>
                     </ul>
                 </div>
                 <div class="tab-pane" id="categories">
                     <ul class="mobile-menu">
+                        @foreach ($categories as $category)
                         <li>
-                            <a href="{{ url('/shop') }}"> <i class="w-icon-tshirt2"></i>Fashion </a>
+                            <a href="{{ url('shop') }}?category={{$category->slug}}">
+                                <img class="lazy" src="{{url('assets')}}/img/product-load.gif" data-src="{{ url(env('ADMIN_URL')."/".$category->icon) }}" style="height: 18px; width: 18px; border-radius: 50%">
+                                {{$category->name}}
+                            </a>
+                            @php
+                                $subcategories = DB::table('subcategories')->where('status', 1)->where('category_id', $category->id)->orderBy('serial', 'asc')->get();
+                            @endphp
+
+                            @if(count($subcategories) > 0)
                             <ul>
+                                @foreach ($subcategories as $subcategory)
                                 <li>
-                                    <a href="#">Women</a>
+                                    <a href="{{ url('shop') }}?category={{$category->slug}}&subcategory={{$subcategory->slug}}">{{$subcategory->name}}</a>
+
+                                    @php
+                                        $childcategories = DB::table('child_categories')->where('status', 1)->where('subcategory_id', $subcategory->id)->get();
+                                    @endphp
+
+                                    @if(count($childcategories) > 0)
                                     <ul>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">New Arrivals</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Best Sellers</a>
-                                        </li>
-                                        <li><a href="{{ url('/shop') }}">Trending</a></li>
-                                        <li><a href="{{ url('/shop') }}">Clothing</a></li>
-                                        <li><a href="{{ url('/shop') }}">Shoes</a></li>
-                                        <li><a href="{{ url('/shop') }}">Bags</a></li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Accessories</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Jewlery & Watches</a>
-                                        </li>
+                                        @foreach ($childcategories as $childcategory)
+                                        <li><a href="{{ url('shop') }}?category={{$category->slug}}&subcategory={{$subcategory->slug}}&childcategory={{$childcategory->slug}}">{{$childcategory->name}}</a></li>
+                                        @endforeach
                                     </ul>
+                                    @endif
                                 </li>
-                                <li>
-                                    <a href="#">Men</a>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">New Arrivals</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Best Sellers</a>
-                                        </li>
-                                        <li><a href="{{ url('/shop') }}">Trending</a></li>
-                                        <li><a href="{{ url('/shop') }}">Clothing</a></li>
-                                        <li><a href="{{ url('/shop') }}">Shoes</a></li>
-                                        <li><a href="{{ url('/shop') }}">Bags</a></li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Accessories</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Jewlery & Watches</a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                @endforeach
                             </ul>
+                            @endif
+
                         </li>
-                        <li>
-                            <a href="{{ url('/shop') }}"> <i class="w-icon-home"></i>Home & Garden </a>
-                            <ul>
-                                <li>
-                                    <a href="#">Bedroom</a>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Beds, Frames & Bases</a>
-                                        </li>
-                                        <li><a href="{{ url('/shop') }}">Dressers</a></li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Nightstands</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Kid's Beds & Headboards</a>
-                                        </li>
-                                        <li><a href="{{ url('/shop') }}">Armoires</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Living Room</a>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Coffee Tables</a>
-                                        </li>
-                                        <li><a href="{{ url('/shop') }}">Chairs</a></li>
-                                        <li><a href="{{ url('/shop') }}">Tables</a></li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Futons & Sofa Beds</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Cabinets & Chests</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Office</a>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Office Chairs</a>
-                                        </li>
-                                        <li><a href="{{ url('/shop') }}">Desks</a></li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Bookcases</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">File Cabinets</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Breakroom Tables</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Kitchen & Dining</a>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Dining Sets</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Kitchen Storage Cabinets</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Bashers Racks</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Dining Chairs</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Dining Room Tables</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Bar Stools</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="{{ url('/shop') }}"> <i class="w-icon-electronics"></i>Electronics </a>
-                            <ul>
-                                <li>
-                                    <a href="#">Laptops &amp; Computers</a>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Desktop Computers</a>
-                                        </li>
-                                        <li><a href="{{ url('/shop') }}">Monitors</a></li>
-                                        <li><a href="{{ url('/shop') }}">Laptops</a></li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Hard Drives &amp; Storage</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Computer Accessories</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">TV &amp; Video</a>
-                                    <ul>
-                                        <li><a href="{{ url('/shop') }}">TVs</a></li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Home Audio Speakers</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Projectors</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Media Streaming Devices</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Digital Cameras</a>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Digital SLR Cameras</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Sports & Action Cameras</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Camera Lenses</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Photo Printer</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Digital Memory Cards</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Cell Phones</a>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Carrier Phones</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Unlocked Phones</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Phone & Cellphone Cases</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Cellphone Chargers</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="{{ url('/shop') }}"> <i class="w-icon-furniture"></i>Furniture </a>
-                            <ul>
-                                <li>
-                                    <a href="#">Furniture</a>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Sofas & Couches</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Armchairs</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Bed Frames</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Beside Tables</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Dressing Tables</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Lighting</a>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Light Bulbs</a>
-                                        </li>
-                                        <li><a href="{{ url('/shop') }}">Lamps</a></li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Celling Lights</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Wall Lights</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Bathroom Lighting</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Home Accessories</a>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Decorative Accessories</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Candals & Holders</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Home Fragrance</a>
-                                        </li>
-                                        <li><a href="{{ url('/shop') }}">Mirrors</a></li>
-                                        <li><a href="{{ url('/shop') }}">Clocks</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Garden & Outdoors</a>
-                                    <ul>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Garden Furniture</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Lawn Mowers</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Pressure Washers</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">All Garden Tools</a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('/shop') }}">Outdoor Dining</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>
-                            <a href="{{ url('/shop') }}"> <i class="w-icon-heartbeat"></i>Healthy & Beauty </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/shop') }}"> <i class="w-icon-gift"></i>Gift Ideas </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/shop') }}"> <i class="w-icon-gamepad"></i>Toy & Games </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/shop') }}"> <i class="w-icon-ice-cream"></i>Cooking </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/shop') }}"> <i class="w-icon-ios"></i>Smart Phones </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/shop') }}"> <i class="w-icon-camera"></i>Cameras & Photo </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/shop') }}"> <i class="w-icon-ruby"></i>Accessories </a>
-                        </li>
-                        <li>
-                            <a href="{{ url('/shop') }}"
-                                class="font-weight-bold text-primary text-uppercase ls-25"> View All
-                                Categories<i class="w-icon-angle-right"></i> </a>
-                        </li>
+                        @endforeach
                     </ul>
                 </div>
             </div>
