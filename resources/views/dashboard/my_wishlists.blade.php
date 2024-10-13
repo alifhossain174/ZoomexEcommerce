@@ -1,11 +1,17 @@
 @extends('master')
 
 @section('header_css')
-    {{-- <link rel="stylesheet" href="{{url('assets')}}/vendor/bootstrap/bootstrap.min.css" /> --}}
-    <link rel="stylesheet" href="{{url('assets')}}/css/fancybox.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/icofont.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/uicons.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/user-pannel.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/fancybox.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/nice-select.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/icofont.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/uicons.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/user-pannel.css" />
+    <style>
+        .pagination {
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 @endsection
 
 @push('site-seo')
@@ -27,82 +33,74 @@
     @endif
 @endpush
 
-@section('header_css')
-    <style>
-        .pagination {
-            justify-content: center;
-            align-items: center;
-        }
-    </style>
-@endsection
-
-@push('user_dashboard_menu')
-    @include('dashboard.mobile_menu_offcanvus')
-@endpush
-
 @section('content')
-    <section class="getcom-user-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="getcom-user-body-bg">
-                        <img alt="" src="{{ url('assets') }}/images/user-hero-bg.png" />
+    <div class="ud-full-body">
+
+        @include('dashboard.mobile_menu_offcanvus')
+
+        <section class="getcom-user-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="getcom-user-body-bg">
+                            <img alt="" src="{{ url('assets') }}/img/user-hero-bg.png" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-3 col-12">
-                    @include('dashboard.menu')
-                </div>
-                <div class="col-lg-12 col-xl-9 col-12">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-12">
+                        @include('dashboard.menu')
+                    </div>
+                    <div class="col-lg-12 col-xl-9 col-12">
 
-                    <div class="wishlist-page-area mgTop24">
-                        <div class="dashboard-head-widget style-2">
-                            <h5 class="dashboard-head-widget-title">Wishlist’s</h5>
-                            <div class="dashboard-head-widget-btn">
-                                <a class="theme-btn secondary-btn" href="{{url('clear/all/wishlist')}}">Clear all</a>
+                        <div class="wishlist-page-area mgTop24">
+                            <div class="dashboard-head-widget style-2">
+                                <h5 class="dashboard-head-widget-title">Wishlist’s</h5>
+                                <div class="dashboard-head-widget-btn">
+                                    <a class="theme-btn secondary-btn" href="{{url('clear/all/wishlist')}}">Clear all</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="wishlist-items-area" style="margin-top: 32px">
-                            <div class="dashboard-wishlist-inner">
+                            <div class="wishlist-items-area" style="margin-top: 32px">
+                                <div class="dashboard-wishlist-inner">
 
-                                @if(count($wishlistedItems) > 0)
-                                @foreach ($wishlistedItems as $wishlistedItem)
-                                <div class="wishlist-card">
-                                    <div class="wishlist-card-data">
-                                        <div class="wishlist-card-img">
-                                            <img alt="" src="{{env('ADMIN_URL')."/".$wishlistedItem->image}}" />
-                                            <div class="wishlist-card-remove">
-                                                <a href="{{url('remove/from/wishlist')}}/{{$wishlistedItem->product_slug}}" class="d-block">
-                                                    <span><i class="fi-br-cross-small"></i></span>
-                                                </a>
+                                    @if(count($wishlistedItems) > 0)
+                                    @foreach ($wishlistedItems as $wishlistedItem)
+                                    <div class="wishlist-card">
+                                        <div class="wishlist-card-data">
+                                            <div class="wishlist-card-img">
+                                                <img alt="" src="{{env('ADMIN_URL')."/".$wishlistedItem->image}}" />
+                                                <div class="wishlist-card-remove">
+                                                    <a href="{{url('remove/from/wishlist')}}/{{$wishlistedItem->product_slug}}" class="d-block">
+                                                        <span><i class="fi-br-cross-small"></i></span>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="wishlist-card-info">
+                                                <h6>{{$wishlistedItem->name}}</h6>
+                                                <p>{{$wishlistedItem->discount_price > 0 ? $wishlistedItem->discount_price : $wishlistedItem->price}} BDT<span>@if($wishlistedItem->unit_name)/{{$wishlistedItem->unit_name}}@endif</span></p>
                                             </div>
                                         </div>
-                                        <div class="wishlist-card-info">
-                                            <h6>{{$wishlistedItem->name}}</h6>
-                                            <p>{{$wishlistedItem->discount_price > 0 ? $wishlistedItem->discount_price : $wishlistedItem->price}} BDT<span>@if($wishlistedItem->unit_name)/{{$wishlistedItem->unit_name}}@endif</span></p>
+                                        <div class="wishlist-card-btn">
+                                            <a href="{{url('product')}}/{{$wishlistedItem->product_slug}}" target="_blank"><i class="fi-rr-arrow-right"></i></a>
                                         </div>
                                     </div>
-                                    <div class="wishlist-card-btn">
-                                        <a href="{{url('product/details')}}/{{$wishlistedItem->product_slug}}" target="_blank"><i class="fi-rr-arrow-right"></i></a>
-                                    </div>
-                                </div>
-                                @endforeach
-                                @else
-                                <style>
-                                    .dashboard-wishlist-inner{
-                                        display: block;
-                                    }
-                                </style>
-                                <h3 class="text-center">No Product in Wishlist</h3>
-                                @endif
+                                    @endforeach
+                                    @else
+                                    <style>
+                                        .dashboard-wishlist-inner{
+                                            display: block;
+                                        }
+                                    </style>
+                                    <h3 class="text-center">No Product in Wishlist</h3>
+                                    @endif
 
+                                </div>
                             </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 @endsection

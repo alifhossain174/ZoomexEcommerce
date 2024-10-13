@@ -304,7 +304,7 @@
     <!-- End of Page Wrapper -->
 
     <!-- Start of Sticky Footer -->
-    <div class="sticky-footer sticky-content fix-bottom">
+    {{-- <div class="sticky-footer sticky-content fix-bottom">
         <a href="{{ url('/') }}" class="sticky-link active">
             <i class="w-icon-home"></i>
             <p>Home</p>
@@ -344,27 +344,6 @@
                             <i class="fas fa-times"></i>
                         </button>
                     </div>
-
-                    <div class="product product-cart">
-                        <div class="product-detail">
-                            <h3 class="product-name">
-                                <a href="{{ url('/product/details') }}">Blue utility pina<br />fore denim dress</a>
-                            </h3>
-                            <div class="price-box">
-                                <span class="product-quantity">1</span>
-                                <span class="product-price">$32.99</span>
-                            </div>
-                        </div>
-                        <figure class="product-media">
-                            <a href="{{ url('/product/details') }}">
-                                <img src="{{ url('assets') }}/images/cart/product-2.jpg" alt="product"
-                                    width="84" height="94" />
-                            </a>
-                        </figure>
-                        <button class="btn btn-link btn-close" aria-label="button">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
                 </div>
 
                 <div class="cart-total">
@@ -393,7 +372,7 @@
                 </button>
             </form>
         </div>
-    </div>
+    </div> --}}
     <!-- End of Sticky Footer -->
 
     <!-- Start of Scroll Top -->

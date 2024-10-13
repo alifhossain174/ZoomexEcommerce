@@ -40,11 +40,10 @@
     </style>
 @endsection
 
-@push('user_dashboard_menu')
-    @include('dashboard.mobile_menu_offcanvus')
-@endpush
-
 @section('content')
+<div class="ud-full-body">
+    @include('dashboard.mobile_menu_offcanvus')
+
     <section class="getcom-user-body">
         <div class="container">
             <div class="row">
@@ -309,7 +308,7 @@
                                         @foreach ($orderItems as $item)
                                             <tr>
                                                 <td>
-                                                    <a href="{{ url('/product/details') }}/{{ $item->product_slug }}"
+                                                    <a href="{{ url('/product') }}/{{ $item->product_slug }}"
                                                         target="_blank" class="d-block">
                                                         <img alt=""
                                                             src="{{ env('ADMIN_URL') . '/' . $item->product_image }}"
@@ -363,4 +362,5 @@
             </div>
         </div>
     </section>
+</div>
 @endsection

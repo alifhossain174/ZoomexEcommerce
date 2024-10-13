@@ -1,13 +1,16 @@
 @extends('master')
 
 @section('header_css')
-    {{-- <link rel="stylesheet" href="{{url('assets')}}/vendor/bootstrap/bootstrap.min.css" /> --}}
-    <link rel="stylesheet" href="{{url('assets')}}/css/fancybox.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/icofont.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/uicons.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/user-pannel.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/fancybox.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/icofont.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/uicons.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/user-pannel.css" />
     <link rel="stylesheet" href="{{url('assets')}}/css/select2.min.css">
     <style>
+        .select2-container{
+            display: block;
+        }
+
         .select2-selection {
             height: 34px !important;
             border: 1px solid #ced4da !important;
@@ -67,206 +70,159 @@
     @endif
 @endpush
 
-@push('user_dashboard_menu')
-    @include('dashboard.mobile_menu_offcanvus')
-@endpush
-
 @section('content')
-    <section class="getcom-user-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="getcom-user-body-bg">
-                        <img alt="" src="{{ url('assets') }}/images/user-hero-bg.png" />
+
+    <div class="ud-full-body">
+
+        @include('dashboard.mobile_menu_offcanvus')
+
+        <section class="getcom-user-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="getcom-user-body-bg">
+                            <img alt="" src="{{ url('assets') }}/img/user-hero-bg.png" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-3 col-12">
-                    @include('dashboard.menu')
-                </div>
-                <div class="col-lg-12 col-xl-9 col-12">
-                    <div class="dashboard-address mgTop24">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-12">
+                        @include('dashboard.menu')
+                    </div>
+                    <div class="col-lg-12 col-xl-9 col-12">
+                        <div class="dashboard-address mgTop24">
 
 
-                        <div class="dashboard-head-widget style-2" style="margin: 0">
-                            <h5 class="dashboard-head-widget-title">Address</h5>
-                            <div class="dashboard-head-widget-btn">
-                                <button type="button" class="widget-show-btn theme-btn secondary-btn icon-right btn btn-primary">
-                                    <i class="fi-rr-plus"></i> Add new address
-                                </button>
-                            </div>
-                            <div class="add-new-address-widget">
-                                <form action="{{url('save/user/address')}}" method="post" class="add-new-address-form">
-                                    @csrf
-                                    <i class="close-icon fa fa-cross" style="right: 12px; top: 12px; cursor: pointer; position: absolute; height: 25px; width: 25px;"></i>
-                                    <div class="form-group select-form">
-                                        <label class="form-label" for="address_type">Address type</label>
-                                        <select name="address_type" style="font-size: 14px; padding: 10px 10px;" id="address_type" class="form-select" required>
-                                            <option value="">Select</option>
-                                            <option value="Home">Home</option>
-                                            <option value="Office">Office</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Address line</label>
-                                        <input name="adress_line" placeholder="Address" style="font-weight: 500;" type="text" class="form-control" required>
-                                    </div>
-                                    <div class="form-group select-form">
-                                        @php
-                                            $districts = DB::table('districts')->orderBy('name', 'asc')->get();
-                                        @endphp
-                                        <label class="form-label" for="city">Select District</label>
-                                        <select name="shipping_district_id" id="shipping_district_id" data-toggle="select2" class="form-select" required>
-                                            <option value="">Select</option>
-                                            @foreach ($districts as $district)
-                                            <option value="{{$district->id}}">{{$district->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group select-form">
-                                        <label class="form-label" for="state">Select Thana/Upazila</label>
-                                        <select name="shipping_thana_id" id="shipping_thana_id" data-toggle="select2" class="form-select" required>
-                                            <option value="">Select</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="form-label">Postal code</label>
-                                        <input name="postal_code" placeholder="ex: 1000" style="font-weight: 500;" type="text" class="form-control" required>
-                                    </div>
-                                    <button type="submit" class="add-new-address-form-btn theme-btn btn btn-primary">
-                                        Save
+                            <div class="dashboard-head-widget style-2" style="margin: 0">
+                                <h5 class="dashboard-head-widget-title">Address</h5>
+                                <div class="dashboard-head-widget-btn">
+                                    <button type="button" class="widget-show-btn theme-btn secondary-btn icon-right btn btn-primary">
+                                        <i class="fi-rr-plus"></i> Add new address
                                     </button>
-                                </form>
-                            </div>
-                        </div>
-
-                        <div class="dashboard-address-widget">
-
-                            @foreach ($addresses as $address)
-
-                            {{-- for update purpose --}}
-                            <input type="hidden" id="update_address_type_{{$address->slug}}" value="{{$address->address_type}}">
-                            <input type="hidden" id="update_address_line_{{$address->slug}}" value="{{$address->address}}">
-                            <input type="hidden" id="update_city_{{$address->slug}}" value="{{$address->city}}">
-                            @php
-                                $districtInfo = DB::table('districts')->where('name', $address->city)->first();
-                            @endphp
-                            <input type="hidden" id="update_city_id_{{$address->slug}}" value="{{$districtInfo ? $districtInfo->id : ''}}">
-                            <input type="hidden" id="update_state_{{$address->slug}}" value="{{$address->state}}">
-                            <input type="hidden" id="update_post_code_{{$address->slug}}" value="{{$address->post_code}}">
-
-                            <div class="address-card">
-                                <div class="address-card-head">
-                                    <div class="address-card-head-title">
-                                        <div class="address-card-head-icon">
-                                            @if($address->address_type == 'Home')
-                                            <img alt="#" src="{{ url('assets') }}/images/icons/home.svg">
-                                            @else
-                                            <img alt="#" src="{{ url('assets') }}/images/icons/briefcase.svg">
-                                            @endif
-                                        </div>
-                                        <h4>{{$address->address_type}} Address</h4>
-                                    </div>
-
-                                    <div class="address-card-head-menu dropdown">
-                                        {{-- <button type="button" id="dropdownMenuButton{{$address->id}}" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i class="fi-rs-menu-dots-vertical"></i>
-                                        </button>
-                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{$address->id}}">
-                                            <a class="dropdown-item editAddress" href="javascript:void(0)" data-toggle="tooltip" data-id="{{$address->slug}}" title="Edit" data-original-title="Edit">Edit Address</a>
-                                            <a class="dropdown-item" href="{{url('remove/user/address')}}/{{$address->slug}}">Remove address</a>
-                                        </div> --}}
-                                        <style>
-                                            .dropdown > a::after{
-                                                display: none
-                                            }
-                                        </style>
-                                        <a class="dropdown-item" href="{{url('remove/user/address')}}/{{$address->slug}}">Remove address</a>
-                                    </div>
                                 </div>
-                                <ul class="address-card-content-list">
-                                    <li>
-                                        <span>Address line</span><strong>{{$address->address}}</strong>
-                                    </li>
-                                    <li><span>District/City</span><strong>{{$address->city}}</strong></li>
-                                    <li><span>Thana/Upazila</span><strong>{{$address->state}}</strong></li>
-                                    <li><span>Postal code</span><strong>{{$address->post_code}}</strong></li>
-                                </ul>
+                                <div class="add-new-address-widget">
+                                    <form action="{{url('save/user/address')}}" method="post" class="add-new-address-form">
+                                        @csrf
+                                        <i class="close-icon fa fa-cross" style="right: 12px; top: 12px; cursor: pointer; position: absolute; height: 25px; width: 25px;"></i>
+                                        <div class="form-group select-form">
+                                            <label class="form-label" for="address_type">Address type</label>
+                                            <select name="address_type" style="font-size: 14px; padding: 10px 10px; display: block; width: 100%;" id="address_type" class="form-select" required>
+                                                <option value="">Select</option>
+                                                <option value="Home">Home</option>
+                                                <option value="Office">Office</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Address line</label>
+                                            <input name="adress_line" placeholder="Address" style="font-weight: 500;" type="text" class="form-control" required>
+                                        </div>
+                                        <div class="form-group select-form">
+                                            @php
+                                                $districts = DB::table('districts')->orderBy('name', 'asc')->get();
+                                            @endphp
+                                            <label class="form-label" for="city">Select District</label>
+                                            <select name="shipping_district_id" id="shipping_district_id" data-toggle="select2" class="form-select" required>
+                                                <option value="">Select</option>
+                                                @foreach ($districts as $district)
+                                                <option value="{{$district->id}}">{{$district->name}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group select-form">
+                                            <label class="form-label" for="state">Select Thana/Upazila</label>
+                                            <select name="shipping_thana_id" id="shipping_thana_id" data-toggle="select2" class="form-select" required>
+                                                <option value="">Select</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label">Postal code</label>
+                                            <input name="postal_code" placeholder="ex: 1000" style="font-weight: 500;" type="text" class="form-control" required>
+                                        </div>
+                                        <button type="submit" class="add-new-address-form-btn theme-btn btn btn-primary">
+                                            Save
+                                        </button>
+                                    </form>
+                                </div>
                             </div>
-                            @endforeach
 
-                        </div>
+                            <div class="dashboard-address-widget">
 
+                                @foreach ($addresses as $address)
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+                                {{-- for update purpose --}}
+                                <input type="hidden" id="update_address_type_{{$address->slug}}" value="{{$address->address_type}}">
+                                <input type="hidden" id="update_address_line_{{$address->slug}}" value="{{$address->address}}">
+                                <input type="hidden" id="update_city_{{$address->slug}}" value="{{$address->city}}">
+                                @php
+                                    $districtInfo = DB::table('districts')->where('name', $address->city)->first();
+                                @endphp
+                                <input type="hidden" id="update_city_id_{{$address->slug}}" value="{{$districtInfo ? $districtInfo->id : ''}}">
+                                <input type="hidden" id="update_state_{{$address->slug}}" value="{{$address->state}}">
+                                <input type="hidden" id="update_post_code_{{$address->slug}}" value="{{$address->post_code}}">
 
+                                <div class="address-card">
+                                    <div class="address-card-head">
+                                        <div class="address-card-head-title">
+                                            <div class="address-card-head-icon">
+                                                @if($address->address_type == 'Home')
+                                                <img alt="#" src="{{ url('assets') }}/img/icons/home.svg">
+                                                @else
+                                                <img alt="#" src="{{ url('assets') }}/img/icons/briefcase.svg">
+                                                @endif
+                                            </div>
+                                            <h4>{{$address->address_type}} Address</h4>
+                                        </div>
 
-
-    <!-- Edit Address Modal -->
-    <div class="edit-address-modal modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="edit-address-modal-haed modal-header">
-                    <div class="edit-address-modal-title modal-title h4">
-                        Edit Address
-                    </div>
-                    <div class="btn-close edit-address-modal-close" data-bs-dismiss="modal" aria-label="Close">
-                        <i class="fi-rr-cross-small"></i>
-                    </div>
-                </div>
-                <div class="edit-address-modal-body modal-body">
-                    <form id="productForm2" class="edit-address-modal-form">
-                        <input type="hidden" name="address_slug" id="address_slug">
-                        {{-- <div class="form-group select-form">
-                            <label class="form-label" for="edit_address_type">Address type</label>
-                            <select name="edit_address_type" id="edit_address_type" class="form-select" required>
-                                <option value="">Select</option>
-                                <option value="Home">Home</option>
-                                <option value="Office">Office</option>
-                            </select>
-                        </div> --}}
-                        <div class="form-group">
-                            <label class="form-label" for="edit_address_line">Address line</label>
-                            <input type="text" name="edit_address_line" id="edit_address_line" class="form-control" value="" required/>
-                        </div>
-                        <div class="form-group select-form">
-                            <label class="form-label" for="edit_district_id">Select District</label>
-                            <select name="edit_district_id" id="edit_district_id" class="form-select" required>
-                                <option value="">Select</option>
-                                @foreach ($districts as $district)
-                                <option value="{{$district->id}}">{{$district->name}}</option>
+                                        <div class="address-card-head-menu dropdown">
+                                            {{-- <button type="button" id="dropdownMenuButton{{$address->id}}" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i class="fi-rs-menu-dots-vertical"></i>
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton{{$address->id}}">
+                                                <a class="dropdown-item editAddress" href="javascript:void(0)" data-toggle="tooltip" data-id="{{$address->slug}}" title="Edit" data-original-title="Edit">Edit Address</a>
+                                                <a class="dropdown-item" href="{{url('remove/user/address')}}/{{$address->slug}}">Remove address</a>
+                                            </div> --}}
+                                            <style>
+                                                .dropdown > a::after{
+                                                    display: none
+                                                }
+                                            </style>
+                                            <a class="dropdown-item" href="{{url('remove/user/address')}}/{{$address->slug}}">Remove address</a>
+                                        </div>
+                                    </div>
+                                    <ul class="address-card-content-list">
+                                        <li>
+                                            <span>Address line</span><strong>{{$address->address}}</strong>
+                                        </li>
+                                        <li><span>District/City</span><strong>{{$address->city}}</strong></li>
+                                        <li><span>Thana/Upazila</span><strong>{{$address->state}}</strong></li>
+                                        <li><span>Postal code</span><strong>{{$address->post_code}}</strong></li>
+                                    </ul>
+                                </div>
                                 @endforeach
-                            </select>
+
+                            </div>
+
+
                         </div>
-                        <div class="form-group select-form">
-                            <label class="form-label" for="state">Select Thana/Upazila</label>
-                            <select name="edit_shipping_thana_id" id="edit_shipping_thana_id" class="form-select" required>
-                                <option value="">Select</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label" for="edit_postal_Code">Postal code</label>
-                            <input name="edit_postal_Code" placeholder="ex: 1000" required="" type="text" id="edit_postal_Code" class="form-control" value="" />
-                        </div>
-                        <button type="button" id="updateBtn" class="add-new-address-form-btn theme-btn btn btn-primary">
-                            Update Address
-                        </button>
-                    </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
     </div>
-    <!-- End Edit Address Modal -->
 
 @endsection
 
 
 @section('footer_js')
+
+    <script src="{{ url('assets') }}/js/plugins/jquery-migrate.js"></script>
+    <script src="{{ url('assets') }}/js/plugins/modernizer.min.js"></script>
+    {{-- <script src="{{ url('assets') }}/js/plugins/popper.js"></script>
+    <script src="{{ url('assets') }}/js/plugins/bootstrap.min.js"></script> --}}
+    <script src="{{ url('assets') }}/js/plugins/jquery-fancybox.min.js"></script>
+    {{-- <script src="{{ url('assets') }}/js/plugins/nice-select.js"></script> --}}
+    <script src="{{ url('assets') }}/js/active.js"></script>
+
     <script src="{{url('assets')}}/js/select2.min.js"></script>
     <script>
         $('[data-toggle="select2"]').select2();

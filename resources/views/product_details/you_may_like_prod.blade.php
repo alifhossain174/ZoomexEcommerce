@@ -1,12 +1,12 @@
 <div class="product product-widget">
     <figure class="product-media">
-        <a href="{{url('product/details')}}/{{$mayLikedProduct->slug}}">
+        <a href="{{url('product')}}/{{$mayLikedProduct->slug}}">
             <img class="lazy" src="{{url('assets')}}/img/product-load.gif" data-src="{{url(env('ADMIN_URL')."/".$mayLikedProduct->image)}}" alt="" style="width: 100%; max-height: 113px"/>
         </a>
     </figure>
     <div class="product-details">
         <h4 class="product-name">
-            <a href="{{url('product/details')}}/{{$mayLikedProduct->slug}}">{{$mayLikedProduct->name}}</a>
+            <a href="{{url('product')}}/{{$mayLikedProduct->slug}}">{{$mayLikedProduct->name}}</a>
         </h4>
         <div class="ratings-container">
             @php
@@ -31,7 +31,7 @@
             @endif
 
             &nbsp;&nbsp;
-            <a href="{{url('product/details')}}/{{$mayLikedProduct->slug}}" class="rating-reviews">({{count($productReviews)}} Reviews)</a>
+            <a href="{{url('product')}}/{{$mayLikedProduct->slug}}" class="rating-reviews">({{count($productReviews)}} Reviews)</a>
         </div>
         <div class="product-price">
 

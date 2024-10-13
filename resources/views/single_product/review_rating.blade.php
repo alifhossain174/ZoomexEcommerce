@@ -20,7 +20,7 @@
 @endif
 
 &nbsp;&nbsp;
-<a href="{{url('product/details')}}/{{$product->slug}}" class="rating-reviews">({{count($productReviews)}} Reviews)</a>
+<a href="{{url('product')}}/{{$product->slug}}" class="rating-reviews">({{count($productReviews)}} Reviews)</a>
 
 @php
     $totalSold = DB::table('order_details')->where('product_id', $product->id)->count();

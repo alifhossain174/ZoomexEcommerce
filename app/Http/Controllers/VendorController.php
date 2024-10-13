@@ -68,6 +68,13 @@ class VendorController extends Controller
         $nidCard = NULL;
         if ($request->hasFile('nid_card')){
             $get_attachment = $request->file('nid_card');
+
+            $allowedExtensions = array("jpg", "png", "jpeg", "svg", "pdf");
+            if (!in_array(strtolower($get_attachment->getClientOriginalExtension()), $allowedExtensions)){
+                Toastr::error('This File Format is not allowed');
+                return back();
+            }
+
             $attachment_name = str::random(5) . time() . '.' . $get_attachment->getClientOriginalExtension();
             $location = public_path('vendor_attachments/');
             $get_attachment->move($location, $attachment_name);
@@ -94,6 +101,13 @@ class VendorController extends Controller
         $tradeLicense = NULL;
         if ($request->hasFile('trade_license')){
             $get_attachment = $request->file('trade_license');
+
+            $allowedExtensions = array("jpg", "png", "jpeg", "svg", "pdf");
+            if (!in_array(strtolower($get_attachment->getClientOriginalExtension()), $allowedExtensions)){
+                Toastr::error('This File Format is not allowed');
+                return back();
+            }
+
             $attachment_name = str::random(5) . time() . '.' . $get_attachment->getClientOriginalExtension();
             $location = public_path('vendor_attachments/');
             $get_attachment->move($location, $attachment_name);

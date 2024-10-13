@@ -363,4 +363,11 @@ class HomeController extends Controller
         }
 
     }
+
+    public function removeFromWishlist($slug){
+        $productInfo = DB::table('products')->where('slug', $slug)->first();
+        DB::table('wish_lists')->where('product_id', $productInfo->id)->where('user_id', Auth::user()->id)->delete();
+        Toastr::error('Removed From Wishlist');
+        return back();
+    }
 }

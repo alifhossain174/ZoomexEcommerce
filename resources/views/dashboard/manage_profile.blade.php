@@ -2,25 +2,36 @@
 
 
 @section('header_css')
-    {{-- <link rel="stylesheet" href="{{url('assets')}}/vendor/bootstrap/bootstrap.min.css" /> --}}
-    <link rel="stylesheet" href="{{url('assets')}}/css/fancybox.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/icofont.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/uicons.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/user-pannel.css" />
+    {{-- <link rel="stylesheet" href="{{url('assets')}}/css/plugins/bootstrap.min.css" /> --}}
+    {{-- <link rel="stylesheet" href="./assets/css/plugins/animate.min.css" /> --}}
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/fancybox.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/nice-select.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/icofont.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/uicons.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/user-pannel.css" />
+
     <style>
-        .manage-profile-form .form-control{
+        .manage-profile-form .form-control {
             font-size: 16px !important;
             height: 45px !important;
             padding: .6rem .8rem !important;
         }
-        .manage-profile-form button.theme-btn{
+
+        .manage-profile-form button.theme-btn {
             font-size: 14px;
         }
-        .form-control::file-selector-button{
-            padding: 0px !important; margin: 3px !important;
+
+        .form-control::file-selector-button {
+            padding: 0px !important;
+            margin: 3px !important;
         }
-        .manage-profile-form-widget .btn{
+
+        .manage-profile-form-widget .btn {
             font-size: 16px !important;
+        }
+
+        .manage-profile-form .form-control::file-selector-button {
+            padding: 2px 5px !important;
         }
     </style>
 @endsection
@@ -41,30 +52,20 @@
         @endif
     </title>
     @if ($generalInfo && $generalInfo->fav_icon)
-        <link rel="icon" href="{{ env('ADMIN_URL') . '/' . $generalInfo->fav_icon }}" type="image/x-icon"/>
+        <link rel="icon" href="{{ env('ADMIN_URL') . '/' . $generalInfo->fav_icon }}" type="image/x-icon" />
     @endif
 @endpush
 
-@section('header_css')
-    <style>
-        .manage-profile-form .form-control::file-selector-button {
-            padding: 2px 5px !important;
-            margin: 10px 6px !important;
-        }
-    </style>
-@endsection
-
-@push('user_dashboard_menu')
-    @include('dashboard.mobile_menu_offcanvus')
-@endpush
-
 @section('content')
+<div class="ud-full-body">
+    @include('dashboard.mobile_menu_offcanvus')
+
     <section class="getcom-user-body">
         <div class="container">
             <div class="row">
                 <div class="col-12">
                     <div class="getcom-user-body-bg">
-                        <img alt="" src="{{ url('assets') }}/images/user-hero-bg.png" />
+                        <img alt="" src="{{ url('assets') }}/img/user-hero-bg.png" />
                     </div>
                 </div>
             </div>
@@ -75,16 +76,23 @@
                 <div class="col-lg-12 col-xl-9 col-12">
                     <div class="dashboard-mange-profile mgTop24">
                         <div class="dashboard-head-widget style-2 m-0">
-                            <h5 class="dashboard-head-widget-title">Manage profile</h5>
+                            <h5 class="dashboard-head-widget-title">
+                                Manage profile
+                            </h5>
                         </div>
                         <div class="dashboard-mange-profile-inner">
                             <div class="row justify-content-center">
                                 <div class="col-lg-8 col-md-10 col-12">
                                     <div class="manage-profile-card" style="margin-top: 25px;">
 
+                                        <div class="manage-profile-cover">
+                                            <img src="{{ url('assets') }}/img/user-hero-bg.png" alt="#" />
+                                        </div>
+
                                         @if (Auth::user()->image)
                                             <div class="manage-profile-img">
-                                                <img alt="" src="{{ env('ADMIN_URL') . '/' . Auth::user()->image }}">
+                                                <img alt=""
+                                                    src="{{ env('ADMIN_URL') . '/' . Auth::user()->image }}">
                                                 <div class="manage-profile-img-btn">
                                                     <a href="{{ url('remove/user/image') }}"
                                                         class="theme-btn secondary-btn icon-right">
@@ -94,29 +102,37 @@
                                             </div>
                                         @endif
 
-                                        <form action="{{ url('update/profile') }}" method="post" class="manage-profile-form" enctype="multipart/form-data">
+                                        <form action="{{ url('update/profile') }}" method="post"
+                                            @if (!Auth::user()->image) style="margin-top: 125px;" @endif
+                                            class="manage-profile-form" enctype="multipart/form-data">
                                             @csrf
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label class="form-label" for="full_name">Full Name</label>
-                                                        <input name="name" placeholder="Mr. XYZ" type="text" id="full_name" value="{{ Auth::user()->name }}" class="form-control" required="">
+                                                        <input name="name" placeholder="Mr. XYZ" type="text"
+                                                            id="full_name" value="{{ Auth::user()->name }}"
+                                                            class="form-control" required="">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="form-group">
                                                         <label class="form-label" for="full_name">Upload New Photo</label>
-                                                        <input type="file" name="image" class="form-control" style="padding: 2px 5px; margin: 0px">
+                                                        <input type="file" name="image" class="form-control"
+                                                            style="padding: 2px 5px; margin: 0px">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-12">
                                                     <div class="form-group">
                                                         <label class="form-label" for="address">Address</label>
-                                                        <input name="address" placeholder="ex. Dhaka, Bangladesh" value="{{ Auth::user()->address }}" type="text" id="address" class="form-control" required="">
+                                                        <input name="address" placeholder="ex. Dhaka, Bangladesh"
+                                                            value="{{ Auth::user()->address }}" type="text"
+                                                            id="address" class="form-control" required="">
                                                     </div>
                                                 </div>
 
-                                                <div class="manage-profile-form-button" style="margin-top: 20px; margin-bottom: 30px">
+                                                <div class="manage-profile-form-button"
+                                                    style="margin-top: 20px; margin-bottom: 30px">
                                                     <button type="submit" class="theme-btn btn btn-primary">
                                                         Save Changes
                                                     </button>
@@ -249,9 +265,18 @@
         </div>
         </div>
     </section>
+</div>
 @endsection
 
 @section('footer_js')
+    <script src="{{ url('assets') }}/js/plugins/jquery-migrate.js"></script>
+    <script src="{{ url('assets') }}/js/plugins/modernizer.min.js"></script>
+    {{-- <script src="{{ url('assets') }}/js/plugins/popper.js"></script>
+    <script src="{{ url('assets') }}/js/plugins/bootstrap.min.js"></script> --}}
+    <script src="{{ url('assets') }}/js/plugins/jquery-fancybox.min.js"></script>
+    <script src="{{ url('assets') }}/js/plugins/nice-select.js"></script>
+    <script src="{{ url('assets') }}/js/active.js"></script>
+
     <script type="text/javascript">
         function changePhoneEmail(type) {
             if (type == 'phone') {

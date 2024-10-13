@@ -3,7 +3,7 @@
     <tr>
         <td class="product-thumbnail">
             <div class="p-relative">
-                <a href="{{ url('product/details') }}/{{ $details['slug'] }}">
+                <a href="{{ url('product') }}/{{ $details['slug'] }}">
                     <figure>
                         <img src="{{ url(env('ADMIN_URL')."/".$details['image']) }}" alt="" height="300" width="300" />
                     </figure>
@@ -14,7 +14,7 @@
             </div>
         </td>
         <td class="product-name">
-            <a href="{{ url('product/details') }}/{{ $details['slug'] }}">
+            <a href="{{ url('product') }}/{{ $details['slug'] }}">
                 {{$details['name']}}
                 <br>
                 @if($details['color_id'] && $colorInfo = DB::table('colors')->where('id', $details['color_id'])->first()) <span class="color__variant" style="font-size: 14px"><b>Color:</b> {{$colorInfo->name}}</span> @endif

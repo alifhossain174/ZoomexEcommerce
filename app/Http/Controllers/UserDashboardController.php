@@ -188,7 +188,7 @@ class UserDashboardController extends Controller
         if ($request->hasFile('image')){
             $get_attachment = $request->file('image');
 
-            $allowedExtensions = array("jpg", "png", "jpeg", "svg", "pdf");
+            $allowedExtensions = array("jpg", "png", "jpeg", "svg"); // array("jpg", "png", "jpeg", "svg", "pdf");
             if (!in_array(strtolower($get_attachment->getClientOriginalExtension()), $allowedExtensions)){
                 Toastr::error('This File Format is not allowed');
                 return back();

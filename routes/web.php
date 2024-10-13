@@ -108,7 +108,7 @@ Route::group(['middleware' => ['auth']], function () {
         Route::get('/promo/coupons', [UserDashboardController::class, 'promoCoupons'])->name('PromoCoupons');
         Route::get('/change/password', [UserDashboardController::class, 'changePassword'])->name('ChangePassword');
         Route::post('/update/password', [UserDashboardController::class, 'updatePassword'])->name('UpdatePassword');
-        Route::get('/product/reviews', [UserDashboardController::class, 'productReviews'])->name('productReviews');
+        Route::get('/my/product/reviews', [UserDashboardController::class, 'productReviews'])->name('productReviews');
         Route::get('/delete/product/review/{id}', [UserDashboardController::class, 'deleteProductReview'])->name('DeleteProductReview');
         Route::post('/update/product/review', [UserDashboardController::class, 'updateProductReview'])->name('UpdateProductReview');
         Route::get('/manage/profile', [UserDashboardController::class, 'manageProfile'])->name('ManageProfile');

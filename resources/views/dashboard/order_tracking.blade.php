@@ -38,11 +38,10 @@
     </style>
 @endsection
 
-@push('user_dashboard_menu')
-    @include('dashboard.mobile_menu_offcanvus')
-@endpush
-
 @section('content')
+<div class="ud-full-body">
+    @include('dashboard.mobile_menu_offcanvus')
+
     <section class="getcom-user-body">
         <div class="container">
             <div class="row">
@@ -201,4 +200,5 @@
             </div>
         </div>
     </section>
+</div>
 @endsection

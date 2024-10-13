@@ -12,7 +12,7 @@
     <meta name="description" content="{{ $product ? $product->meta_description : '' }}" />
     <meta name="author" content="{{ $generalInfo ? $generalInfo->company_name : '' }}">
     <meta name="copyright" content="{{ $generalInfo ? $generalInfo->company_name : '' }}">
-    <meta name="url" content="{{ env('APP_URL') . '/product/details/' . $product->slug }}">
+    <meta name="url" content="{{ env('APP_URL') . '/product/' . $product->slug }}">
 
     <title>
         @if ($product->meta_title)
@@ -29,7 +29,7 @@
     <meta property="og:title"
         content="@if ($product->meta_title) {{ $product->meta_title }}@else{{ $product->name }} @endif" />
     <meta property="og:type" content="{{ $product->category_name }}" />
-    <meta property="og:url" content="{{ env('APP_URL') . '/product/details/' . $product->slug }}" />
+    <meta property="og:url" content="{{ env('APP_URL') . '/product/' . $product->slug }}" />
     <meta property="og:image" content="{{ env('ADMIN_URL') . '/' . $product->image }}" />
     <meta property="og:site_name" content="{{ $generalInfo ? $generalInfo->company_name : '' }}" />
     <meta property="og:description" content="{{ $product->short_description }}" />

@@ -1,11 +1,14 @@
 @extends('master')
 
 @section('header_css')
-    {{-- <link rel="stylesheet" href="{{url('assets')}}/vendor/bootstrap/bootstrap.min.css" /> --}}
-    <link rel="stylesheet" href="{{url('assets')}}/css/fancybox.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/icofont.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/uicons.css" />
-    <link rel="stylesheet" href="{{url('assets')}}/css/user-pannel.css" />
+    {{-- <link rel="stylesheet" href="{{url('assets')}}/css/plugins/bootstrap.min.css" /> --}}
+    {{-- <link rel="stylesheet" href="./assets/css/plugins/animate.min.css" /> --}}
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/fancybox.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/nice-select.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/icofont.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/plugins/uicons.css" />
+    <link rel="stylesheet" href="{{ url('assets') }}/css/user-pannel.css" />
+
     <style>
         #changePasswordForm .form-control{
             font-size: 16px !important;
@@ -37,94 +40,103 @@
     @endif
 @endpush
 
-@push('user_dashboard_menu')
-    @include('dashboard.mobile_menu_offcanvus')
-@endpush
-
 @section('content')
-    <section class="getcom-user-body">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="getcom-user-body-bg">
-                        <img alt="" src="{{ url('assets') }}/images/user-hero-bg.png" />
+    <div class="ud-full-body">
+
+        @include('dashboard.mobile_menu_offcanvus')
+
+        <section class="getcom-user-body">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="getcom-user-body-bg">
+                            <img alt="" src="{{ url('assets') }}/img/user-hero-bg.png" />
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-3 col-md-3 col-12">
-                    @include('dashboard.menu')
-                </div>
-                <div class="col-lg-12 col-xl-9 col-12">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-12">
+                        @include('dashboard.menu')
+                    </div>
+                    <div class="col-lg-12 col-xl-9 col-12">
 
-                    <div class="dashboard-change-password mgTop24">
-                        <div class="dashboard-head-widget style-2 m-0">
-                            <h5 class="dashboard-head-widget-title">Change password</h5>
-                        </div>
-                        <div class="change-password-inner">
-                            <div class="row justify-content-center">
-                                <div class="col-lg-8 col-md-10 col-12">
-                                    <div class="change-password-card" style="margin-top: 25px;">
+                        <div class="dashboard-change-password mgTop24">
+                            <div class="dashboard-head-widget style-2 m-0">
+                                <h5 class="dashboard-head-widget-title">Change password</h5>
+                            </div>
+                            <div class="change-password-inner">
+                                <div class="row justify-content-center">
+                                    <div class="col-lg-8 col-md-10 col-12">
+                                        <div class="change-password-card" style="margin-top: 25px;">
 
-                                        <form action="{{url('update/password')}}" method="post" id="changePasswordForm" class="change-password-form">
-                                            @csrf
+                                            <form action="{{url('update/password')}}" method="post" id="changePasswordForm" class="change-password-form">
+                                                @csrf
 
-                                            @if(!Auth::user()->provider_id)
-                                            <div class="form-group">
-                                                <label for="oldPassword">Type old password</label>
-                                                <div class="form-group-password">
-                                                    <input type="password" class="form-control" id="oldPassword" name="old_password" required="">
-                                                    <div class="input-group-append">
-                                                        <div onclick="togglePasswordVisibility('oldPassword')">
-                                                            <i id="oldPasswordIcon" class="fi-rr-eye-crossed"></i>
+                                                @if(!Auth::user()->provider_id)
+                                                <div class="form-group">
+                                                    <label for="oldPassword">Type old password</label>
+                                                    <div class="form-group-password">
+                                                        <input type="password" class="form-control" id="oldPassword" name="old_password" required="">
+                                                        <div class="input-group-append">
+                                                            <div onclick="togglePasswordVisibility('oldPassword')">
+                                                                <i id="oldPasswordIcon" class="fi-rr-eye-crossed"></i>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            @endif
+                                                @endif
 
-                                            <div class="form-group">
-                                                <label for="newPassword">Set a new password</label>
-                                                <div class="form-group-password">
-                                                    <input type="password" class="form-control" id="newPassword" name="new_password" required="">
-                                                    <div class="input-group-append">
-                                                        <div onclick="togglePasswordVisibility('newPassword')">
-                                                            <i id="newPasswordIcon" class="fi-rr-eye-crossed"></i>
+                                                <div class="form-group">
+                                                    <label for="newPassword">Set a new password</label>
+                                                    <div class="form-group-password">
+                                                        <input type="password" class="form-control" id="newPassword" name="new_password" required="">
+                                                        <div class="input-group-append">
+                                                            <div onclick="togglePasswordVisibility('newPassword')">
+                                                                <i id="newPasswordIcon" class="fi-rr-eye-crossed"></i>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="confirmPassword">Confirm password</label>
-                                                <div class="form-group-password">
-                                                    <input type="password" class="form-control" id="confirmPassword" name="confirm_password"  required="">
-                                                    <div class="input-group-append">
-                                                        <div onclick="togglePasswordVisibility('confirmPassword')">
-                                                            <i id="confirmPasswordIcon" class="fi-rr-eye-crossed"></i>
+                                                <div class="form-group">
+                                                    <label for="confirmPassword">Confirm password</label>
+                                                    <div class="form-group-password">
+                                                        <input type="password" class="form-control" id="confirmPassword" name="confirm_password"  required="">
+                                                        <div class="input-group-append">
+                                                            <div onclick="togglePasswordVisibility('confirmPassword')">
+                                                                <i id="confirmPasswordIcon" class="fi-rr-eye-crossed"></i>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <button type="submit" class="change-password-form-btn theme-btn btn btn-primary">
-                                                Update Password
-                                            </button>
-                                        </form>
+                                                <button type="submit" class="change-password-form-btn theme-btn btn btn-primary">
+                                                    Update Password
+                                                </button>
+                                            </form>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
                     </div>
-
-
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 @endsection
 
 
 @section('footer_js')
+    <script src="{{ url('assets') }}/js/plugins/jquery-migrate.js"></script>
+    <script src="{{ url('assets') }}/js/plugins/modernizer.min.js"></script>
+    {{-- <script src="{{ url('assets') }}/js/plugins/popper.js"></script>
+    <script src="{{ url('assets') }}/js/plugins/bootstrap.min.js"></script> --}}
+    <script src="{{ url('assets') }}/js/plugins/jquery-fancybox.min.js"></script>
+    <script src="{{ url('assets') }}/js/plugins/nice-select.js"></script>
+    <script src="{{ url('assets') }}/js/active.js"></script>
+
     <script>
         function togglePasswordVisibility(inputId) {
             const inputElement = document.getElementById(inputId);

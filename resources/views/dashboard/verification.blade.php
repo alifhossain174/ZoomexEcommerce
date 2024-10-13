@@ -35,10 +35,6 @@
     <meta property="og:description" content="{{ $generalInfo->meta_og_description }}" />
 @endpush
 
-@push('user_dashboard_menu')
-    {{-- @include('dashboard.mobile_menu_offcanvus') --}}
-@endpush
-
 @section('content')
     <section class="auth-page-area">
         <div class="container">
