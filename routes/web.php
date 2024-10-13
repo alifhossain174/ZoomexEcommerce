@@ -100,6 +100,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('/home', [HomeController::class, 'index'])->name('home');
         Route::get('/my/orders', [UserDashboardController::class, 'userDashboard'])->name('UserDashboard');
+        Route::get('/my/cancelled/orders', [UserDashboardController::class, 'myCancelledOrders'])->name('MyCancelledOrders');
         Route::get('/order/details/{slug}', [UserDashboardController::class, 'orderDetails'])->name('OrderDetails');
         Route::get('/track/my/order/{order_no}', [UserDashboardController::class, 'trackMyOrder'])->name('TrackMyOrder');
         Route::get('/my/wishlists', [UserDashboardController::class, 'myWishlists'])->name('MyWishlists');

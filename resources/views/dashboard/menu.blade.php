@@ -27,7 +27,7 @@
                         <a href="{{url('/my/orders')}}"><i class="fi fi-sr-rectangle-list"></i>All orders</a>
                     </li>
                     <li>
-                        <a href="order-cancelation.html"><i class="fi fi-sr-delete-document"></i>Order cancellation</a>
+                        <a href="{{url('/my/cancelled/orders')}}"><i class="fi fi-sr-delete-document"></i>Cancelled Orders</a>
                     </li>
                     {{-- <li>
                         <a href="return-product.html"><i class="fi fi-sr-undo"></i>Return products</a>

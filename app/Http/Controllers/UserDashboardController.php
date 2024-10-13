@@ -40,6 +40,12 @@ class UserDashboardController extends Controller
         return view('dashboard.my_orders', compact('orders', 'order_status'));
     }
 
+    public function myCancelledOrders(Request $request){
+        $query = DB::table('orders')->where('order_status', 4)->where('user_id', Auth::user()->id);
+        $orders = $query->paginate(3);
+        return view('dashboard.my_orders', compact('orders'));
+    }
+
     public function orderDetails($slug){
 
         $order = DB::table('orders')
