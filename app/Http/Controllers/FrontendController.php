@@ -358,6 +358,7 @@ class FrontendController extends Controller
                     ->groupBy('product_variants.color_id')
                     ->orderBy('colors.name', 'asc')
                     ->get();
+        $policies = DB::table('terms_and_policies')->where('id', 1)->first();
 
         $query = DB::table('products')
             ->leftJoin('stores', 'products.store_id', '=', 'stores.id')
@@ -478,7 +479,7 @@ class FrontendController extends Controller
         $products = $query->paginate(16);
         $products->withPath('/shop'.$parameters);
         $showingResults = "Showing ".(($products->currentpage()-1)*$products->perpage()+1)." - ".$products->currentpage()*$products->perpage()." of ".$products->total()." results";
-        return view('shop.shop', compact('productReviewsOfStore', 'shopBanner', 'sizes', 'showingResults', 'products', 'categories', 'flags', 'brands', 'colors',  'categorySlug', 'subcategorySlug', 'childcategorySlug', 'flagSlug', 'brandSlug', 'sizeSlug', 'colorId', 'sort_by', 'min_price', 'max_price', 'search_keyword', 'storeInfo'));
+        return view('shop.shop', compact('policies', 'productReviewsOfStore', 'shopBanner', 'sizes', 'showingResults', 'products', 'categories', 'flags', 'brands', 'colors',  'categorySlug', 'subcategorySlug', 'childcategorySlug', 'flagSlug', 'brandSlug', 'sizeSlug', 'colorId', 'sort_by', 'min_price', 'max_price', 'search_keyword', 'storeInfo'));
     }
 
     public function privacyPolicy(){

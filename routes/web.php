@@ -12,6 +12,7 @@ use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\UserDashboardController;
 use App\Http\Controllers\SupportTicketController;
+use App\Http\Controllers\ForgetPasswordController;
 use Spatie\Honeypot\ProtectAgainstSpam;
 
 Auth::routes();
@@ -72,6 +73,14 @@ Route::get('/blogs', [BlogController::class, 'blogs'])->name('Blogs');
 Route::get('/blog/category/{slug}', [BlogController::class, 'blogCategory'])->name('BlogCategory');
 Route::get('/blog/details/{slug}', [BlogController::class, 'blogDetails'])->name('BlogDetails');
 
+
+// forget password
+Route::group(['middleware' => ['web']], function () { //wihout web middleware session will not work
+    Route::get('/forget/password', [ForgetPasswordController::class, 'userForgetPassword'])->name('UserForgetPassword');
+    Route::post('/send/forget/password/code', [ForgetPasswordController::class, 'sendForgetPasswordCode'])->name('SendForgetPasswordCode');
+    Route::get('/new/password', [ForgetPasswordController::class, 'newPasswordPage'])->name('NewPasswordPage');
+    Route::post('/change/forgotten/password', [ForgetPasswordController::class, 'changeForgetPassword'])->name('ChangeForgetPassword');
+});
 
 
 Route::group(['middleware' => ['auth']], function () {

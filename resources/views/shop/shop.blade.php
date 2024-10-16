@@ -161,15 +161,55 @@
                     </aside>
 
                     <div class="main-content">
-                        <nav class="toolbox sticky-toolbox sticky-content fix-top">
-                            @include('shop.filter_sorting')
-                        </nav>
 
-                        <div class="row">
-                            <div class="col-lg-12" id="product_wrapper">
-                                @include('shop.products')
+                        @if ($storeInfo)
+                        <div class="tab tab-nav-underline tab-nav-boxed tab-vendor-wcfm">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a href="#tab-1" class="nav-link active">Products</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#tab-2" class="nav-link">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#tab-3" class="nav-link">Policies</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="#tab-4" class="nav-link">
+                                        Reviews ({{$productReviewsOfStore->total()}})
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab-1">
+                        @endif
+
+                            <nav class="toolbox sticky-toolbox sticky-content fix-top">
+                                @include('shop.filter_sorting')
+                            </nav>
+
+                            <div class="row">
+                                <div class="col-lg-12" id="product_wrapper">
+                                    @include('shop.products')
+                                </div>
+                            </div>
+
+                        @if ($storeInfo)
+                                </div>
+                                <div class="tab-pane" id="tab-2">
+                                    <h5>{{$storeInfo->store_name}}</h5>
+                                    {{$storeInfo->store_description}}<br><br>
+                                    {!! $storeInfo->store_full_description !!}
+                                </div>
+                                <div class="tab-pane" id="tab-3">
+                                    @include('shop.policies')
+                                </div>
+                                <div class="tab-pane" id="tab-4">
+                                    @include('shop.store_review')
+                                </div>
                             </div>
                         </div>
+                        @endif
 
                     </div>
                 </div>

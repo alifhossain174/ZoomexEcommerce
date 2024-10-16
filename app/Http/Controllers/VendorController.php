@@ -40,10 +40,30 @@ class VendorController extends Controller
 
     public function submitVendorRegistration(Request $request){
 
-        if(DB::table('users')->where('email', $request->email)->exists()){
+        if(DB::table('users')->where('email', $request->email)->where('email_verified_at', '!=', null)->exists()){
             Toastr::error('Email Already Exists', 'Failed to Register');
             return back();
         }
+
+        if ($request->hasFile('nid_card')){
+            $get_attachment = $request->file('nid_card');
+            $allowedExtensions = array("jpg", "png", "jpeg", "svg", "pdf");
+            if (!in_array(strtolower($get_attachment->getClientOriginalExtension()), $allowedExtensions)){
+                Toastr::error('Supported File for NID: jpg/png/pdf');
+                return back();
+            }
+        }
+
+        if ($request->hasFile('trade_license')){
+            $get_attachment = $request->file('trade_license');
+            $allowedExtensions = array("jpg", "png", "jpeg", "svg", "pdf");
+            if (!in_array(strtolower($get_attachment->getClientOriginalExtension()), $allowedExtensions)){
+                Toastr::error('Supported File for Trade License: jpg/png/pdf');
+                return back();
+            }
+        }
+
+        DB::table('users')->where('email', $request->email)->where('email_verified_at', null)->delete();
 
         $verificationCode = rand(100000,999999);
         session([
@@ -71,7 +91,7 @@ class VendorController extends Controller
 
             $allowedExtensions = array("jpg", "png", "jpeg", "svg", "pdf");
             if (!in_array(strtolower($get_attachment->getClientOriginalExtension()), $allowedExtensions)){
-                Toastr::error('This File Format is not allowed');
+                Toastr::error('Supported File for NID: jpg/png/pdf');
                 return back();
             }
 
@@ -147,38 +167,33 @@ class VendorController extends Controller
         $mailData['vendor_name'] = $request->name;
         $mailData['verification_code'] = $verificationCode;
 
-        try {
-            Mail::to(trim($request->email))->send(new VendorRegistrationMail($mailData));
-        } catch(\Exception $e) {
-            // write code for handling error from here
+
+        $emailConfig = DB::table('email_configures')->where('status', 1)->orderBy('id', 'desc')->first();
+        $decryption = "";
+        if($emailConfig){
+            $ciphering = "AES-128-CTR";
+            $options = 0;
+            $decryption_iv = '1234567891011121';
+            $decryption_key = "GenericCommerceV1";
+            $decryption = openssl_decrypt ($emailConfig->password, $ciphering, $decryption_key, $options, $decryption_iv);
+
+            config([
+                'mail.mailers.smtp.host' => $emailConfig->host,
+                'mail.mailers.smtp.port' => $emailConfig->port,
+                'mail.mailers.smtp.username' => $emailConfig->email,
+                'mail.mailers.smtp.password' => $decryption != "" ? $decryption : '',
+                'mail.mailers.smtp.encryption' => $emailConfig ? ($emailConfig->encryption == 1 ? 'tls' : ($emailConfig->encryption == 2 ? 'ssl' : '')) : '',
+
+                'mail.mailers.from' => $emailConfig->email,
+                'mail.mailers.name' => "Fejmo",
+            ]);
+
+            try {
+                Mail::to(trim($request->email))->send(new VendorRegistrationMail($mailData));
+            } catch(\Exception $e) {
+                // write code for handling error from here
+            }
         }
-
-        // $emailConfig = DB::table('email_configures')->where('status', 1)->orderBy('id', 'desc')->first();
-        // $decryption = "";
-        // if($emailConfig){
-        //     $ciphering = "AES-128-CTR";
-        //     $options = 0;
-        //     $decryption_iv = '1234567891011121';
-        //     $decryption_key = "GenericCommerceV1";
-        //     $decryption = openssl_decrypt ($emailConfig->password, $ciphering, $decryption_key, $options, $decryption_iv);
-
-        //     config([
-        //         // 'mail.mailers.smtp.host' => $emailConfig->host,
-        //         // 'mail.mailers.smtp.port' => $emailConfig->port,
-        //         'mail.mailers.smtp.username' => $emailConfig->email,
-        //         'mail.mailers.smtp.password' => $decryption != "" ? $decryption : '',
-        //         // 'mail.mailers.smtp.encryption' => $emailConfig ? ($emailConfig->encryption == 1 ? 'tls' : ($emailConfig->encryption == 2 ? 'ssl' : '')) : '',
-
-        //         'mail.mailers.from' => $emailConfig->email,
-        //         'mail.mailers.name' => "Fejmo",
-        //     ]);
-
-        //     try {
-        //         Mail::to(trim($request->email))->send(new VendorRegistrationMail($mailData));
-        //     } catch(\Exception $e) {
-        //         // write code for handling error from here
-        //     }
-        // }
 
         Toastr::success('Verification email is sent', 'Check Your Email');
         return redirect('vendor/verification');

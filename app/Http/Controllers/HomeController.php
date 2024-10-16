@@ -292,7 +292,8 @@ class HomeController extends Controller
             User::where('id', $userInfo->id)->update([
                 'email_verified_at' => Carbon::now()
             ]);
-            Toastr::success('User Verification Complete', 'Successfully Verified');
+
+            // Toastr::success('User Verification Complete', 'Successfully Verified');
 
             if(session('cart') && count(session('cart')) > 0){
                 return redirect('/checkout');
