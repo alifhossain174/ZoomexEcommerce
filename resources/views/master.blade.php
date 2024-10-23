@@ -92,7 +92,7 @@
     <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/animate/animate.min.css" />
     <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/magnific-popup/magnific-popup.min.css" />
-    <link rel="stylesheet" href="{{ url('assets') }}/vendor/swiper/swiper-bundle.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/vendor/swiper/swiper-bundle.min.css" />
 
     <!-- Main CSS -->
     <link rel="stylesheet" type="text/css" href="{{ url('assets') }}/css/style.css" />
@@ -307,76 +307,41 @@
     <!-- End of Page Wrapper -->
 
     <!-- Start of Sticky Footer -->
-    {{-- <div class="sticky-footer sticky-content fix-bottom">
+    <div class="sticky-footer sticky-content fix-bottom">
         <a href="{{ url('/') }}" class="sticky-link active">
             <i class="w-icon-home"></i>
             <p>Home</p>
         </a>
-        <a href="{{ url('/category') }}" class="sticky-link">
+        <a href="{{ url('/mobile/category') }}" class="sticky-link">
             <i class="w-icon-category"></i>
             <p>Category</p>
         </a>
-        <a href="my-account.html" class="sticky-link">
+        <a href="{{ url('/home') }}" class="sticky-link">
             <i class="w-icon-account"></i>
             <p>Account</p>
         </a>
         <div class="cart-dropdown dir-up">
-            <a href="{{ url('/cart') }}" class="sticky-link">
+            <a href="{{url('view/cart')}}" class="sticky-link">
                 <i class="w-icon-cart"></i>
                 <p>Cart</p>
             </a>
-            <div class="dropdown-box">
-                <div class="products">
-                    <div class="product product-cart">
-                        <div class="product-detail">
-                            <h3 class="product-name">
-                                <a href="{{ url('/product/details') }}">Beige knitted elas<br />tic runner shoes</a>
-                            </h3>
-                            <div class="price-box">
-                                <span class="product-quantity">1</span>
-                                <span class="product-price">$25.68</span>
-                            </div>
-                        </div>
-                        <figure class="product-media">
-                            <a href="{{ url('/product/details') }}">
-                                <img src="{{ url('assets') }}/images/cart/product-1.jpg" alt="product"
-                                    height="84" width="94" />
-                            </a>
-                        </figure>
-                        <button class="btn btn-link btn-close" aria-label="button">
-                            <i class="fas fa-times"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="cart-total">
-                    <label>Subtotal:</label>
-                    <span class="price">$58.67</span>
-                </div>
-
-                <div class="cart-action">
-                    <a href="{{ url('/cart') }}" class="btn btn-dark btn-outline btn-rounded">View Cart</a>
-                    <a href="{{ url('/checkout') }}" class="btn btn-primary btn-rounded">Checkout</a>
-                </div>
-            </div>
-            <!-- End of Dropdown Box -->
         </div>
 
         <div class="header-search hs-toggle dir-up">
-            <a href="#" class="search-toggle sticky-link">
+            <a href="javascript:void(0)" class="search-toggle sticky-link">
                 <i class="w-icon-search"></i>
                 <p>Search</p>
             </a>
-            <form action="#" class="input-wrapper">
-                <input type="text" class="form-control" name="search" autocomplete="off" placeholder="Search"
-                    required />
-                <button class="btn btn-search" type="submit">
+            <form action="{{ url('search/for/products') }}" method="GET" class="input-wrapper">
+                <input type="text" class="form-control" name="search_keyword" autocomplete="off" placeholder="Search" required />
+                <button class="btn btn-search btn-search-sticky-footer d-inline-block bg-primary" type="submit">
                     <i class="w-icon-search"></i>
                 </button>
             </form>
         </div>
-    </div> --}}
+    </div>
     <!-- End of Sticky Footer -->
+
 
     <!-- Start of Scroll Top -->
     <a id="scroll-top" class="scroll-top" href="#top" title="Top" role="button">
@@ -397,9 +362,8 @@
         <!-- End of .mobile-menu-close -->
 
         <div class="mobile-menu-container scrollable">
-            <form action="#" method="get" class="input-wrapper">
-                <input type="text" class="form-control" name="search" autocomplete="off" placeholder="Search"
-                    required />
+            <form action="{{ url('search/for/products') }}" method="GET" class="input-wrapper">
+                <input type="text" class="form-control" name="search_keyword" autocomplete="off" placeholder="Search" required />
                 <button class="btn btn-search" type="submit">
                     <i class="w-icon-search"></i>
                 </button>
@@ -632,6 +596,7 @@
 
     <!-- Plugin JS File -->
     <script src="{{ url('assets') }}/vendor/jquery/jquery.min.js"></script>
+    <script src="{{ url('assets') }}/vendor/sticky/sticky.js"></script>
     <script src="{{ url('assets') }}/vendor/jquery.plugin/jquery.plugin.min.js"></script>
     <script src="{{ url('assets') }}/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
     <script src="{{ url('assets') }}/vendor/zoom/jquery.zoom.js"></script>
@@ -733,6 +698,12 @@
             }
 
         }
+
+        $(document).ready(function () {
+            $('.btn-search-sticky-footer').on('click', function () {
+                $(this).closest('form').submit();
+            });
+        });
 
 
         $('body').on('click', '.addToCart', function() {

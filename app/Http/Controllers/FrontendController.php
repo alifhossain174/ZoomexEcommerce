@@ -47,6 +47,11 @@ class FrontendController extends Controller
         return view('index', compact('sliders', 'flashSales', 'featuredFlags', 'topBanners', 'featuredCategories', 'topSellingVendors', 'middleBanners', 'bottomBanners', 'productsForYou'));
     }
 
+    public function mobileCategory(){
+        $categories = DB::table('categories')->where('status', 1)->orderBy('serial', 'asc')->get();
+        return view('mobile_category', compact('categories'));
+    }
+
     public function productsForYou($productSkip = 0){
 
         $alreadyOrdered = array();

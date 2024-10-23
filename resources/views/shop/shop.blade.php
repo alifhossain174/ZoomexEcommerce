@@ -112,110 +112,109 @@
 @endsection
 
 @section('content')
-    <main class="main">
 
-        @include('shop.breadcrumb')
+    @include('shop.breadcrumb')
 
-        <div class="page-content">
-            <div class="container">
+    <div class="page-content">
+        <div class="container">
 
-                <input type="hidden" id="filter_store_slug" @if ($storeInfo) value="{{ $storeInfo->slug }}" @endif>
+            <input type="hidden" id="filter_store_slug" @if ($storeInfo) value="{{ $storeInfo->slug }}" @endif>
 
-                @if ($storeInfo)
-                <div class="shop-default-banner banner d-flex align-items-center mb-5 br-xs"
-                    style="background-image: url({{ url(env('ADMIN_URL') . '/' . $storeInfo->store_banner) }}); background-color: #ffc74e;">
-                    <div class="banner-content">
-                        <h3 class="banner-title text-white text-uppercase font-weight-bolder ls-normal">
-                            {{ $storeInfo->store_name }}
-                        </h3>
-                        <a href="javascript:void(0)" class="btn btn-dark btn-rounded btn-icon-right">Shop Now<i class="w-icon-long-arrow-right"></i></a>
-                    </div>
+            @if ($storeInfo)
+            <div class="shop-default-banner banner d-flex align-items-center mb-5 br-xs"
+                style="background-image: url({{ url(env('ADMIN_URL') . '/' . $storeInfo->store_banner) }}); background-color: #ffc74e;">
+                <div class="banner-content">
+                    <h3 class="banner-title text-white text-uppercase font-weight-bolder ls-normal">
+                        {{ $storeInfo->store_name }}
+                    </h3>
+                    <a href="javascript:void(0)" class="btn btn-dark btn-rounded btn-icon-right">Shop Now<i class="w-icon-long-arrow-right"></i></a>
                 </div>
-                @endif
+            </div>
+            @endif
 
-                <div class="shop-content row gutter-lg mb-10">
-                    <aside class="sidebar shop-sidebar sticky-sidebar-wrapper sidebar-fixed">
-                        <div class="sidebar-overlay"></div>
-                        <a class="sidebar-close" href="#"><i class="close-icon"></i></a>
+            <div class="shop-content row gutter-lg mb-10">
+                <aside class="sidebar shop-sidebar sticky-sidebar-wrapper sidebar-fixed">
+                    <div class="sidebar-overlay"></div>
+                    <a class="sidebar-close" href="#"><i class="close-icon"></i></a>
 
-                        <div class="sidebar-content scrollable">
-                            <div class="sticky-sidebar">
-                                <div class="filter-actions">
-                                    <label>Filter :</label>
-                                    <a href="{{ url('/shop') }}" class="btn btn-dark btn-link"
-                                    style="font-weight: 400; text-transform: capitalize;">Clean All</a>
-                                </div>
-
-                                @include('shop.filter_category')
-                                @include('shop.filter_flag')
-                                @include('shop.filter_price')
-                                @include('shop.filter_size')
-                                @include('shop.filter_brand')
-                                @include('shop.filter_color')
-
-                                <input type="hidden" id="filter_subcategory_slug" @if (isset($subcategorySlug)) value="{{ $subcategorySlug }}" @endif>
-                                <input type="hidden" id="filter_childcategory_slug" @if (isset($childcategorySlug)) value="{{ $childcategorySlug }}" @endif>
-
+                    <div class="sidebar-content scrollable">
+                        <div class="sticky-sidebar">
+                            <div class="filter-actions">
+                                <label>Filter :</label>
+                                <a href="{{ url('/shop') }}" class="btn btn-dark btn-link"
+                                style="font-weight: 400; text-transform: capitalize;">Clean All</a>
                             </div>
+
+                            @include('shop.filter_category')
+                            @include('shop.filter_flag')
+                            @include('shop.filter_price')
+                            @include('shop.filter_size')
+                            @include('shop.filter_brand')
+                            @include('shop.filter_color')
+
+                            <input type="hidden" id="filter_subcategory_slug" @if (isset($subcategorySlug)) value="{{ $subcategorySlug }}" @endif>
+                            <input type="hidden" id="filter_childcategory_slug" @if (isset($childcategorySlug)) value="{{ $childcategorySlug }}" @endif>
+
                         </div>
-                    </aside>
-
-                    <div class="main-content">
-
-                        @if ($storeInfo)
-                        <div class="tab tab-nav-underline tab-nav-boxed tab-vendor-wcfm">
-                            <ul class="nav nav-tabs">
-                                <li class="nav-item">
-                                    <a href="#tab-1" class="nav-link active">Products</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#tab-2" class="nav-link">About</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#tab-3" class="nav-link">Policies</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#tab-4" class="nav-link">
-                                        Reviews ({{$productReviewsOfStore->total()}})
-                                    </a>
-                                </li>
-                            </ul>
-                            <div class="tab-content">
-                                <div class="tab-pane active" id="tab-1">
-                        @endif
-
-                            <nav class="toolbox sticky-toolbox sticky-content fix-top">
-                                @include('shop.filter_sorting')
-                            </nav>
-
-                            <div class="row">
-                                <div class="col-lg-12" id="product_wrapper">
-                                    @include('shop.products')
-                                </div>
-                            </div>
-
-                        @if ($storeInfo)
-                                </div>
-                                <div class="tab-pane" id="tab-2">
-                                    <h5>{{$storeInfo->store_name}}</h5>
-                                    {{$storeInfo->store_description}}<br><br>
-                                    {!! $storeInfo->store_full_description !!}
-                                </div>
-                                <div class="tab-pane" id="tab-3">
-                                    @include('shop.policies')
-                                </div>
-                                <div class="tab-pane" id="tab-4">
-                                    @include('shop.store_review')
-                                </div>
-                            </div>
-                        </div>
-                        @endif
-
                     </div>
+                </aside>
+
+                <div class="main-content">
+
+                    @if ($storeInfo)
+                    <div class="tab tab-nav-underline tab-nav-boxed tab-vendor-wcfm">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a href="#tab-1" class="nav-link active">Products</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#tab-2" class="nav-link">About</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#tab-3" class="nav-link">Policies</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="#tab-4" class="nav-link">
+                                    Reviews ({{$productReviewsOfStore->total()}})
+                                </a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab-1">
+                    @endif
+
+                        <nav class="toolbox sticky-toolbox sticky-content fix-top">
+                            @include('shop.filter_sorting')
+                        </nav>
+
+                        <div class="row">
+                            <div class="col-lg-12" id="product_wrapper">
+                                @include('shop.products')
+                            </div>
+                        </div>
+
+                    @if ($storeInfo)
+                            </div>
+                            <div class="tab-pane" id="tab-2">
+                                <h5>{{$storeInfo->store_name}}</h5>
+                                {{$storeInfo->store_description}}<br><br>
+                                {!! $storeInfo->store_full_description !!}
+                            </div>
+                            <div class="tab-pane" id="tab-3">
+                                @include('shop.policies')
+                            </div>
+                            <div class="tab-pane" id="tab-4">
+                                @include('shop.store_review')
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+
 @endsection
 
 @section('footer_js')

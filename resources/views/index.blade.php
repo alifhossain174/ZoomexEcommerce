@@ -47,38 +47,36 @@
 @endpush
 
 @section('content')
-    <main class="main">
 
-        @include('homepage_sections.sliders')
+    @include('homepage_sections.sliders')
 
-        <div class="container">
+    <div class="container">
 
-            @include('homepage_sections.slider_bottom')
-            @include('homepage_sections.flash_sale')
+        @include('homepage_sections.slider_bottom')
+        @include('homepage_sections.flash_sale')
 
-            @foreach ($featuredFlags as $featuredFlag)
-                @include('homepage_sections.featured_flag')
-            @endforeach
-
-            @include('homepage_sections.top_banner')
-            @include('homepage_sections.featured_categories')
-            @include('homepage_sections.top_selling_vendors')
-            @include('homepage_sections.middle_banner')
-
-        </div>
-
-        @foreach ($featuredCategories as $featuredCategory)
-            @if (!$featuredCategory->banner_image)
-                @include('homepage_sections.featured_categorywise_products')
-            @else
-                @include('homepage_sections.featured_categorywise_products_with_banner')
-            @endif
+        @foreach ($featuredFlags as $featuredFlag)
+            @include('homepage_sections.featured_flag')
         @endforeach
 
-        @include('homepage_sections.bottom_banner')
-        @include('homepage_sections.products_for_you')
+        @include('homepage_sections.top_banner')
+        @include('homepage_sections.featured_categories')
+        @include('homepage_sections.top_selling_vendors')
+        @include('homepage_sections.middle_banner')
 
-    </main>
+    </div>
+
+    @foreach ($featuredCategories as $featuredCategory)
+        @if (!$featuredCategory->banner_image)
+            @include('homepage_sections.featured_categorywise_products')
+        @else
+            @include('homepage_sections.featured_categorywise_products_with_banner')
+        @endif
+    @endforeach
+
+    @include('homepage_sections.bottom_banner')
+    @include('homepage_sections.products_for_you')
+
 @endsection
 
 @section('footer_js')

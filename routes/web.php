@@ -19,6 +19,7 @@ Auth::routes();
 
 
 Route::get('/', [FrontendController::class, 'index'])->name('home');
+Route::get('/mobile/category', [FrontendController::class, 'mobileCategory'])->name('MobileCategory');
 Route::post('/fetch/more/products', [FrontendController::class, 'fetchMoreProducts'])->name('FetchMoreProducts');
 Route::get('/search/for/products', [FrontendController::class, 'searchForProducts'])->name('SearchForProducts');
 Route::post('/product/live/search', [FrontendController::class, 'productLiveSearch'])->name('ProductLiveSearch');

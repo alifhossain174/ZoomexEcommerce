@@ -8,7 +8,6 @@
             </a>
 
             <form action="{{ url('search/for/products') }}" method="GET" class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
-                @csrf
                 <input type="text" autocomplete="off" @if (isset($search_keyword)) value="{{ $search_keyword }}" @endif name="search_keyword" id="search_keyword" onkeyup="liveSearchProduct()" class="form-control" placeholder="Search for products..." required />
                 <button class="btn btn-search" type="submit">
                     <i class="w-icon-search"></i>
