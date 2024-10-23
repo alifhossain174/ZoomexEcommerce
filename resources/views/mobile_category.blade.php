@@ -77,7 +77,7 @@
 
                 <!-- Tab One -->
                 @foreach ($categories as $categorySecondIndex => $category)
-                    <div @if ($categoryIndex == 0) class="tab-pane fade show active" @else class="tab-pane fade" @endif
+                    <div @if ($categorySecondIndex == 0) class="tab-pane fade show active" @else class="tab-pane fade" @endif
                         id="tab{{ $categorySecondIndex + 1 }}" role="tabpanel">
                         <div class="responsive-sub-category accordion" id="accordionExample{{ $categorySecondIndex + 1 }}">
 
@@ -107,7 +107,7 @@
                                         @foreach($productsOfSubcat as $prod)
                                         <a href="shop.html" class="responsive-sub-category-card">
                                             <img class="lazy" src="{{ url('assets') }}/img/product-load.gif" data-src="{{ url(env('ADMIN_URL') . '/' . $prod->image) }}" alt=""/>
-                                            <span>{{$prod->name}}</span>
+                                            <span>{{substr($prod->name, 0, 10)}}..</span>
                                         </a>
                                         @endforeach
 
