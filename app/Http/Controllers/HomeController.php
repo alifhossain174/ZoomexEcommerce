@@ -280,6 +280,19 @@ class HomeController extends Controller
 
     }
 
+    public function formatBangladeshiPhoneNumber($phoneNumber) {
+        // Remove any non-numeric characters from the phone number
+        $phoneNumber = preg_replace('/\D/', '', $phoneNumber);
+
+        // Check if the number starts with '88'
+        if (substr($phoneNumber, 0, 2) !== '88') {
+            // If not, prepend '88' to the number
+            $phoneNumber = '88' . $phoneNumber;
+        }
+
+        return $phoneNumber;
+    }
+
     public function userVerifyCheck(Request $request){
 
         $verificationCode = '';
